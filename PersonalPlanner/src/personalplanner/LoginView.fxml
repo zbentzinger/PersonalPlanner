@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="mainAnchorPane" minHeight="300.0" minWidth="500.0" prefHeight="300.0" prefWidth="500.0" styleClass="root" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personalplanner.LoginViewController">
+   <children>
+      <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="ALWAYS" percentWidth="15.0" />
+            <ColumnConstraints hgrow="ALWAYS" />
+          <ColumnConstraints hgrow="ALWAYS" percentWidth="15.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
+          <RowConstraints vgrow="ALWAYS" />
+          <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
+        </rowConstraints>
+         <children>
+            <AnchorPane id="subPane" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" />
+                      <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints percentHeight="10.0" vgrow="SOMETIMES" />
+                      <RowConstraints percentHeight="50.0" vgrow="SOMETIMES" />
+                      <RowConstraints vgrow="ALWAYS" />
+                    </rowConstraints>
+                     <children>
+                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints vgrow="SOMETIMES" />
+                                  <RowConstraints vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <TextField fx:id="userNameField" promptText="Username" styleClass="loginFormField" GridPane.valignment="TOP">
+                                       <cursor>
+                                          <Cursor fx:constant="TEXT" />
+                                       </cursor></TextField>
+                                    <TextField fx:id="passField" promptText="Password" styleClass="loginFormField" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                       <cursor>
+                                          <Cursor fx:constant="TEXT" />
+                                       </cursor></TextField>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <children>
+                              <GridPane layoutX="-14.0" layoutY="-20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints percentHeight="40.0" vgrow="SOMETIMES" />
+                                  <RowConstraints vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Button id="loginButton" fx:id="loginButton" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#loginButtonClicked" text="Login" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></Button>
+                                    <Button id="newUserButton" fx:id="newUserButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#newUserButtonClicked" text="New User" underline="true" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></Button>
+                                    <Label fx:id="invalidLabel" text="Invalid Credentials" textFill="#ee0101" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                       <cursor>
+                                          <Cursor fx:constant="TEXT" />
+                                       </cursor>
+                                    </Label>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
