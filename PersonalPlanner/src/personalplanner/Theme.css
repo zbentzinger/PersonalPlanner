@@ -38,7 +38,7 @@
 }
 
 #loginButton {
-    -fx-background-color: default-primary-color;
+    -fx-background-color: dark-primary-color;
     -fx-text-fill: text-primary-color;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0, 0, 0);
     -fx-min-height: 25;
@@ -51,4 +51,43 @@
     -fx-background-color: light-primary-color;
     -fx-text-fill: secondary-text-color;
     -fx-min-height: 15;
+}
+
+/*Main View*/
+
+#sidePane {
+    -fx-background-color: dark-primary-color;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1.5), 20, 0, 0, 0);
+}
+
+#secondaryPane {
+    -fx-background-color: default-primary-color;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1.5), 20, 0, 0, 0);
+}
+
+#mainPane {
+    -fx-background-color: light-primary-color;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1.5), 20, 0, 0, 0);
+}
+
+#mainLabel {
+    -fx-font-size: 20pt;
+    -fx-text-fill: text-primary-color;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1.5), 10, 0, 0, 0);
+}
+
+.mainButtons {
+    -fx-background-color: dark-primary-color;
+    -fx-text-fill: text-primary-color;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0, 0, 0);
+    -fx-min-height: 30;
+    -fx-min-width: 200;
+    -fx-background-radius: 2;
+    -fx-border-radius: 2;
+    -fx-font-size: 15;
+    
+}
+
+.mainButtons:selected{
+    -fx-background-color: default-primary-color;
 }
