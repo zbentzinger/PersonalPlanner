@@ -53,6 +53,16 @@
     -fx-min-height: 15;
 }
 
+#exitButton {
+    -fx-background-color: dark-primary-color;
+    -fx-text-fill: text-primary-color;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0, 0, 0);
+    -fx-min-height: 25;
+    -fx-min-width: 100;
+    -fx-background-radius: 2;
+    -fx-border-radius: 2;
+}
+
 /*Main View*/
 
 #sidePane {
@@ -88,6 +98,33 @@
     
 }
 
-.mainButtons:selected{
+.mainButtons:selected {
     -fx-background-color: default-primary-color;
+}
+
+#logoutButton {
+    -fx-background-color: dark-primary-color;
+    -fx-text-fill: text-primary-color;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0, 0, 0);
+    -fx-min-height: 30;
+    -fx-background-radius: 2;
+    -fx-border-radius: 2;
+    -fx-font-size: 15;
+}
+
+.subPaneButtons {
+    -fx-background-color: default-primary-color;
+    -fx-text-fill: text-primary-color;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0, 0, 0);
+    -fx-min-height: 30;
+    -fx-min-width: 200;
+    -fx-background-radius: 2;
+    -fx-border-radius: 2;
+    -fx-font-size: 15;
+    
+}
+
+.subPaneButtons:selected{
+    -fx-background-color: light-primary-color;
+    -fx-text-fill: primary-text-color;
 }

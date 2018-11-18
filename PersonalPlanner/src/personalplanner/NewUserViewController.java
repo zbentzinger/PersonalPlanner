@@ -15,49 +15,43 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class LoginViewController implements Initializable {
+public class NewUserViewController implements Initializable {
 
     @FXML private TextField userNameField;
     @FXML private TextField passField;
-    @FXML private Button loginButton;
-    @FXML private Button newUserButton;
+    @FXML private TextField confirmPassField;
+    @FXML private Button createButton;
+    @FXML private Button backButton;
     @FXML private Label invalidLabel;
-    @FXML private Button exitButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
         invalidLabel.setText("");
-
+        
     }    
 
     @FXML
-    private void loginButtonClicked(ActionEvent event) throws IOException {
+    private void createButtonClicked(ActionEvent event) throws IOException {
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("MainView.fxml"));
-        Scene addPartViewScene = new Scene(addPartView);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(addPartViewScene);
-        window.show();
+        loadLoginView(event);
         
     }
 
     @FXML
-    private void newUserButtonClicked(ActionEvent event) throws IOException {
+    private void backButtonClicked(ActionEvent event) throws IOException {
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("NewUserView.fxml"));
+        loadLoginView(event);
+        
+    }
+    
+    private void loadLoginView(ActionEvent event) throws IOException {
+        
+        Parent addPartView = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);
         window.show();
-        
-    }
-
-    @FXML
-    private void exitButtonClicked(ActionEvent event) {
-        
-        Stage stage = (Stage) exitButton.getScene().getWindow();
-        stage.close();
         
     }
     
