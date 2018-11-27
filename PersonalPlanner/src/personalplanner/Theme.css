@@ -1,3 +1,7 @@
+/*
+    All Views
+*/
+
 * {
     dark-primary-color: #455A64;
     default-primary-color: #607D8B;
@@ -13,23 +17,24 @@
     -fx-font-family: "Verdana";
 }
 
-#mainAnchorPane {
+/*
+    Launch Panes:
+        LoginView.fxml
+        NewUserView.fxml
+*/
+
+.launchPane {
     -fx-background-color: dark-primary-color;
 }
 
-#subPane {
+.launchForm {
     -fx-background-color: light-primary-color;
     -fx-background-radius: 2;
     -fx-border-radius: 2;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 100, 0, 0, 0);
 }
 
-#loginMainLabel {
-    -fx-font-size: 20pt;
-    -fx-text-fill: primary-text-color;
-}
-
-.loginFormField {
+.launchFormField {
     -fx-background-color: divider-color, light-primary-color;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-background-radius: 0;
@@ -37,7 +42,7 @@
     -fx-prompt-text-fill: secondary-text-color;
 }
 
-#loginButton {
+.launchMainButton {
     -fx-background-color: dark-primary-color;
     -fx-text-fill: text-primary-color;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0, 0, 0);
@@ -45,6 +50,12 @@
     -fx-min-width: 100;
     -fx-background-radius: 2;
     -fx-border-radius: 2;
+}
+
+.launchSecondaryButton {
+    -fx-background-color: light-primary-color;
+    -fx-text-fill: secondary-text-color;
+    -fx-min-height: 15;
 }
 
 #newUserButton {
@@ -53,30 +64,13 @@
     -fx-min-height: 15;
 }
 
-#exitButton {
+/*
+    Main Pane (first layer):
+        MainView.fxml
+*/
+
+.mainPane {
     -fx-background-color: dark-primary-color;
-    -fx-text-fill: text-primary-color;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0, 0, 0);
-    -fx-min-height: 25;
-    -fx-min-width: 100;
-    -fx-background-radius: 2;
-    -fx-border-radius: 2;
-}
-
-/*Main View*/
-
-#sidePane {
-    -fx-background-color: dark-primary-color;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1.5), 20, 0, 0, 0);
-}
-
-#secondaryPane {
-    -fx-background-color: default-primary-color;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1.5), 20, 0, 0, 0);
-}
-
-#mainPane {
-    -fx-background-color: light-primary-color;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,1.5), 20, 0, 0, 0);
 }
 
@@ -86,7 +80,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,1.5), 10, 0, 0, 0);
 }
 
-.mainButtons {
+.mainButton {
     -fx-background-color: dark-primary-color;
     -fx-text-fill: text-primary-color;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0, 0, 0);
@@ -98,7 +92,7 @@
     
 }
 
-.mainButtons:selected {
+.mainButton:selected {
     -fx-background-color: default-primary-color;
 }
 
@@ -112,7 +106,19 @@
     -fx-font-size: 15;
 }
 
-.subPaneButtons {
+/*
+    Secondary Panes (second layer):
+        CalendarView.fxml
+        CustomersView.fxml
+        ReportsView.fxml
+*/
+
+.secondaryPane {
+    -fx-background-color: default-primary-color;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1.5), 20, 0, 0, 0);
+}
+
+.secondaryButton {
     -fx-background-color: default-primary-color;
     -fx-text-fill: text-primary-color;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0, 0, 0);
@@ -124,7 +130,17 @@
     
 }
 
-.subPaneButtons:selected{
+.secondaryButton:selected{
     -fx-background-color: light-primary-color;
     -fx-text-fill: primary-text-color;
+}
+
+/*
+    Sub Panes (third layer):
+        MonthSubView.fxml
+*/
+
+.subPane {
+    -fx-background-color: light-primary-color;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1.5), 20, 0, 0, 0);
 }

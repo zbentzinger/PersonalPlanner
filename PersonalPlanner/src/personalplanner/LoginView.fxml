@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="mainAnchorPane" minHeight="400.0" minWidth="800.0" prefHeight="600.0" prefWidth="1000.0" styleClass="root" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personalplanner.LoginViewController">
+<AnchorPane minHeight="400.0" minWidth="800.0" prefHeight="600.0" prefWidth="1000.0" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personalplanner.LoginViewController">
    <children>
       <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -23,7 +23,7 @@
           <RowConstraints percentHeight="33.0" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <AnchorPane id="subPane" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <AnchorPane styleClass="launchForm" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
@@ -48,11 +48,11 @@
                                   <RowConstraints vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <TextField fx:id="userNameField" promptText="Username" styleClass="loginFormField" GridPane.valignment="TOP">
+                                    <TextField fx:id="userNameField" promptText="Username" styleClass="launchFormField" GridPane.valignment="TOP">
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor></TextField>
-                                    <TextField fx:id="passField" promptText="Password" styleClass="loginFormField" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                    <TextField fx:id="passField" promptText="Password" styleClass="launchFormField" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor></TextField>
@@ -71,11 +71,11 @@
                                   <RowConstraints vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Button id="loginButton" fx:id="loginButton" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#loginButtonClicked" text="Login" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                                    <Button fx:id="loginButton" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#loginButtonClicked" styleClass="launchMainButton" text="Login" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor></Button>
-                                    <Button id="newUserButton" fx:id="newUserButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#newUserButtonClicked" text="New User" underline="true" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                                    <Button fx:id="newUserButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#newUserButtonClicked" styleClass="launchSecondaryButton" text="New User" underline="true" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor></Button>
@@ -92,7 +92,7 @@
                   </GridPane>
                </children>
             </AnchorPane>
-            <Button id="exitButton" fx:id="exitButton" mnemonicParsing="false" onAction="#exitButtonClicked" text="Exit" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+            <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitButtonClicked" styleClass="launchMainButton" text="Exit" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets bottom="20.0" right="20.0" />
                </GridPane.margin>
@@ -100,4 +100,8 @@
          </children>
       </GridPane>
    </children>
+   <styleClass>
+      <String fx:value="root" />
+      <String fx:value="launchPane" />
+   </styleClass>
 </AnchorPane>

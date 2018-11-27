@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" minHeight="400.0" minWidth="650.0" prefHeight="600.0" prefWidth="850.0" styleClass="root" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personalplanner.ReportsViewController">
+<AnchorPane minHeight="400.0" minWidth="650.0" prefHeight="600.0" prefWidth="850.0" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personalplanner.ReportsViewController">
    <children>
       <GridPane layoutX="5.0" layoutY="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -14,7 +14,7 @@
                <children>
                   <GridPane layoutX="-25.0" layoutY="86.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ToggleButton fx:id="newReportButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#newReportButtonClicked" styleClass="subPaneButtons" text="New Report" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <ToggleButton fx:id="newReportButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#newReportButtonClicked" styleClass="secondaryButton" text="New Report" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="10.0" minWidth="10.0" prefWidth="10.0" />
@@ -44,4 +44,8 @@
          </rowConstraints>
       </GridPane>
    </children>
+   <styleClass>
+      <String fx:value="secondaryPane" />
+      <String fx:value="root" />
+   </styleClass>
 </AnchorPane>

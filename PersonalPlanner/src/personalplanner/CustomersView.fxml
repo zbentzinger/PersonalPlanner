@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" minHeight="400.0" minWidth="650.0" prefHeight="600.0" prefWidth="850.0" styleClass="root" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personalplanner.CustomersViewController">
+<AnchorPane minHeight="400.0" minWidth="650.0" prefHeight="600.0" prefWidth="850.0" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personalplanner.CustomersViewController">
    <children>
       <GridPane layoutX="5.0" layoutY="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -14,9 +14,9 @@
                <children>
                   <GridPane layoutX="-25.0" layoutY="86.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ToggleButton fx:id="customerButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#customerButtonClicked" styleClass="subPaneButtons" text="Customers" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <ToggleButton fx:id="newCustButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#newCustButtonClicked" styleClass="subPaneButtons" text="New Customer" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <ToggleButton fx:id="editCustButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#editCustButtonClicked" styleClass="subPaneButtons" text="Edit Customer" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <ToggleButton fx:id="customerButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#customerButtonClicked" styleClass="secondaryButton" text="Customers" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <ToggleButton fx:id="newCustButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#newCustButtonClicked" styleClass="secondaryButton" text="New Customer" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <ToggleButton fx:id="editCustButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#editCustButtonClicked" styleClass="secondaryButton" text="Edit Customer" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="10.0" minWidth="10.0" prefWidth="10.0" />
@@ -46,4 +46,8 @@
          </rowConstraints>
       </GridPane>
    </children>
+   <styleClass>
+      <String fx:value="secondaryPane" />
+      <String fx:value="root" />
+   </styleClass>
 </AnchorPane>

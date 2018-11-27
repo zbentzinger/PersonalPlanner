@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" minHeight="400.0" minWidth="800.0" prefHeight="600.0" prefWidth="1000.0" styleClass="root" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personalplanner.MainViewController">
+<AnchorPane minHeight="400.0" minWidth="800.0" prefHeight="600.0" prefWidth="1000.0" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personalplanner.MainViewController">
    <children>
       <GridPane layoutX="5.0" layoutY="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -19,7 +19,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <AnchorPane id="sidePane">
+            <AnchorPane>
                <children>
                   <GridPane layoutX="-25.0" layoutY="86.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
@@ -38,9 +38,9 @@
                      <children>
                         <Label id="mainLabel" text="Planner" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP" />
                         <Button id="logoutButton" fx:id="logoutButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logoutButtonClicked" text="Logout" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <ToggleButton fx:id="calendarButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#calendarButtonClicked" styleClass="mainButtons" text="Calendar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <ToggleButton fx:id="customersButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#customersButtonClicked" styleClass="mainButtons" text="Customers" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <ToggleButton fx:id="reportsButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#reportsButtonClicked" styleClass="mainButtons" text="Reports" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <ToggleButton fx:id="calendarButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#calendarButtonClicked" styleClass="mainButton" text="Calendar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ToggleButton fx:id="customersButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#customersButtonClicked" styleClass="mainButton" text="Customers" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ToggleButton fx:id="reportsButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#reportsButtonClicked" styleClass="mainButton" text="Reports" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                </children>
@@ -49,4 +49,8 @@
          </children>
       </GridPane>
    </children>
+   <styleClass>
+      <String fx:value="root" />
+      <String fx:value="mainPane" />
+   </styleClass>
 </AnchorPane>
