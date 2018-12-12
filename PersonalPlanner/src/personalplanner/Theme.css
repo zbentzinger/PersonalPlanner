@@ -1,7 +1,6 @@
 /*
     All Views
 */
-
 * {
     dark-primary-color: #455A64;
     default-primary-color: #607D8B;
@@ -17,12 +16,12 @@
     -fx-font-family: "Verdana";
 }
 
+
 /*
     Launch Panes:
         LoginView.fxml
         NewUserView.fxml
 */
-
 .launchPane {
     -fx-background-color: dark-primary-color;
 }
@@ -64,11 +63,11 @@
     -fx-min-height: 15;
 }
 
+
 /*
     Main Pane (first layer):
         MainView.fxml
 */
-
 .mainPane {
     -fx-background-color: dark-primary-color;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,1.5), 20, 0, 0, 0);
@@ -84,12 +83,8 @@
     -fx-background-color: dark-primary-color;
     -fx-text-fill: text-primary-color;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0, 0, 0);
-    -fx-min-height: 30;
-    -fx-min-width: 200;
-    -fx-background-radius: 2;
-    -fx-border-radius: 2;
+    -fx-background-radius: 2 0 0 2;
     -fx-font-size: 15;
-    
 }
 
 .mainButton:selected {
@@ -106,13 +101,13 @@
     -fx-font-size: 15;
 }
 
+
 /*
     Secondary Panes (second layer):
         CalendarView.fxml
         CustomersView.fxml
         ReportsView.fxml
 */
-
 .secondaryPane {
     -fx-background-color: default-primary-color;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,1.5), 20, 0, 0, 0);
@@ -122,12 +117,8 @@
     -fx-background-color: default-primary-color;
     -fx-text-fill: text-primary-color;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0, 0, 0);
-    -fx-min-height: 30;
-    -fx-min-width: 200;
-    -fx-background-radius: 2;
-    -fx-border-radius: 2;
+    -fx-background-radius: 2 0 0 2;
     -fx-font-size: 15;
-    
 }
 
 .secondaryButton:selected{
@@ -135,12 +126,60 @@
     -fx-text-fill: primary-text-color;
 }
 
+
 /*
     Sub Panes (third layer):
         MonthSubView.fxml
 */
-
 .subPane {
     -fx-background-color: light-primary-color;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1.5), 20, 0, 0, 0);
+    /*-fx-effect: dropshadow(gaussian, rgba(0,0,0,1.5), 20, 0, 0, 0);*/
+}
+
+#monthLabel {
+    -fx-background-color: default-primary-color;
+    -fx-text-fill: text-primary-color;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 50, 0, 0, 0);
+    -fx-min-height: 20;
+    -fx-pref-height: 20;
+    -fx-max-height: 20;
+    -fx-min-width: 100;
+    -fx-pref-width: 100;
+    -fx-max-width: 100;
+    -fx-background-radius: 0;
+    -fx-font-size: 10;
+}
+
+.paginationButton {
+    -fx-background-color: default-primary-color;
+    -fx-text-fill: text-primary-color;
+    -fx-min-height: 19;
+    -fx-pref-height: 19;
+    -fx-max-height: 19;
+    -fx-min-width: 23;
+    -fx-pref-width: 23;
+    -fx-max-width: 23;
+    -fx-font-size: 10;
+}
+
+.paginationButton:focused {
+    -fx-min-height: 20;
+    -fx-pref-height: 20;
+    -fx-max-height: 20;
+}
+
+#leftPaginationButton {
+    -fx-background-radius: 2 0 0 2;
+}
+
+#rightPaginationButton {
+    -fx-background-radius: 0 2 2 0;
+}
+
+#calendarPane {
+    -fx-background-color: default-primary-color;
+}
+
+#calendarGridPane Line {
+    -fx-stroke: light-primary-color;
 }

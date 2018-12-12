@@ -20,8 +20,7 @@ public class CalendarViewController implements Initializable {
     @FXML private ToggleButton weekButton;
     @FXML private ToggleButton newAppButton;
     final ToggleGroup calendarToggleButtons = new ToggleGroup();
-    @FXML
-    private AnchorPane subContentPane;
+    @FXML private AnchorPane subContentPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -31,19 +30,8 @@ public class CalendarViewController implements Initializable {
         newAppButton.setToggleGroup(calendarToggleButtons);
 
         monthButton.setSelected(true);
-
-        AnchorPane subPane;
-        try {
-
-            subPane = FXMLLoader.load(getClass().getResource("MonthSubView.fxml"));
-            subContentPane.getChildren().add(subPane);
-
-
-        } catch (IOException ex) {
-
-            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-
-        }
+        
+        loadExternalFxml("MonthSubView.fxml");
 
     }    
 
@@ -60,16 +48,22 @@ public class CalendarViewController implements Initializable {
     private void newAppButtonClicked(ActionEvent event) {
     }
 
-    private void unloadContentView() {
+    private void loadExternalFxml(String fileName) {
+        // Make sure that you only load FXML files that have an AnchorPane root node.
 
         try {
 
-            // Unload the previous view from AnchorPane if necessary.
-            subContentPane.getChildren().remove(0);
+            subContentPane.getChildren().clear();
+            
+            AnchorPane subPane = FXMLLoader.load(getClass().getResource(fileName));
+            subContentPane.getChildren().add(subPane);
 
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IOException ex) {
+
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+
         }
-
+        
     }
     
 }

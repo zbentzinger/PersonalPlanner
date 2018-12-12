@@ -6,17 +6,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane minHeight="400.0" minWidth="650.0" prefHeight="600.0" prefWidth="850.0" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personalplanner.CalendarViewController">
+<AnchorPane prefHeight="600.0" prefWidth="850.0" styleClass="root" stylesheets="@Theme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personalplanner.CalendarViewController">
    <children>
       <GridPane layoutX="5.0" layoutY="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane id="secondaryPane">
+            <AnchorPane styleClass="secondaryPane">
                <children>
                   <GridPane layoutX="-25.0" layoutY="86.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ToggleButton fx:id="monthButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#monthButtonClicked" styleClass="secondaryButton" text="Month" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <ToggleButton fx:id="weekButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#weekButtonClicked" styleClass="secondaryButton" text="Week" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <ToggleButton fx:id="newAppButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#newAppButtonClicked" styleClass="secondaryButton" text="New App." GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <ToggleButton fx:id="monthButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#monthButtonClicked" prefHeight="30.0" prefWidth="140.0" styleClass="secondaryButton" text="Month" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <ToggleButton fx:id="weekButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#weekButtonClicked" prefHeight="30.0" prefWidth="140.0" styleClass="secondaryButton" text="Week" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <ToggleButton fx:id="newAppButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#newAppButtonClicked" prefHeight="30.0" prefWidth="140.0" styleClass="secondaryButton" text="New App." GridPane.columnIndex="1" GridPane.rowIndex="6" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="10.0" minWidth="10.0" prefWidth="10.0" />
@@ -47,8 +47,4 @@
          </rowConstraints>
       </GridPane>
    </children>
-   <styleClass>
-      <String fx:value="root" />
-      <String fx:value="secondaryPane" />
-   </styleClass>
 </AnchorPane>

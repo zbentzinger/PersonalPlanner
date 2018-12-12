@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane minHeight="400.0" minWidth="650.0" prefHeight="600.0" prefWidth="850.0" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personalplanner.ReportsViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" styleClass="root" stylesheets="@Theme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personalplanner.ReportsViewController">
    <children>
-      <GridPane layoutX="5.0" layoutY="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane id="secondaryPane">
+            <AnchorPane cache="true" styleClass="secondaryPane">
                <children>
                   <GridPane layoutX="-25.0" layoutY="86.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ToggleButton fx:id="newReportButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#newReportButtonClicked" styleClass="secondaryButton" text="New Report" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <ToggleButton fx:id="newReportButton" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#newReportButtonClicked" prefHeight="30.0" prefWidth="140.0" styleClass="secondaryButton" text="New Report" GridPane.rowIndex="4">
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                        </ToggleButton>
                      </children>
                      <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="10.0" minWidth="10.0" prefWidth="10.0" />
                         <ColumnConstraints hgrow="SOMETIMES" />
                      </columnConstraints>
                      <rowConstraints>
@@ -29,23 +33,20 @@
                         <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="ALWAYS" />
                      </rowConstraints>
                   </GridPane>
                </children>
             </AnchorPane>
+            <AnchorPane fx:id="subContentPane" GridPane.columnIndex="1" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints vgrow="ALWAYS" />
          </rowConstraints>
       </GridPane>
    </children>
-   <styleClass>
-      <String fx:value="secondaryPane" />
-      <String fx:value="root" />
-   </styleClass>
 </AnchorPane>

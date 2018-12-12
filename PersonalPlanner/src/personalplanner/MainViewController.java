@@ -35,21 +35,10 @@ public class MainViewController implements Initializable {
         calendarButton.setToggleGroup(toggleButtons);
         customersButton.setToggleGroup(toggleButtons);
         reportsButton.setToggleGroup(toggleButtons);
-        
+
         calendarButton.setSelected(true);
-        
-        AnchorPane subPane;
-        try {
 
-            subPane = FXMLLoader.load(getClass().getResource("CalendarView.fxml"));
-            contentPane.getChildren().add(subPane);
-            
-
-        } catch (IOException ex) {
-
-            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-
-        }
+        loadExternalFxml("CalendarView.fxml");
         
     }    
 
@@ -65,45 +54,42 @@ public class MainViewController implements Initializable {
     }
 
     @FXML
-    private void calendarButtonClicked(ActionEvent event) throws IOException {
+    private void calendarButtonClicked(ActionEvent event) {
         
-        unloadContentView();
-        
-        AnchorPane subPane = FXMLLoader.load(getClass().getResource("CalendarView.fxml"));
-        contentPane.getChildren().add(subPane);
+        loadExternalFxml("CalendarView.fxml");
         
     }
 
     @FXML
-    private void customersButtonClicked(ActionEvent event) throws IOException {
+    private void customersButtonClicked(ActionEvent event) {
         
-        unloadContentView();
-        
-        AnchorPane subPane = FXMLLoader.load(getClass().getResource("CustomersView.fxml"));
-        contentPane.getChildren().add(subPane);
+        loadExternalFxml("CustomersView.fxml");
         
     }
 
     @FXML
-    private void reportsButtonClicked(ActionEvent event) throws IOException {
-        
-        unloadContentView();
-        
-        AnchorPane subPane = FXMLLoader.load(getClass().getResource("ReportsView.fxml"));
-        contentPane.getChildren().add(subPane);
-        
+    private void reportsButtonClicked(ActionEvent event) {
+
+        loadExternalFxml("ReportsView.fxml");
+
     }
     
-    private void unloadContentView() {
+    private void loadExternalFxml(String fileName) {
+        // Make sure that you only load FXML files that have an AnchorPane root node.
 
         try {
+
+            contentPane.getChildren().clear();
             
-            // Unload the previous view from AnchorPane if necessary.
-            contentPane.getChildren().remove(0);
+            AnchorPane subPane = FXMLLoader.load(getClass().getResource(fileName));
+            contentPane.getChildren().add(subPane);
 
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IOException ex) {
+
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+
         }
-
+        
     }
     
 }
