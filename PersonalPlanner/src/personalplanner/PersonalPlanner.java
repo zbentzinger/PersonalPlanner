@@ -1,10 +1,12 @@
 package personalplanner;
 
+import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import personalplanner.Utils.Database;
 
 public class PersonalPlanner extends Application {
 
@@ -23,9 +25,13 @@ public class PersonalPlanner extends Application {
 
     }
 
-    public static void main(String[] args) {
-        
+    public static void main(String[] args) throws SQLException {
+
+        Database.Connect();
+
         launch(args);
+
+        Database.Close();
 
     }
 

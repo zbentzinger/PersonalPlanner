@@ -5,36 +5,34 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-    
-    public static void GetConnection() throws ClassNotFoundException  {
-    
-        Connection conn = null;
 
-        String driver = "com.mysql.cj.jdbc.Driver";
-        
-        String protocol = "mysql";
-        String user = "";
-        String pass = "";
-        String host = "";
-        String db = "";
+    static Connection conn;
 
-        // Example: jdbc:mysql://user:pass@host/database
-        String url = String.format(
-                "jdbc:%s://%s:%s@%s/%s",
-                protocol, user, pass, host, db
-        );
-        
-        try {
-            Class.forName(driver);
-            conn = DriverManager.getConnection(url);
-            System.out.println("Connected to database : " + db);
-        } catch (SQLException e) {
-            System.out.println("SQLException: "+e.getMessage());
-            System.out.println("SQLState: "+e.getSQLState());
-            System.out.println("VendorError: "+e.getErrorCode());
-        }
-        
+    private static final String PROTOCOL = "mysql";
+    private static final String USERNAME = "";
+    private static final String PASSWORD = "";
+    private static final String HOSTNAME = "";
+    private static final String PORT = "3306";
+    private static final String DATABASE = "";
+
+    // Example: jdbc:mysql://user:pass@host:port/database
+    private static final String URL = String.format(
+            "jdbc:%s://%s:%s@%s:%s/%s",
+            PROTOCOL, USERNAME, PASSWORD, HOSTNAME, PORT, DATABASE
+    );
+
+    public static void Connect() throws SQLException  {
+
+        conn = DriverManager.getConnection(URL);
+        System.out.println("Connected to database : " + DATABASE);
+
     }
-    
-    
+
+    public static void Close() throws SQLException {
+
+        conn.close();
+        System.out.println("Closed connection to database : " + DATABASE);
+
+    }
+
 }
