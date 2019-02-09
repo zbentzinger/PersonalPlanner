@@ -70,7 +70,7 @@
 */
 .mainPane {
     -fx-background-color: dark-primary-color;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1.5), 20, 0, 0, 0);
+    
 }
 
 #mainLabel {
@@ -133,7 +133,6 @@
 */
 .subPane {
     -fx-background-color: light-primary-color;
-    /*-fx-effect: dropshadow(gaussian, rgba(0,0,0,1.5), 20, 0, 0, 0);*/
 }
 
 #monthLabel {
@@ -180,6 +179,6 @@
     -fx-background-color: default-primary-color;
 }
 
-#calendarGridPane Line {
+/*#calendarGridPane Line {
     -fx-stroke: light-primary-color;
-}
+}*/

@@ -24,3 +24,4 @@ hs_err_pid*
 /PersonalPlanner/nbproject/private/
 /PersonalPlanner/dist/
 /PersonalPlanner/build/
+.DS_Store
