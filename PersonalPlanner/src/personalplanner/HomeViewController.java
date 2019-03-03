@@ -11,30 +11,27 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class LoginViewController implements Initializable {
+public class HomeViewController implements Initializable {
 
-    @FXML private TextField userNameField;
-    @FXML private TextField passField;
-    @FXML private Button loginButton;
-    @FXML private Button newUserButton;
-    @FXML private Label invalidLabel;
-    @FXML private Button exitButton;
+    @FXML
+    private Button logoutButton;
+    @FXML
+    private Button calendarButton;
+    @FXML
+    private Button reportsButton;
+    @FXML
+    private Button customersButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        invalidLabel.setText("");
-
     }    
 
     @FXML
-    private void loginButtonClicked(ActionEvent event) throws IOException {
+    private void logoutButtonClicked(ActionEvent event) throws IOException {
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("HomeView.fxml"));
+        Parent addPartView = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);
@@ -43,9 +40,9 @@ public class LoginViewController implements Initializable {
     }
 
     @FXML
-    private void newUserButtonClicked(ActionEvent event) throws IOException {
+    private void calendarButtonClicked(ActionEvent event) throws IOException {
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("NewUserView.fxml"));
+        Parent addPartView = FXMLLoader.load(getClass().getResource("CalendarView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);
@@ -54,11 +51,11 @@ public class LoginViewController implements Initializable {
     }
 
     @FXML
-    private void exitButtonClicked(ActionEvent event) {
-        
-        Stage stage = (Stage) exitButton.getScene().getWindow();
-        stage.close();
-        
+    private void reportsButtonClicked(ActionEvent event) {
+    }
+
+    @FXML
+    private void customersButtonClicked(ActionEvent event) {
     }
     
 }

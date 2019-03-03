@@ -25,13 +25,19 @@ public class PersonalPlanner extends Application {
 
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
 
-        Database.Connect();
+        try {
+            
+            Database.Connect();
+            launch(args);
+            Database.Close();
+            
+        } catch (SQLException ex) {
 
-        launch(args);
+            System.out.println("Exception: " + ex.getMessage());
 
-        Database.Close();
+        }
 
     }
 
