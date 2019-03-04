@@ -19,10 +19,9 @@ public class LoginViewController implements Initializable {
 
     @FXML private TextField userNameField;
     @FXML private TextField passField;
-    @FXML private Button loginButton;
-    @FXML private Button newUserButton;
     @FXML private Label invalidLabel;
     @FXML private Button exitButton;
+    @FXML private Button loginNewUserButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -43,21 +42,21 @@ public class LoginViewController implements Initializable {
     }
 
     @FXML
-    private void newUserButtonClicked(ActionEvent event) throws IOException {
+    private void exitButtonClicked(ActionEvent event) {
+        
+        Stage stage = (Stage) exitButton.getScene().getWindow();
+        stage.close();
+        
+    }
+
+    @FXML
+    private void loginNewUserButtonClicked(ActionEvent event) throws IOException {
         
         Parent addPartView = FXMLLoader.load(getClass().getResource("NewUserView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);
         window.show();
-        
-    }
-
-    @FXML
-    private void exitButtonClicked(ActionEvent event) {
-        
-        Stage stage = (Stage) exitButton.getScene().getWindow();
-        stage.close();
         
     }
     

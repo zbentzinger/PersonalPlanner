@@ -11,27 +11,32 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class HomeViewController implements Initializable {
+public class AddCustomerViewController implements Initializable {
 
     @FXML
-    private Button logoutButton;
+    private TextField nameTextField;
     @FXML
-    private Button calendarButton;
+    private TextField cityTextField;
     @FXML
-    private Button reportsButton;
+    private TextField countrytTextField;
     @FXML
-    private Button customersButton;
+    private TextField addressTextField;
+    @FXML
+    private Button newCustSaveButton;
+    @FXML
+    private Button newCustCancelButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }    
 
     @FXML
-    private void logoutButtonClicked(ActionEvent event) throws IOException {
+    private void newCustSaveButtonClicked(ActionEvent event) throws IOException {
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
+        Parent addPartView = FXMLLoader.load(getClass().getResource("CustomersView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);
@@ -40,22 +45,7 @@ public class HomeViewController implements Initializable {
     }
 
     @FXML
-    private void calendarButtonClicked(ActionEvent event) throws IOException {
-        
-        Parent addPartView = FXMLLoader.load(getClass().getResource("CalendarView.fxml"));
-        Scene addPartViewScene = new Scene(addPartView);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(addPartViewScene);
-        window.show();
-        
-    }
-
-    @FXML
-    private void reportsButtonClicked(ActionEvent event) {
-    }
-
-    @FXML
-    private void customersButtonClicked(ActionEvent event) throws IOException {
+    private void newCustCancelButtonClicked(ActionEvent event) throws IOException {
         
         Parent addPartView = FXMLLoader.load(getClass().getResource("CustomersView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);

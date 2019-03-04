@@ -11,27 +11,30 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
-public class HomeViewController implements Initializable {
+public class CustomersViewController implements Initializable {
 
     @FXML
-    private Button logoutButton;
+    private Button editCustomerButton;
     @FXML
-    private Button calendarButton;
+    private Button addCustomerButton;
     @FXML
-    private Button reportsButton;
+    private Button deleteCustomerButton;
     @FXML
-    private Button customersButton;
+    private TableView<?> customersTableView;
+    @FXML
+    private Button customersHomeButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }    
 
     @FXML
-    private void logoutButtonClicked(ActionEvent event) throws IOException {
+    private void editCustomerButton(ActionEvent event) throws IOException {
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
+        Parent addPartView = FXMLLoader.load(getClass().getResource("EditCustomerView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);
@@ -40,9 +43,9 @@ public class HomeViewController implements Initializable {
     }
 
     @FXML
-    private void calendarButtonClicked(ActionEvent event) throws IOException {
+    private void addCustomerButtonClicked(ActionEvent event) throws IOException {
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("CalendarView.fxml"));
+        Parent addPartView = FXMLLoader.load(getClass().getResource("AddCustomerView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);
@@ -51,13 +54,13 @@ public class HomeViewController implements Initializable {
     }
 
     @FXML
-    private void reportsButtonClicked(ActionEvent event) {
+    private void deleteCustomerButtonClicked(ActionEvent event) {
     }
 
     @FXML
-    private void customersButtonClicked(ActionEvent event) throws IOException {
+    private void customersHomeButtonClicked(ActionEvent event) throws IOException {
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("CustomersView.fxml"));
+        Parent addPartView = FXMLLoader.load(getClass().getResource("HomeView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);

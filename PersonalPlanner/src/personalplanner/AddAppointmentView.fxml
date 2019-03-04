@@ -29,7 +29,7 @@
                         <RowConstraints percentHeight="2.5" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label id="homeLabel" text="New Appointment Details" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Label id="homeLabel" text="New Appointment" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" minHeight="400.0" minWidth="800.0" prefHeight="600.0" prefWidth="1000.0" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personalplanner.CustomersViewController">
+   <children>
+      <GridPane layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane styleClass="launchForm" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <children>
+                              <GridPane layoutX="44.0" layoutY="111.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Button fx:id="editCustomerButton" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editCustomerButton" text="Edit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                       <styleClass>
+                                          <String fx:value="blueBtn" />
+                                          <String fx:value="dropShadow" />
+                                       </styleClass>
+                                    </Button>
+                                    <Button fx:id="addCustomerButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addCustomerButtonClicked" text="Add" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                       <styleClass>
+                                          <String fx:value="blueBtn" />
+                                          <String fx:value="dropShadow" />
+                                       </styleClass>
+                                    </Button>
+                                    <Button fx:id="deleteCustomerButton" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteCustomerButtonClicked" text="Delete" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                                       <styleClass>
+                                          <String fx:value="blueBtn" />
+                                          <String fx:value="dropShadow" />
+                                       </styleClass>
+                                    </Button>
+                                 </children>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints percentHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints percentHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints percentHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                        <Label id="homeLabel" text="Customers" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Button fx:id="customersHomeButton" mnemonicParsing="false" onAction="#customersHomeButtonClicked" styleClass="launchMainButton" text="Home" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </Button>
+                        <TableView fx:id="customersTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="Name" />
+                            <TableColumn prefWidth="75.0" text="Address" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="2.5" />
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="70.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints percentHeight="2.5" vgrow="SOMETIMES" />
+                        <RowConstraints percentHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints percentHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints percentHeight="2.5" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" percentWidth="20.0" />
+            <ColumnConstraints hgrow="ALWAYS" />
+            <ColumnConstraints hgrow="ALWAYS" percentWidth="20.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="0.0" vgrow="ALWAYS" />
+            <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
+         </rowConstraints>
+      </GridPane>
+   </children>
+   <styleClass>
+      <String fx:value="root" />
+      <String fx:value="launchPane" />
+   </styleClass>
+</AnchorPane>

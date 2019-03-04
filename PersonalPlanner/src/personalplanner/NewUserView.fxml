@@ -74,6 +74,7 @@
                               </GridPane>
                            </children>
                         </AnchorPane>
+                        <Label id="homeLabel" text="New User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.0" />
@@ -81,8 +82,8 @@
                         <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.0" />
                      </columnConstraints>
                      <rowConstraints>
-                        <RowConstraints percentHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints percentHeight="60.0" vgrow="SOMETIMES" />
+                        <RowConstraints percentHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints percentHeight="50.0" vgrow="SOMETIMES" />
                         <RowConstraints vgrow="ALWAYS" />
                      </rowConstraints>
                   </GridPane>
@@ -90,13 +91,13 @@
             </AnchorPane>
          </children>
          <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" percentWidth="30.0" />
             <ColumnConstraints hgrow="ALWAYS" />
-            <ColumnConstraints hgrow="ALWAYS" maxWidth="350.0" minWidth="350.0" prefWidth="350.0" />
-            <ColumnConstraints hgrow="ALWAYS" />
+            <ColumnConstraints hgrow="ALWAYS" percentWidth="30.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints vgrow="ALWAYS" />
-            <RowConstraints maxHeight="250.0" minHeight="250.0" prefHeight="250.0" />
+            <RowConstraints percentHeight="60.0" />
             <RowConstraints vgrow="ALWAYS" />
          </rowConstraints>
       </GridPane>
