@@ -51,7 +51,14 @@ public class HomeViewController implements Initializable {
     }
 
     @FXML
-    private void reportsButtonClicked(ActionEvent event) {
+    private void reportsButtonClicked(ActionEvent event) throws IOException {
+        
+        Parent addPartView = FXMLLoader.load(getClass().getResource("ReportsView.fxml"));
+        Scene addPartViewScene = new Scene(addPartView);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(addPartViewScene);
+        window.show();
+        
     }
 
     @FXML
