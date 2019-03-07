@@ -2,11 +2,15 @@ package personalplanner.Utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Database {
 
     static Connection conn;
+    static Statement stmt;
+    static ResultSet result;
 
     private static final String PROTOCOL = "mysql";
     private static final String USERNAME = "";
@@ -21,17 +25,59 @@ public class Database {
             PROTOCOL, USERNAME, PASSWORD, HOSTNAME, PORT, DATABASE
     );
 
-    public static void Connect() throws SQLException  {
+    public static void Connect()  {
 
-        conn = DriverManager.getConnection(URL);
-        System.out.println("Connected to database : " + DATABASE);
+        try {
+            conn = DriverManager.getConnection(URL);
+
+        } catch (SQLException e) {
+            System.out.println("Exception: " + e);
+
+        }
+
+        System.out.println("Connected to database: " + DATABASE);
 
     }
 
-    public static void Close() throws SQLException {
+    public static void Close() {
 
-        conn.close();
+        try {
+            conn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Exception: " + e);
+
+        }
+
         System.out.println("Closed connection to database : " + DATABASE);
+
+    }
+
+    public static ResultSet Select(String query) {
+
+        try {
+            stmt = conn.createStatement();
+            result = stmt.executeQuery(query);
+
+        } catch (SQLException e) {
+            System.out.println("Exception: " + e);
+
+        }
+
+        return result;
+
+    }
+
+    public static void Update(String query) {
+
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(query);
+
+        } catch (SQLException e) {
+            System.out.println("Exception: " + e);
+
+        }
 
     }
 
