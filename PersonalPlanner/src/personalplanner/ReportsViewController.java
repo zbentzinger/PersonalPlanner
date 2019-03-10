@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 public class ReportsViewController implements Initializable {
@@ -23,6 +24,8 @@ public class ReportsViewController implements Initializable {
     private Button homeButton;
     @FXML
     private Button consultantScheduleReport;
+    @FXML
+    private TableView<?> resultsTableView;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

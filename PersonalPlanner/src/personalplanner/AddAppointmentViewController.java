@@ -18,15 +18,7 @@ import javafx.stage.Stage;
 public class AddAppointmentViewController implements Initializable {
 
     @FXML
-    private TextField titleTextField;
-    @FXML
-    private TextField locationTextField;
-    @FXML
-    private TextField contactTextField;
-    @FXML
     private TextField typeTextField;
-    @FXML
-    private TextField urlTextField;
     @FXML
     private TextField descriptionTextField;
     @FXML
@@ -39,6 +31,8 @@ public class AddAppointmentViewController implements Initializable {
     private Button newAppSaveButton;
     @FXML
     private TableView<?> selectCustTable;
+    @FXML
+    private TextField locationTextField;
 
     /**
      * Initializes the controller class.

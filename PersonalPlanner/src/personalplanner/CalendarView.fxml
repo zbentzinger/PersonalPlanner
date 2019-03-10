@@ -8,33 +8,29 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" minHeight="400.0" minWidth="800.0" prefHeight="600.0" prefWidth="1000.0" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personalplanner.CalendarViewController">
-   <styleClass>
-      <String fx:value="root" />
-      <String fx:value="launchPane" />
-   </styleClass>
+<AnchorPane minHeight="400.0" minWidth="800.0" prefHeight="600.0" prefWidth="1000.0" styleClass="backgoundPanes" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personalplanner.CalendarViewController">
    <children>
       <GridPane layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane styleClass="launchForm" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <AnchorPane styleClass="mainPanes" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="2.5" />
-                      <ColumnConstraints hgrow="SOMETIMES" percentWidth="70.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" percentWidth="5.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" />
-                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="2.5" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="15.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="30.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="125.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="15.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints percentHeight="2.5" vgrow="SOMETIMES" />
-                        <RowConstraints percentHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="62.5" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints vgrow="SOMETIMES" />
-                        <RowConstraints percentHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints percentHeight="2.5" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="15.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <children>
                               <TabPane layoutX="-10.0" layoutY="-41.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <tabs>
@@ -57,66 +53,49 @@
                               </TabPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="3" GridPane.rowIndex="2">
+                        <AnchorPane GridPane.columnIndex="3" GridPane.rowIndex="3">
                            <children>
                               <GridPane layoutX="44.0" layoutY="111.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" />
-                                  <ColumnConstraints hgrow="SOMETIMES" />
-                                    <ColumnConstraints hgrow="SOMETIMES" />
                                 </columnConstraints>
                                 <rowConstraints>
-                                    <RowConstraints percentHeight="5.0" vgrow="SOMETIMES" />
-                                    <RowConstraints percentHeight="10.0" vgrow="SOMETIMES" />
-                                  <RowConstraints percentHeight="10.0" vgrow="SOMETIMES" />
-                                  <RowConstraints percentHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints vgrow="SOMETIMES" />
                                   <RowConstraints vgrow="SOMETIMES" />
+                                  <RowConstraints vgrow="SOMETIMES" />
+                                  <RowConstraints percentHeight="50.0" vgrow="SOMETIMES" />
+                                    <RowConstraints vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Button fx:id="editAppointmentButton" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editAppointmentButtonClicked" text="Edit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-                                       <styleClass>
-                                          <String fx:value="blueBtn" />
-                                          <String fx:value="dropShadow" />
-                                       </styleClass>
-                                    </Button>
-                                    <Button fx:id="addAppointmentButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addAppointmentButtonClicked" text="Add" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                       <styleClass>
-                                          <String fx:value="blueBtn" />
-                                          <String fx:value="dropShadow" />
-                                       </styleClass>
-                                    </Button>
-                                    <Button fx:id="deleteAppointmentButton" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteAppointmentButtonClicked" text="Delete" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                                       <styleClass>
-                                          <String fx:value="blueBtn" />
-                                          <String fx:value="dropShadow" />
-                                       </styleClass>
+                                    <Button fx:id="editAppointmentButton" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editAppointmentButtonClicked" styleClass="mainButtons" text="Edit" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                    <Button fx:id="addAppointmentButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addAppointmentButtonClicked" styleClass="mainButtons" text="Add" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+                                    <Button fx:id="deleteAppointmentButton" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteAppointmentButtonClicked" styleClass="mainButtons" text="Delete" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                                    <Button fx:id="homeButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#homeButtonClicked" styleClass="secondaryButtons" text="Home" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                                       <GridPane.margin>
+                                          <Insets />
+                                       </GridPane.margin>
                                     </Button>
                                  </children>
                               </GridPane>
                            </children>
                         </AnchorPane>
-                        <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="3" GridPane.valignment="CENTER" />
-                        <Label id="homeLabel" text="Calendar" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <Label id="homeLabel" text="Appointment" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <Button fx:id="homeButton" mnemonicParsing="false" onAction="#homeButtonClicked" styleClass="launchMainButton" text="Home" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-                           <GridPane.margin>
-                              <Insets />
-                           </GridPane.margin>
-                        </Button>
+                        <Separator orientation="VERTICAL" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" />
+                        <Label styleClass="mainLabels" text="Calendar" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Separator GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
                </children>
             </AnchorPane>
          </children>
          <columnConstraints>
-            <ColumnConstraints hgrow="ALWAYS" percentWidth="5.0" />
+            <ColumnConstraints hgrow="ALWAYS" percentWidth="15.0" />
             <ColumnConstraints hgrow="ALWAYS" />
-            <ColumnConstraints hgrow="ALWAYS" percentWidth="5.0" />
+            <ColumnConstraints hgrow="ALWAYS" percentWidth="15.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
+            <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="0.0" vgrow="ALWAYS" />
-            <RowConstraints percentHeight="5.0" vgrow="ALWAYS" />
+            <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
          </rowConstraints>
       </GridPane>
    </children>

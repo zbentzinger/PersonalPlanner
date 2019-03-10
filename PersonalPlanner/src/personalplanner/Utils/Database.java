@@ -13,11 +13,11 @@ public class Database {
     static ResultSet result;
 
     private static final String PROTOCOL = "mysql";
-    private static final String USERNAME = "";
-    private static final String PASSWORD = "";
-    private static final String HOSTNAME = "";
+    private static final String USERNAME = "U04Szi";
+    private static final String PASSWORD = "53688332123";
+    private static final String HOSTNAME = "52.206.157.109";
     private static final String PORT = "3306";
-    private static final String DATABASE = "";
+    private static final String DATABASE = "U04Szi";
 
     // Example: jdbc:mysql://user:pass@host:port/database
     private static final String URL = String.format(

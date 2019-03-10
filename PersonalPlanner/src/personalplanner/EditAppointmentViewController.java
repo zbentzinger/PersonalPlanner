@@ -18,15 +18,9 @@ import javafx.stage.Stage;
 public class EditAppointmentViewController implements Initializable {
 
     @FXML
-    private TextField titleTextField;
-    @FXML
     private TextField locationTextField;
     @FXML
-    private TextField contactTextField;
-    @FXML
     private TextField typeTextField;
-    @FXML
-    private TextField urlTextField;
     @FXML
     private TextField descriptionTextField;
     @FXML
