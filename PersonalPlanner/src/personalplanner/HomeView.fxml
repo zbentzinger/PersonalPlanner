@@ -41,7 +41,7 @@
                             <RowConstraints vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="logoutButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logoutButtonClicked" styleClass="secondaryButtons" text="Logout" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                              <Button fx:id="logoutButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logoutButtonClicked" styleClass="secondaryButtons" text="Logout" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                                  <GridPane.margin>
                                     <Insets />
                                  </GridPane.margin>
@@ -58,9 +58,9 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="calendarButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#calendarButtonClicked" styleClass="mainButtons" text="Calendar" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-                              <Button fx:id="customersButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#customersButtonClicked" styleClass="mainButtons" text="Customers" GridPane.rowIndex="1" />
-                              <Button fx:id="reportsButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#reportsButtonClicked" styleClass="mainButtons" text="Reports" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                              <Button fx:id="calendarButton" alignment="TOP_LEFT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#calendarButtonClicked" styleClass="mainButtons" text="Calendar" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+                              <Button fx:id="customersButton" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#customersButtonClicked" styleClass="mainButtons" text="Customers" GridPane.rowIndex="1" />
+                              <Button fx:id="reportsButton" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#reportsButtonClicked" styleClass="mainButtons" text="Reports" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                            </children>
                         </GridPane>
                      </children>

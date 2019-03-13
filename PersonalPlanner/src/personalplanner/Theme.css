@@ -2,12 +2,12 @@
     All Views   
 ****************/
 * {
-    primary-color: #1b5e20;
-    light-primary-color: #4c8c4a;
-    dark-primary-color: #003300;
-    secondary-color: #006064;
-    light-secondary-color: #428e92;
-    dark-secondary-color: #00363a;
+    primary-color: #455a64;
+    light-primary-color: #718792;
+    dark-primary-color: #1c313a;
+    secondary-color: #2e7d32;
+    light-secondary-color: #60ad5e;
+    dark-secondary-color: #005005;
     text-primary-color: #ffffff;
     text-secondary-color: #ffffff;
     -fx-font-family: "Verdana";
@@ -38,7 +38,7 @@
 .separator *.line { 
 -fx-border-style: solid;
 -fx-border-width: .5px;
--fx-border-color: text-secondary-color;
+-fx-border-color: light-primary-color;
 
 }
 
@@ -52,8 +52,9 @@
 .secondaryButtons {
     -fx-background-radius: 2;
     -fx-border-radius: 2;
-    -fx-background-color: light-secondary-color;
+    -fx-background-color: dark-secondary-color;
     -fx-text-fill: text-primary-color;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2.5, 0, 0, 0);
 }
 
 .mainButtons {
@@ -61,4 +62,5 @@
     -fx-border-radius: 2;
     -fx-background-color: secondary-color;
     -fx-text-fill: text-secondary-color;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2.5, 0, 0, 0);
 }

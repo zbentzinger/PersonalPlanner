@@ -21,10 +21,10 @@
                               <Label styleClass="secondaryLabels" text="Address:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                               <Label styleClass="secondaryLabels" text="City:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                               <Label styleClass="secondaryLabels" text="Country:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                              <TextField fx:id="nameTextField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" />
-                              <TextField fx:id="cityTextField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                              <TextField fx:id="countrytTextField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                              <TextField fx:id="addressTextField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <TextField fx:id="nameTextField" maxWidth="1.7976931348623157E308" promptText="Customer's Name " GridPane.columnIndex="2" />
+                              <TextField fx:id="addressTextField" maxWidth="1.7976931348623157E308" promptText="Customer's Address" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <TextField fx:id="cityTextField" maxWidth="1.7976931348623157E308" promptText="Customer's City" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <TextField fx:id="countrytTextField" maxWidth="1.7976931348623157E308" promptText="Customer's Country" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                            </children>
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="60.0" />
@@ -48,8 +48,8 @@
                             <RowConstraints percentHeight="50.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="newCustSaveButton" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#newCustSaveButtonClicked" styleClass="mainButtons" text="Save" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                              <Button fx:id="newCustCancelButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#newCustCancelButtonClicked" styleClass="secondaryButtons" text="Cancel" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <Button fx:id="newCustSaveButton" alignment="CENTER_RIGHT" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#newCustSaveButtonClicked" styleClass="mainButtons" text="Save" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <Button fx:id="newCustCancelButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#newCustCancelButtonClicked" styleClass="secondaryButtons" text="Cancel" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                            </children>
                         </GridPane>
                         <Separator orientation="VERTICAL" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" />

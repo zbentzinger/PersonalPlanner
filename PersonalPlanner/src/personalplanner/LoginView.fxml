@@ -87,12 +87,12 @@
                             <RowConstraints percentHeight="40.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loginButtonClicked" styleClass="mainButtons" text="Login" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <Button fx:id="loginButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loginButtonClicked" styleClass="mainButtons" text="Login" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="exitButton" alignment="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#exitButtonClicked" styleClass="secondaryButtons" text="Exit" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <Button fx:id="exitButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#exitButtonClicked" styleClass="secondaryButtons" text="Exit" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <GridPane.margin>
                                     <Insets />
                                  </GridPane.margin>
