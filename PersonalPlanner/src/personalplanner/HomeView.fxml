@@ -37,11 +37,10 @@
                             <ColumnConstraints hgrow="SOMETIMES" />
                           </columnConstraints>
                           <rowConstraints>
-                            <RowConstraints vgrow="SOMETIMES" />
-                            <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="logoutButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logoutButtonClicked" styleClass="secondaryButtons" text="Logout" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                              <Button fx:id="logoutButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logoutButtonClicked" styleClass="secondaryButtons" text="Logout" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                  <GridPane.margin>
                                     <Insets />
                                  </GridPane.margin>
@@ -58,9 +57,9 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="calendarButton" alignment="TOP_LEFT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#calendarButtonClicked" styleClass="mainButtons" text="Calendar" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-                              <Button fx:id="customersButton" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#customersButtonClicked" styleClass="mainButtons" text="Customers" GridPane.rowIndex="1" />
-                              <Button fx:id="reportsButton" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#reportsButtonClicked" styleClass="mainButtons" text="Reports" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                              <Button fx:id="calendarButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#calendarButtonClicked" styleClass="mainButtons" text="Calendar" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+                              <Button fx:id="customersButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#customersButtonClicked" styleClass="mainButtons" text="Customers" GridPane.rowIndex="1" />
+                              <Button fx:id="reportsButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#reportsButtonClicked" styleClass="mainButtons" text="Reports" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                            </children>
                         </GridPane>
                      </children>

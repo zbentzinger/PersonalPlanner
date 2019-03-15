@@ -17,18 +17,17 @@
                         <Label styleClass="mainLabels" text="Edit Customer" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <children>
-                              <Label styleClass="secondaryLabels" text="Name:" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
-                              <Label styleClass="secondaryLabels" text="Address:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                              <Label styleClass="secondaryLabels" text="City:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                              <Label styleClass="secondaryLabels" text="Country:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                              <TextField fx:id="nameTextField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" />
-                              <TextField fx:id="addressTextField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                              <TextField fx:id="cityTextField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                              <TextField fx:id="countrytTextField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                              <TextField fx:id="nameTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" />
+                              <TextField fx:id="addressTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="cityTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="countrytTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField editable="false" styleClass="leftTextField" text="Name" />
+                              <TextField editable="false" styleClass="leftTextField" text="Address" GridPane.rowIndex="1" />
+                              <TextField editable="false" styleClass="leftTextField" text="City" GridPane.rowIndex="2" />
+                              <TextField editable="false" styleClass="leftTextField" text="Country" GridPane.rowIndex="3" />
                            </children>
                            <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="60.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="15.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                               <ColumnConstraints hgrow="SOMETIMES" />
                            </columnConstraints>
                            <rowConstraints>
@@ -41,15 +40,15 @@
                         <GridPane GridPane.columnIndex="3" GridPane.rowIndex="3">
                            <children>
                               <Button fx:id="editCustSaveButton" alignment="CENTER_RIGHT" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editCustSaveButtonClicked" styleClass="mainButtons" text="Save" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                              <Button fx:id="editCustCancelButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editCustCancelButtonClicked" styleClass="secondaryButtons" text="Cancel" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <Button fx:id="editCustCancelButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editCustCancelButtonClicked" styleClass="secondaryButtons" text="Cancel" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                            </children>
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" />
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints vgrow="SOMETIMES" />
-                              <RowConstraints vgrow="SOMETIMES" />
                               <RowConstraints percentHeight="50.0" vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
                            </rowConstraints>
                         </GridPane>
                         <Separator orientation="VERTICAL" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" />

@@ -45,8 +45,7 @@
                            <children>
                               <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="74.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="15.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" />
                                 </columnConstraints>
                                 <rowConstraints>
@@ -55,22 +54,22 @@
                                     <RowConstraints percentHeight="40.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <TextField fx:id="userNameField" maxWidth="1.7976931348623157E308" promptText="Username" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                    <TextField fx:id="userNameField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor></TextField>
-                                    <PasswordField fx:id="passField" maxWidth="1.7976931348623157E308" promptText="Password" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                    <PasswordField fx:id="passField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>
                                     </PasswordField>
-                                    <Label styleClass="secondaryLabels" text="Username:" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
-                                    <Label styleClass="secondaryLabels" text="Password:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                                    <Label fx:id="invalidLabel" text="Invalid Credentials" textFill="#ee0101" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                    <Label fx:id="invalidLabel" text="Invalid Credentials" textFill="#ee0101" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>
                                     </Label>
+                                    <TextField editable="false" styleClass="leftTextField" text="Username" GridPane.valignment="TOP" />
+                                    <TextField editable="false" styleClass="leftTextField" text="Password" GridPane.rowIndex="1" GridPane.valignment="TOP" />
                                  </children>
                               </GridPane>
                            </children>
@@ -83,16 +82,16 @@
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints vgrow="SOMETIMES" />
-                            <RowConstraints vgrow="SOMETIMES" />
                             <RowConstraints percentHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="loginButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loginButtonClicked" styleClass="mainButtons" text="Login" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <Button fx:id="loginButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loginButtonClicked" styleClass="mainButtons" text="Login" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="exitButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#exitButtonClicked" styleClass="secondaryButtons" text="Exit" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <Button fx:id="exitButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#exitButtonClicked" styleClass="secondaryButtons" text="Exit" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                                  <GridPane.margin>
                                     <Insets />
                                  </GridPane.margin>

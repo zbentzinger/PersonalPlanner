@@ -1,38 +1,108 @@
-/****************
-    All Views   
-****************/
-* {
-    primary-color: #455a64;
-    light-primary-color: #718792;
-    dark-primary-color: #1c313a;
-    secondary-color: #2e7d32;
-    light-secondary-color: #60ad5e;
-    dark-secondary-color: #005005;
-    text-primary-color: #ffffff;
-    text-secondary-color: #ffffff;
-    -fx-font-family: "Verdana";
+/*****
 
+Global Variables
+
+*****/
+* {
+    primary-color: #616161;
+    light-primary-color: #8e8e8e;
+    dark-primary-color: #373737;
+    text-primary-color: #ffffff;
+
+    secondary-color: #33691e;
+    light-secondary-color: #629749;
+    dark-secondary-color: #003d00;
+    text-secondary-color: #ffffff;
+
+    text-field-height: 30px;
+    button-height: 29px;
+    table-header-height: 30px; 
 }
 
-/* Remove scrollbars from all tables */
+.root * {
+    -fx-font-family: "Helvetica";
+}
+
+/*****
+
+Tables
+
+*****/
 .table-view *.increment-button,
 .table-view *.decrement-button,
 .table-view *.increment-arrow,
-.table-view *.decrement-arrow
-{
+.table-view *.decrement-arrow {
     -fx-padding: 0;
     -fx-shape: "";
 }
 
-/* Make all dividers the same style */
+.table-view {
+   -fx-background-color: dark-primary-color;
+   -fx-padding: 0 0 0 0;
+   -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2, 0, 0, 0);
+}
+
+.roundTable {
+    -fx-background-radius: 2 2 2 2;
+}
+
+.table-view .column-header {
+    -fx-background-color: light-primary-color;
+    -fx-pref-height: table-header-height;
+    -fx-min-height: table-header-height;
+    -fx-max-height: table-header-height;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: primary-color;
+}
+
+.table-view .appDescCol {
+    -fx-background-radius: 2 0 0 0;
+}
+
+.table-view .appDateCol {
+    -fx-background-radius: 0 2 0 0;
+}
+
+.table-view .mainCol {
+    -fx-background-radius: 2 2 0 0;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: text-primary-color;
+    -fx-font-weight: normal;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: text-primary-color;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: dark-primary-color;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: light-primary-color;
+}
+
+/*****
+
+Separators
+
+*****/
 .separator *.line { 
 -fx-border-style: solid;
 -fx-border-width: .5px;
--fx-border-color: light-primary-color;
+-fx-border-color: dark-primary-color;
 
 }
 
-/* Custom Classes, IDs */
+/*****
+
+Labels
+
+*****/
 .mainLabels {
     -fx-font-size: 20pt;
     -fx-text-fill: text-primary-color;
@@ -40,9 +110,14 @@
 
 .secondaryLabels {
     -fx-font-size: 10pt;
-    -fx-text-fill: text-secondary-color;
+    -fx-text-fill: text-primary-color;
 }
 
+/*****
+
+Panes
+
+*****/
 .mainPanes {
     -fx-background-color: primary-color;
     -fx-background-radius: 2;
@@ -54,6 +129,11 @@
     -fx-background-color: dark-primary-color;
 }
 
+/*****
+
+Buttons
+
+*****/
 .transparentButtons {
     -fx-background-radius: 2;
     -fx-border-radius: 2;
@@ -64,26 +144,44 @@
 .secondaryButtons {
     -fx-background-radius: 2;
     -fx-border-radius: 2;
-    -fx-background-color: dark-secondary-color;
-    -fx-text-fill: text-primary-color;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2.5, 0, 0, 0);
+    -fx-background-color: secondary-color;
+    -fx-text-fill: text-secondary-color;
+    -fx-pref-height: button-height;
+    -fx-min-height: button-height;
+    -fx-max-height: button-height;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2, 0, 0, 0);
 }
 
 .mainButtons {
     -fx-background-radius: 2;
     -fx-border-radius: 2;
-    -fx-background-color: secondary-color;
+    -fx-background-color: light-secondary-color;
     -fx-text-fill: text-secondary-color;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2.5, 0, 0, 0);
+    -fx-pref-height: button-height;
+    -fx-min-height: button-height;
+    -fx-max-height: button-height;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2, 0, 0, 0);
+}
+
+.reportButtons {
+    -fx-background-radius: 2;
+    -fx-border-radius: 2;
+    -fx-background-color: light-secondary-color;
+    -fx-text-fill: text-secondary-color;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2, 0, 0, 0);
 }
 
 .calendarToggleButtons {
-    -fx-background-color: secondary-color;
-    -fx-text-fill: text-secondary-color;
+    -fx-background-color: dark-primary-color;
+    -fx-text-fill: text-primary-color;
+    -fx-pref-height: button-height;
+    -fx-min-height: button-height;
+    -fx-max-height: button-height;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2, 0, 0, 0);
 }
 
 .calendarToggleButtons:selected {
-    -fx-background-color: light-secondary-color;
+    -fx-background-color: light-primary-color;
 }
 
 #monthToggleButton {
@@ -97,20 +195,24 @@
     -fx-border-radius: 0 2 0 0;
 }
 
-
 .calendarButtons {
-    -fx-background-color: light-secondary-color;
-    -fx-text-fill: text-secondary-color;
+    -fx-background-color: light-primary-color;
+    -fx-text-fill: text-primary-color;
+    -fx-pref-height: button-height;
+    -fx-min-height: button-height;
+    -fx-max-height: button-height;
 }
 
 .leftCalendarButton {
     -fx-background-radius: 0 0 0 2;
     -fx-border-radius: 0 0 0 2;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2, 0, 0, 0);
 }
 
 .rightCalendarButton {
     -fx-background-radius: 0 0 2 0;
     -fx-border-radius: 0 0 2 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2, 0, 0, 0);
 }
 
 .centerCalendarButton {
@@ -118,50 +220,28 @@
     -fx-border-radius: 0 0 0 0;
 }
 
-.mainTables {
-   -fx-background-color: secondary-color;
-   -fx-padding: 0 0 0 0;
+
+/*****
+
+Text Fields
+
+*****/
+.text-field {
+    -fx-text-fill: text-primary-color;
+    -fx-pref-height: text-field-height;
+    -fx-min-height: text-field-height;
+    -fx-max-height: text-field-height;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2, 0, 0, 0);
 }
 
-.roundTable {
-    -fx-background-radius: 2 2 2 2;
+.rightTextField {
+    -fx-background-color: dark-primary-color;
+    -fx-background-radius: 0 2 2 0;
+    -fx-border-radius: 0 2 2 0;
 }
 
-.mainTables .column-header {
-    -fx-background-color: light-secondary-color;   
-}
-
-
-.mainTables .column-header-background {
-    -fx-background-color: primary-color;
-}
-
-.mainTables .appDescCol {
-    -fx-background-radius: 2 0 0 0;
-}
-
-.mainTables .appDateCol {
-    -fx-background-radius: 0 2 0 0;
-}
-
-.mainTables .mainCol {
-    -fx-background-radius: 2 2 0 0;
-}
-
-.mainTables .column-header .label {
-    -fx-text-fill: text-secondary-color;
-    -fx-font-weight: normal;
-}
-
-.mainTables .table-cell {
-    -fx-text-fill: text-secondary-color;
-    -fx-alignment: CENTER;
-}
-
-.mainTables .table-row-cell {
-    -fx-background-color: secondary-color;
-}
-
-.mainTables .table-row-cell:selected {
-    -fx-background-color: light-secondary-color;
+.leftTextField {
+    -fx-background-color: light-primary-color;
+    -fx-background-radius: 2 0 0 2;
+    -fx-border-radius: 2 0 0 2;
 }
