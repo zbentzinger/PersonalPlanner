@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
@@ -68,14 +69,20 @@
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>
                                     </Label>
-                                    <TextField editable="false" styleClass="leftTextField" text="Username" GridPane.valignment="TOP" />
-                                    <TextField editable="false" styleClass="leftTextField" text="Password" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                                    <TextField editable="false" styleClass="leftTextField" text="Username" GridPane.valignment="TOP">
+                                       <cursor>
+                                          <Cursor fx:constant="MOVE" />
+                                       </cursor></TextField>
+                                    <TextField editable="false" styleClass="leftTextField" text="Password" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                       <cursor>
+                                          <Cursor fx:constant="MOVE" />
+                                       </cursor></TextField>
                                  </children>
                               </GridPane>
                            </children>
                         </AnchorPane>
                         <Label styleClass="mainLabels" text="Login" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" />
+                        <Separator orientation="VERTICAL" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" />
                         <GridPane GridPane.columnIndex="3" GridPane.rowIndex="3">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" />
@@ -95,6 +102,9 @@
                                  <GridPane.margin>
                                     <Insets />
                                  </GridPane.margin>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </Button>
                            </children>
                         </GridPane>

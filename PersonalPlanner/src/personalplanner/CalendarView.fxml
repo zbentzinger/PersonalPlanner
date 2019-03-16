@@ -45,8 +45,14 @@
                                     <RowConstraints vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Button fx:id="editAppointmentButton" alignment="CENTER_RIGHT" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editAppointmentButtonClicked" styleClass="mainButtons" text="Edit" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-                                    <Button fx:id="deleteAppointmentButton" alignment="CENTER_RIGHT" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteAppointmentButtonClicked" styleClass="mainButtons" text="Delete" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                                    <Button fx:id="editAppointmentButton" alignment="CENTER_RIGHT" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editAppointmentButtonClicked" styleClass="mainButtons" text="Edit" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></Button>
+                                    <Button fx:id="deleteAppointmentButton" alignment="CENTER_RIGHT" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteAppointmentButtonClicked" styleClass="mainButtons" text="Delete" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></Button>
                                  </children>
                               </GridPane>
                            </children>
@@ -69,18 +75,27 @@
                                     <String fx:value="calendarButtons" />
                                     <String fx:value="centerCalendarButton" />
                                  </styleClass>
+                                 <cursor>
+                                    <Cursor fx:constant="MOVE" />
+                                 </cursor>
                               </Button>
                               <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" text="&lt;" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                                  <styleClass>
                                     <String fx:value="calendarButtons" />
                                     <String fx:value="leftCalendarButton" />
                                  </styleClass>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </Button>
                               <Button fx:id="nextButton" mnemonicParsing="false" onAction="#nextButtonClicked" text="&gt;" GridPane.columnIndex="2" GridPane.valignment="TOP">
                                  <styleClass>
                                     <String fx:value="calendarButtons" />
                                     <String fx:value="rightCalendarButton" />
                                  </styleClass>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </Button>
                            </children>
                         </GridPane>
@@ -88,8 +103,14 @@
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
-                        <Button fx:id="addAppointmentButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addAppointmentButtonClicked" styleClass="mainButtons" text="Add" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
+                        <Button fx:id="addAppointmentButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addAppointmentButtonClicked" styleClass="mainButtons" text="Add" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
                         <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
                           <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" />
@@ -105,8 +126,14 @@
                                  <toggleGroup>
                                     <ToggleGroup fx:id="calendarToggleButtons" />
                                  </toggleGroup>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </ToggleButton>
-                              <ToggleButton id="weekToggleButton" fx:id="weekToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#weekToggleButtonClicked" styleClass="calendarToggleButtons" text="Weekly" toggleGroup="$calendarToggleButtons" GridPane.columnIndex="2" GridPane.valignment="BOTTOM" />
+                              <ToggleButton id="weekToggleButton" fx:id="weekToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#weekToggleButtonClicked" styleClass="calendarToggleButtons" text="Weekly" toggleGroup="$calendarToggleButtons" GridPane.columnIndex="2" GridPane.valignment="BOTTOM">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></ToggleButton>
                            </children>
                         </GridPane>
                         <TableView fx:id="calendarTableView" prefHeight="200.0" prefWidth="200.0" styleClass="mainTables" GridPane.columnIndex="1" GridPane.rowIndex="4">

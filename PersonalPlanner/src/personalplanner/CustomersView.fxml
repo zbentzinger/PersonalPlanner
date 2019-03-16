@@ -19,13 +19,25 @@
                            <children>
                               <GridPane layoutX="44.0" layoutY="111.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Button fx:id="addCustomerButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addCustomerButtonClicked" styleClass="mainButtons" text="Add" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-                                    <Button fx:id="editCustomerButton" alignment="CENTER_RIGHT" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editCustomerButton" styleClass="mainButtons" text="Edit" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                                    <Button fx:id="deleteCustomerButton" alignment="CENTER_RIGHT" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteCustomerButtonClicked" styleClass="mainButtons" text="Delete" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                                    <Button fx:id="addCustomerButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addCustomerButtonClicked" styleClass="mainButtons" text="Add" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></Button>
+                                    <Button fx:id="editCustomerButton" alignment="CENTER_RIGHT" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editCustomerButton" styleClass="mainButtons" text="Edit" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></Button>
+                                    <Button fx:id="deleteCustomerButton" alignment="CENTER_RIGHT" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteCustomerButtonClicked" styleClass="mainButtons" text="Delete" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></Button>
                                     <Button fx:id="customersHomeButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#customersHomeButtonClicked" styleClass="secondaryButtons" text="Home" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                                        <GridPane.margin>
                                           <Insets />
                                        </GridPane.margin>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Button>
                                  </children>
                                  <columnConstraints>

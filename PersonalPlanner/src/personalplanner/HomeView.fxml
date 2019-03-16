@@ -44,6 +44,9 @@
                                  <GridPane.margin>
                                     <Insets />
                                  </GridPane.margin>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </Button>
                            </children>
                         </GridPane>
@@ -57,9 +60,18 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="calendarButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#calendarButtonClicked" styleClass="mainButtons" text="Calendar" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-                              <Button fx:id="customersButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#customersButtonClicked" styleClass="mainButtons" text="Customers" GridPane.rowIndex="1" />
-                              <Button fx:id="reportsButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#reportsButtonClicked" styleClass="mainButtons" text="Reports" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                              <Button fx:id="calendarButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#calendarButtonClicked" styleClass="mainButtons" text="Calendar" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Button fx:id="customersButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#customersButtonClicked" styleClass="mainButtons" text="Customers" GridPane.rowIndex="1">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Button fx:id="reportsButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#reportsButtonClicked" styleClass="mainButtons" text="Reports" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
                            </children>
                         </GridPane>
                      </children>

@@ -16,7 +16,7 @@ Global Variables
 
     text-field-height: 30px;
     button-height: 29px;
-    table-header-height: 30px; 
+    table-header-height: 30px;
 }
 
 .root * {
@@ -37,13 +37,13 @@ Tables
 }
 
 .table-view {
-   -fx-background-color: dark-primary-color;
-   -fx-padding: 0 0 0 0;
-   -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2, 0, 0, 0);
+    -fx-background-color: dark-primary-color;
+    -fx-padding: 0 0 0 0;
 }
 
 .roundTable {
     -fx-background-radius: 2 2 2 2;
+    -fx-border-radius: 2 2 2 2;
 }
 
 .table-view .column-header {
@@ -51,6 +51,9 @@ Tables
     -fx-pref-height: table-header-height;
     -fx-min-height: table-header-height;
     -fx-max-height: table-header-height;
+    -fx-border-style: solid;
+    -fx-border-width: 1;
+    -fx-border-color: dark-primary-color;
 }
 
 .table-view .column-header-background {
@@ -59,14 +62,19 @@ Tables
 
 .table-view .appDescCol {
     -fx-background-radius: 2 0 0 0;
+    -fx-border-radius: 2 0 0 0;
+    -fx-border-width: 1 0 1 1;
 }
 
 .table-view .appDateCol {
     -fx-background-radius: 0 2 0 0;
+    -fx-border-radius: 0 2 0 0;
+    -fx-border-width: 1 1 1 0;
 }
 
 .table-view .mainCol {
     -fx-background-radius: 2 2 0 0;
+    -fx-border-radius: 2 2 0 0;
 }
 
 .table-view .column-header .label {
@@ -74,8 +82,18 @@ Tables
     -fx-font-weight: normal;
 }
 
+#appointmentTable .column-header .label {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 5;
+}
+
 .table-view .table-cell {
     -fx-text-fill: text-primary-color;
+}
+
+#appointmentTable .table-cell {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 5;
 }
 
 .table-view .table-row-cell {
@@ -92,10 +110,9 @@ Separators
 
 *****/
 .separator *.line { 
--fx-border-style: solid;
--fx-border-width: .5px;
--fx-border-color: dark-primary-color;
-
+    -fx-border-style: solid;
+    -fx-border-width: .5px;
+    -fx-border-color: dark-primary-color;
 }
 
 /*****
@@ -103,6 +120,10 @@ Separators
 Labels
 
 *****/
+.label * {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 15, 0, 0, 0);
+}
+
 .mainLabels {
     -fx-font-size: 20pt;
     -fx-text-fill: text-primary-color;
@@ -122,7 +143,7 @@ Panes
     -fx-background-color: primary-color;
     -fx-background-radius: 2;
     -fx-border-radius: 2;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 100, 0, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 33, 0, 0, 0);
 }
 
 .backgoundPanes {
@@ -134,41 +155,46 @@ Panes
 Buttons
 
 *****/
-.transparentButtons {
+.toggle-button,
+.button,
+.button:hover {
+    -fx-background-insets: 0;
     -fx-background-radius: 2;
     -fx-border-radius: 2;
+    -fx-border-style: solid;
+    -fx-border-width: 1;
+    -fx-border-color: dark-primary-color;
+}
+
+.toggle-button .text,
+.button .text {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 15, 0, 0, 0);
+}
+
+.transparentButtons {
     -fx-background-color: transparent;
     -fx-text-fill: text-secondary-color;
 }
 
 .secondaryButtons {
-    -fx-background-radius: 2;
-    -fx-border-radius: 2;
     -fx-background-color: secondary-color;
     -fx-text-fill: text-secondary-color;
     -fx-pref-height: button-height;
     -fx-min-height: button-height;
     -fx-max-height: button-height;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2, 0, 0, 0);
 }
 
 .mainButtons {
-    -fx-background-radius: 2;
-    -fx-border-radius: 2;
     -fx-background-color: light-secondary-color;
     -fx-text-fill: text-secondary-color;
     -fx-pref-height: button-height;
     -fx-min-height: button-height;
     -fx-max-height: button-height;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2, 0, 0, 0);
 }
 
 .reportButtons {
-    -fx-background-radius: 2;
-    -fx-border-radius: 2;
     -fx-background-color: light-secondary-color;
     -fx-text-fill: text-secondary-color;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2, 0, 0, 0);
 }
 
 .calendarToggleButtons {
@@ -177,7 +203,6 @@ Buttons
     -fx-pref-height: button-height;
     -fx-min-height: button-height;
     -fx-max-height: button-height;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2, 0, 0, 0);
 }
 
 .calendarToggleButtons:selected {
@@ -187,12 +212,14 @@ Buttons
 #monthToggleButton {
     -fx-background-radius: 2 0 0 0;
     -fx-border-radius: 2 0 0 0;
+    -fx-border-width: 1 1 0 1;
     
 }
 
 #weekToggleButton {
     -fx-background-radius: 0 2 0 0;
     -fx-border-radius: 0 2 0 0;
+    -fx-border-width: 1 1 0 1;
 }
 
 .calendarButtons {
@@ -203,21 +230,25 @@ Buttons
     -fx-max-height: button-height;
 }
 
-.leftCalendarButton {
+.leftCalendarButton,
+.leftCalendarButton:hover {
     -fx-background-radius: 0 0 0 2;
     -fx-border-radius: 0 0 0 2;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2, 0, 0, 0);
+    -fx-border-width: 1 0 1 1;
 }
 
-.rightCalendarButton {
+.rightCalendarButton,
+.rightCalendarButton:hover {
     -fx-background-radius: 0 0 2 0;
     -fx-border-radius: 0 0 2 0;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2, 0, 0, 0);
+    -fx-border-width: 1 1 1 0;
 }
 
-.centerCalendarButton {
+.centerCalendarButton,
+.centerCalendarButton:hover {
     -fx-background-radius: 0 0 0 0;
     -fx-border-radius: 0 0 0 0;
+    -fx-border-width: 1 0 1 0;
 }
 
 
@@ -231,17 +262,24 @@ Text Fields
     -fx-pref-height: text-field-height;
     -fx-min-height: text-field-height;
     -fx-max-height: text-field-height;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 2, 0, 0, 0);
+    -fx-border-style: solid;
+    -fx-border-width: 1;
+    -fx-border-color: dark-primary-color;
 }
 
 .rightTextField {
     -fx-background-color: dark-primary-color;
     -fx-background-radius: 0 2 2 0;
     -fx-border-radius: 0 2 2 0;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,1), 10, 0, 0, 0);
 }
 
 .leftTextField {
     -fx-background-color: light-primary-color;
     -fx-background-radius: 2 0 0 2;
     -fx-border-radius: 2 0 0 2;
+}
+
+.leftTextField .text {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 15, 0, 0, 0);
 }
