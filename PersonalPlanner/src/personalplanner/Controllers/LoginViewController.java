@@ -20,7 +20,13 @@ import personalplanner.Utils.Database;
 
 public class LoginViewController implements Initializable {
 
-    private int userID;
+    // Locale Values
+    private String localeExitButton;
+    private String localeInvalidMessage;
+    private String localeLoginButton;
+    private String localeMainLabel;
+    private String localePassButton;
+    private String localeUserButton;
 
     @FXML private Button exitButton;
     @FXML private Button loginButton;
@@ -30,9 +36,11 @@ public class LoginViewController implements Initializable {
     @FXML private TextField userNameField;
     @FXML private TextField passField;
 
+    private int userID;
+
     @Override public void initialize(URL url, ResourceBundle rb) {
 
-        invalidLabel.setText("");
+        invalidLabel.setVisible(false);
 
     }
 
@@ -48,7 +56,7 @@ public class LoginViewController implements Initializable {
 
         } else {
 
-            invalidLabel.setText("Invalid Credentials");
+            invalidLabel.setVisible(true);
 
         }
 

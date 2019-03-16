@@ -25,8 +25,10 @@ public class HomeViewController implements Initializable {
     }    
 
     @FXML private void logoutButtonClicked(ActionEvent event) throws IOException {
+        ResourceBundle resources = ResourceBundle.getBundle("personalplanner.Resources.LoginForm");
+
+        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/LoginView.fxml"), resources);
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/LoginView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);

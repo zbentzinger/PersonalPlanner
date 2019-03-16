@@ -1,5 +1,6 @@
 package personalplanner;
 
+import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,8 +11,9 @@ import personalplanner.Utils.Database;
 public class PersonalPlanner extends Application {
 
     @Override public void start(Stage stage) throws Exception {
+        ResourceBundle resources = ResourceBundle.getBundle("personalplanner.Resources.LoginForm");
 
-        Parent root = FXMLLoader.load(getClass().getResource("/personalplanner/Views/LoginView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/personalplanner/Views/LoginView.fxml"), resources);
         
         Scene scene = new Scene(root);
         
