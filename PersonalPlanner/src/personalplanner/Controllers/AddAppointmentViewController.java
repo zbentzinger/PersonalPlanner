@@ -1,4 +1,4 @@
-package personalplanner;
+package personalplanner.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,7 +36,7 @@ public class AddAppointmentViewController implements Initializable {
 
     @FXML private void newAppCancelButtonClicked(ActionEvent event) throws IOException {
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("CalendarView.fxml"));
+        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/CalendarView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);

@@ -1,4 +1,4 @@
-package personalplanner;
+package personalplanner.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,10 +14,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class EditCustomerViewController implements Initializable {
+public class AddCustomerViewController implements Initializable {
 
-    @FXML private Button editCustSaveButton;
-    @FXML private Button editCustCancelButton;
+    @FXML private Button newCustSaveButton;
+    @FXML private Button newCustCancelButton;
 
     @FXML private TextField nameTextField;
     @FXML private TextField cityTextField;
@@ -28,9 +28,9 @@ public class EditCustomerViewController implements Initializable {
     @Override public void initialize(URL url, ResourceBundle rb) {
     }    
 
-    @FXML private void editCustSaveButtonClicked(ActionEvent event) throws IOException {
+    @FXML private void newCustSaveButtonClicked(ActionEvent event) throws IOException {
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("CustomersView.fxml"));
+        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/CustomersView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);
@@ -38,9 +38,9 @@ public class EditCustomerViewController implements Initializable {
         
     }
 
-    @FXML private void editCustCancelButtonClicked(ActionEvent event) throws IOException {
+    @FXML private void newCustCancelButtonClicked(ActionEvent event) throws IOException {
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("CustomersView.fxml"));
+        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/CustomersView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);

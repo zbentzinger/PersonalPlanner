@@ -1,4 +1,4 @@
-package personalplanner;
+package personalplanner.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,7 +26,7 @@ public class HomeViewController implements Initializable {
 
     @FXML private void logoutButtonClicked(ActionEvent event) throws IOException {
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
+        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/LoginView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);
@@ -36,7 +36,7 @@ public class HomeViewController implements Initializable {
 
     @FXML private void calendarButtonClicked(ActionEvent event) throws IOException {
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("CalendarView.fxml"));
+        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/CalendarView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);
@@ -46,7 +46,7 @@ public class HomeViewController implements Initializable {
 
     @FXML private void reportsButtonClicked(ActionEvent event) throws IOException {
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("ReportsView.fxml"));
+        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/ReportsView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);
@@ -56,7 +56,7 @@ public class HomeViewController implements Initializable {
 
     @FXML private void customersButtonClicked(ActionEvent event) throws IOException {
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("CustomersView.fxml"));
+        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/CustomersView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);

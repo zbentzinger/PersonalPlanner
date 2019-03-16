@@ -1,4 +1,4 @@
-package personalplanner;
+package personalplanner.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,7 +46,7 @@ public class CalendarViewController implements Initializable {
 
     @FXML private void homeButtonClicked(ActionEvent event) throws IOException {
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("HomeView.fxml"));
+        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/HomeView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);
@@ -56,7 +56,7 @@ public class CalendarViewController implements Initializable {
 
     @FXML private void editAppointmentButtonClicked(ActionEvent event) throws IOException {
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("EditAppointmentView.fxml"));
+        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/EditAppointmentView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);
@@ -66,7 +66,7 @@ public class CalendarViewController implements Initializable {
 
     @FXML private void addAppointmentButtonClicked(ActionEvent event) throws IOException {
         
-        Parent addPartView = FXMLLoader.load(getClass().getResource("AddAppointmentView.fxml"));
+        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/AddAppointmentView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(addPartViewScene);

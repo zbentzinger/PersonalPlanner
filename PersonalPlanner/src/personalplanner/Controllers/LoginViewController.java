@@ -1,4 +1,4 @@
-package personalplanner;
+package personalplanner.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,7 +40,7 @@ public class LoginViewController implements Initializable {
 
         if(validateUser()) {
 
-            Parent addPartView = FXMLLoader.load(getClass().getResource("HomeView.fxml"));
+            Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/HomeView.fxml"));
             Scene addPartViewScene = new Scene(addPartView);
             Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
             window.setScene(addPartViewScene);

@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane minHeight="400.0" minWidth="800.0" prefHeight="600.0" prefWidth="1000.0" styleClass="backgoundPanes" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personalplanner.EditCustomerViewController">
+<AnchorPane minHeight="400.0" minWidth="800.0" prefHeight="600.0" prefWidth="1000.0" styleClass="backgoundPanes" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personalplanner.Controllers.EditAppointmentViewController">
    <children>
       <GridPane layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -14,38 +14,46 @@
                <children>
                   <GridPane layoutX="50.0" layoutY="94.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label styleClass="mainLabels" text="Edit Customer" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <Label styleClass="mainLabels" text="Edit Appointment" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <children>
-                              <TextField fx:id="nameTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1">
+                              <TextField fx:id="descriptionTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
                                  <cursor>
                                     <Cursor fx:constant="TEXT" />
                                  </cursor></TextField>
-                              <TextField fx:id="addressTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <TextField fx:id="typeTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                                  <cursor>
                                     <Cursor fx:constant="TEXT" />
                                  </cursor></TextField>
-                              <TextField fx:id="cityTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <TextField fx:id="locationTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                                  <cursor>
                                     <Cursor fx:constant="TEXT" />
                                  </cursor></TextField>
-                              <TextField fx:id="countrytTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <TextField fx:id="startTimeTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                                  <cursor>
                                     <Cursor fx:constant="TEXT" />
                                  </cursor></TextField>
-                              <TextField editable="false" styleClass="leftTextField" text="Name">
+                              <TextField fx:id="endTimeTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor></TextField>
+                              <TextField editable="false" styleClass="leftTextField" text="Description" GridPane.valignment="BOTTOM">
                                  <cursor>
                                     <Cursor fx:constant="MOVE" />
                                  </cursor></TextField>
-                              <TextField editable="false" styleClass="leftTextField" text="Address" GridPane.rowIndex="1">
+                              <TextField editable="false" styleClass="leftTextField" text="Type" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                                  <cursor>
                                     <Cursor fx:constant="MOVE" />
                                  </cursor></TextField>
-                              <TextField editable="false" styleClass="leftTextField" text="City" GridPane.rowIndex="2">
+                              <TextField editable="false" styleClass="leftTextField" text="Location" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                                  <cursor>
                                     <Cursor fx:constant="MOVE" />
                                  </cursor></TextField>
-                              <TextField editable="false" styleClass="leftTextField" text="Country" GridPane.rowIndex="3">
+                              <TextField editable="false" styleClass="leftTextField" text="Start" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                                 <cursor>
+                                    <Cursor fx:constant="MOVE" />
+                                 </cursor></TextField>
+                              <TextField editable="false" styleClass="leftTextField" text="End" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                                  <cursor>
                                     <Cursor fx:constant="MOVE" />
                                  </cursor></TextField>
@@ -59,15 +67,13 @@
                               <RowConstraints vgrow="SOMETIMES" />
                               <RowConstraints vgrow="SOMETIMES" />
                               <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
                            </rowConstraints>
                         </GridPane>
-                        <GridPane GridPane.columnIndex="3" GridPane.rowIndex="3">
+                        <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" />
+                        <GridPane GridPane.columnIndex="3" GridPane.rowIndex="4">
                            <children>
-                              <Button fx:id="editCustSaveButton" alignment="CENTER_RIGHT" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editCustSaveButtonClicked" styleClass="mainButtons" text="Save" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor></Button>
-                              <Button fx:id="editCustCancelButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editCustCancelButtonClicked" styleClass="secondaryButtons" text="Cancel" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                              <Button fx:id="editAppCancelButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editAppCancelButtonClicked" styleClass="secondaryButtons" text="Cancel" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></Button>
@@ -77,12 +83,24 @@
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints vgrow="SOMETIMES" />
-                              <RowConstraints percentHeight="50.0" vgrow="SOMETIMES" />
+                              <RowConstraints percentHeight="75.0" vgrow="SOMETIMES" />
                               <RowConstraints vgrow="SOMETIMES" />
                            </rowConstraints>
                         </GridPane>
-                        <Separator orientation="VERTICAL" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" />
                         <Separator GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <TableView id="appointmentTable" fx:id="selectCustTable" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <columns>
+                              <TableColumn fx:id="customerNameCol" minWidth="-1.0" prefWidth="-1.0" styleClass="roundTable" text="Select Customer" />
+                           </columns>
+                        </TableView>
+                        <Button fx:id="editAppSaveButton" alignment="CENTER_RIGHT" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editAppSaveButtonClicked" styleClass="mainButtons" text="Save" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="15.0" />
@@ -95,6 +113,7 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="15.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="62.5" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" vgrow="SOMETIMES" />
                         <RowConstraints vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="15.0" vgrow="SOMETIMES" />
                      </rowConstraints>
@@ -103,14 +122,14 @@
             </AnchorPane>
          </children>
          <columnConstraints>
-            <ColumnConstraints hgrow="ALWAYS" percentWidth="25.0" />
+            <ColumnConstraints hgrow="ALWAYS" percentWidth="15.0" />
             <ColumnConstraints hgrow="ALWAYS" />
-            <ColumnConstraints hgrow="ALWAYS" percentWidth="25.0" />
+            <ColumnConstraints hgrow="ALWAYS" percentWidth="15.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints percentHeight="25.0" vgrow="ALWAYS" />
+            <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="0.0" vgrow="ALWAYS" />
-            <RowConstraints percentHeight="25.0" vgrow="ALWAYS" />
+            <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
          </rowConstraints>
       </GridPane>
    </children>
