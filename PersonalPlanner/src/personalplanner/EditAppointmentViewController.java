@@ -11,50 +11,31 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class EditAppointmentViewController implements Initializable {
 
-    @FXML
-    private TextField locationTextField;
-    @FXML
-    private TextField typeTextField;
-    @FXML
-    private TextField descriptionTextField;
-    @FXML
-    private TextField startTimeTextField;
-    @FXML
-    private TextField endTimeTextField;
-    @FXML
-    private Button editAppCancelButton;
-    @FXML
-    private Button editAppSaveButton;
-    @FXML
-    private TableView<?> selectCustTable;
+    @FXML private Button editAppCancelButton;
+    @FXML private Button editAppSaveButton;
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    @FXML private TextField locationTextField;
+    @FXML private TextField typeTextField;
+    @FXML private TextField descriptionTextField;
+    @FXML private TextField startTimeTextField;
+    @FXML private TextField endTimeTextField;
+
+    @FXML private TableColumn<?, ?> customerNameCol;
+    @FXML private TableView<?> selectCustTable;
+
+
+    @Override public void initialize(URL url, ResourceBundle rb) {
     }    
 
-    @FXML
-    private void editAppCancelButtonClicked(ActionEvent event) throws IOException {
-        
-        Parent addPartView = FXMLLoader.load(getClass().getResource("CalendarView.fxml"));
-        Scene addPartViewScene = new Scene(addPartView);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(addPartViewScene);
-        window.show();
-        
-    }
+    @FXML private void editAppCancelButtonClicked(ActionEvent event) throws IOException {
 
-    @FXML
-    private void editAppSaveButtonClicked(ActionEvent event) throws IOException {
-        
         Parent addPartView = FXMLLoader.load(getClass().getResource("CalendarView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -62,5 +43,15 @@ public class EditAppointmentViewController implements Initializable {
         window.show();
 
     }
-    
+
+    @FXML private void editAppSaveButtonClicked(ActionEvent event) throws IOException {
+
+        Parent addPartView = FXMLLoader.load(getClass().getResource("CalendarView.fxml"));
+        Scene addPartViewScene = new Scene(addPartView);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(addPartViewScene);
+        window.show();
+
+    }
+
 }

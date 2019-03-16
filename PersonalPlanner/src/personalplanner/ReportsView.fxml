@@ -54,7 +54,7 @@
                            <children>
                               <TableView id="appointmentTable" fx:id="resultsTableView" layoutX="108.0" layoutY="53.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" styleClass="mainCol" text="Results" />
+                                  <TableColumn fx:id="resultsCol" prefWidth="75.0" styleClass="mainCol" text="Results" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

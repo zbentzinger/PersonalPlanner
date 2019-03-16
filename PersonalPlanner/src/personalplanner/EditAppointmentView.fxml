@@ -93,7 +93,7 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                            <columns>
-                              <TableColumn minWidth="-1.0" prefWidth="-1.0" styleClass="roundTable" text="Select Customer" />
+                              <TableColumn fx:id="customerNameCol" minWidth="-1.0" prefWidth="-1.0" styleClass="roundTable" text="Select Customer" />
                            </columns>
                         </TableView>
                         <Button fx:id="editAppSaveButton" alignment="CENTER_RIGHT" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editAppSaveButtonClicked" styleClass="mainButtons" text="Save" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">

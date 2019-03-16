@@ -16,25 +16,19 @@ import javafx.stage.Stage;
 
 public class EditCustomerViewController implements Initializable {
 
-    @FXML
-    private TextField nameTextField;
-    @FXML
-    private TextField cityTextField;
-    @FXML
-    private TextField countrytTextField;
-    @FXML
-    private TextField addressTextField;
-    @FXML
-    private Button editCustSaveButton;
-    @FXML
-    private Button editCustCancelButton;
+    @FXML private Button editCustSaveButton;
+    @FXML private Button editCustCancelButton;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    @FXML private TextField nameTextField;
+    @FXML private TextField cityTextField;
+    @FXML private TextField countrytTextField;
+    @FXML private TextField addressTextField;
+
+
+    @Override public void initialize(URL url, ResourceBundle rb) {
     }    
 
-    @FXML
-    private void editCustSaveButtonClicked(ActionEvent event) throws IOException {
+    @FXML private void editCustSaveButtonClicked(ActionEvent event) throws IOException {
         
         Parent addPartView = FXMLLoader.load(getClass().getResource("CustomersView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
@@ -44,8 +38,7 @@ public class EditCustomerViewController implements Initializable {
         
     }
 
-    @FXML
-    private void editCustCancelButtonClicked(ActionEvent event) throws IOException {
+    @FXML private void editCustCancelButtonClicked(ActionEvent event) throws IOException {
         
         Parent addPartView = FXMLLoader.load(getClass().getResource("CustomersView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);

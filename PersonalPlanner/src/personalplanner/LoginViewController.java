@@ -22,11 +22,13 @@ public class LoginViewController implements Initializable {
 
     private int userID;
 
-    @FXML private TextField userNameField;
-    @FXML private TextField passField;
-    @FXML private Label invalidLabel;
     @FXML private Button exitButton;
     @FXML private Button loginButton;
+
+    @FXML private Label invalidLabel;
+
+    @FXML private TextField userNameField;
+    @FXML private TextField passField;
 
     @Override public void initialize(URL url, ResourceBundle rb) {
 
@@ -35,7 +37,7 @@ public class LoginViewController implements Initializable {
     }
 
     @FXML private void loginButtonClicked(ActionEvent event) throws IOException {
-        
+
         if(validateUser()) {
 
             Parent addPartView = FXMLLoader.load(getClass().getResource("HomeView.fxml"));
@@ -53,22 +55,12 @@ public class LoginViewController implements Initializable {
     }
 
     @FXML private void exitButtonClicked(ActionEvent event) {
-        
+
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
-        
+
     }
 
-    private void loginNewUserButtonClicked(ActionEvent event) throws IOException {
-        
-        Parent addPartView = FXMLLoader.load(getClass().getResource("NewUserView.fxml"));
-        Scene addPartViewScene = new Scene(addPartView);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(addPartViewScene);
-        window.show();
-        
-    }
-    
     private Boolean validateUser() {
 
         Boolean userValid = false;

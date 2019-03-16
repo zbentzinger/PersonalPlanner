@@ -70,7 +70,7 @@
                             <RowConstraints vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="calendarCenterButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Month" GridPane.columnIndex="1" GridPane.valignment="TOP">
+                              <Button fx:id="calendarCenterButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="label" GridPane.columnIndex="1" GridPane.valignment="TOP">
                                  <styleClass>
                                     <String fx:value="calendarButtons" />
                                     <String fx:value="centerCalendarButton" />

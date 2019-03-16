@@ -15,21 +15,16 @@ import javafx.stage.Stage;
 
 public class HomeViewController implements Initializable {
 
-    @FXML
-    private Button logoutButton;
-    @FXML
-    private Button calendarButton;
-    @FXML
-    private Button reportsButton;
-    @FXML
-    private Button customersButton;
+    @FXML private Button logoutButton;
+    @FXML private Button calendarButton;
+    @FXML private Button reportsButton;
+    @FXML private Button customersButton;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+
+    @Override public void initialize(URL url, ResourceBundle rb) {
     }    
 
-    @FXML
-    private void logoutButtonClicked(ActionEvent event) throws IOException {
+    @FXML private void logoutButtonClicked(ActionEvent event) throws IOException {
         
         Parent addPartView = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
@@ -39,8 +34,7 @@ public class HomeViewController implements Initializable {
         
     }
 
-    @FXML
-    private void calendarButtonClicked(ActionEvent event) throws IOException {
+    @FXML private void calendarButtonClicked(ActionEvent event) throws IOException {
         
         Parent addPartView = FXMLLoader.load(getClass().getResource("CalendarView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
@@ -50,8 +44,7 @@ public class HomeViewController implements Initializable {
         
     }
 
-    @FXML
-    private void reportsButtonClicked(ActionEvent event) throws IOException {
+    @FXML private void reportsButtonClicked(ActionEvent event) throws IOException {
         
         Parent addPartView = FXMLLoader.load(getClass().getResource("ReportsView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
@@ -61,8 +54,7 @@ public class HomeViewController implements Initializable {
         
     }
 
-    @FXML
-    private void customersButtonClicked(ActionEvent event) throws IOException {
+    @FXML private void customersButtonClicked(ActionEvent event) throws IOException {
         
         Parent addPartView = FXMLLoader.load(getClass().getResource("CustomersView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);

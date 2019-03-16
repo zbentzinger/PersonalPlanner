@@ -19,35 +19,24 @@ import javafx.stage.Stage;
 
 public class CalendarViewController implements Initializable {
 
-    @FXML
-    private Button homeButton;
-    @FXML
-    private Button editAppointmentButton;
-    @FXML
-    private Button addAppointmentButton;
-    @FXML
-    private Button deleteAppointmentButton;
-    @FXML
-    private Button calendarCenterButton;
-    @FXML
-    private Button backButton;
-    @FXML
-    private Button nextButton;
-    @FXML
-    private ToggleButton monthToggleButton;
-    @FXML
-    private ToggleGroup calendarToggleButtons = new ToggleGroup();
-    @FXML
-    private ToggleButton weekToggleButton;
-    @FXML
-    private TableView<?> calendarTableView;
-    @FXML
-    private TableColumn<?, ?> appDesc;
-    @FXML
-    private TableColumn<?, ?> appDate;
+    @FXML private Button homeButton;
+    @FXML private Button editAppointmentButton;
+    @FXML private Button addAppointmentButton;
+    @FXML private Button deleteAppointmentButton;
+    @FXML private Button calendarCenterButton;
+    @FXML private Button backButton;
+    @FXML private Button nextButton;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    @FXML private TableColumn<?, ?> appDesc;
+    @FXML private TableColumn<?, ?> appDate;
+    @FXML private TableView<?> calendarTableView;
+
+    @FXML private ToggleButton monthToggleButton;
+    @FXML private ToggleButton weekToggleButton;
+    @FXML private ToggleGroup calendarToggleButtons = new ToggleGroup();
+
+
+    @Override public void initialize(URL url, ResourceBundle rb) {
         
         monthToggleButton.setToggleGroup(calendarToggleButtons);
         weekToggleButton.setToggleGroup(calendarToggleButtons);
@@ -55,8 +44,7 @@ public class CalendarViewController implements Initializable {
         
     }
 
-    @FXML
-    private void homeButtonClicked(ActionEvent event) throws IOException {
+    @FXML private void homeButtonClicked(ActionEvent event) throws IOException {
         
         Parent addPartView = FXMLLoader.load(getClass().getResource("HomeView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
@@ -66,8 +54,7 @@ public class CalendarViewController implements Initializable {
         
     }
 
-    @FXML
-    private void editAppointmentButtonClicked(ActionEvent event) throws IOException {
+    @FXML private void editAppointmentButtonClicked(ActionEvent event) throws IOException {
         
         Parent addPartView = FXMLLoader.load(getClass().getResource("EditAppointmentView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
@@ -77,8 +64,7 @@ public class CalendarViewController implements Initializable {
         
     }
 
-    @FXML
-    private void addAppointmentButtonClicked(ActionEvent event) throws IOException {
+    @FXML private void addAppointmentButtonClicked(ActionEvent event) throws IOException {
         
         Parent addPartView = FXMLLoader.load(getClass().getResource("AddAppointmentView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
@@ -88,25 +74,19 @@ public class CalendarViewController implements Initializable {
         
     }
 
-    @FXML
-    private void deleteAppointmentButtonClicked(ActionEvent event) {
+    @FXML private void deleteAppointmentButtonClicked(ActionEvent event) {
     }
 
-    @FXML
-    private void backButtonClicked(ActionEvent event) {
+    @FXML private void backButtonClicked(ActionEvent event) {
     }
 
-    @FXML
-    private void nextButtonClicked(ActionEvent event) {
+    @FXML private void nextButtonClicked(ActionEvent event) {
     }
 
-    @FXML
-    private void monthToggleButtonClicked(ActionEvent event) {
+    @FXML private void monthToggleButtonClicked(ActionEvent event) {
     }
 
-    @FXML
-    private void weekToggleButtonClicked(ActionEvent event) {
+    @FXML private void weekToggleButtonClicked(ActionEvent event) {
     }
-
     
 }

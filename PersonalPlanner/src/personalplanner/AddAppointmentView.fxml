@@ -106,7 +106,7 @@
                         <Separator GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                         <TableView id="appointmentTable" fx:id="selectCustTable" editable="true" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3">
                           <columns>
-                            <TableColumn minWidth="-1.0" prefWidth="-1.0" styleClass="roundTable" text="Select Customer" />
+                            <TableColumn fx:id="custNameCol" minWidth="-1.0" prefWidth="-1.0" styleClass="roundTable" text="Select Customer" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

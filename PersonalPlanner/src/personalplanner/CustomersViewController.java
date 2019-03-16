@@ -11,28 +11,26 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 public class CustomersViewController implements Initializable {
 
-    @FXML
-    private Button editCustomerButton;
-    @FXML
-    private Button addCustomerButton;
-    @FXML
-    private Button deleteCustomerButton;
-    @FXML
-    private TableView<?> customersTableView;
-    @FXML
-    private Button customersHomeButton;
+    @FXML private Button editCustomerButton;
+    @FXML private Button addCustomerButton;
+    @FXML private Button deleteCustomerButton;
+    @FXML private Button customersHomeButton;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    @FXML private TableColumn<?, ?> customerNameCol;
+    @FXML private TableColumn<?, ?> customerAddressCol;
+    @FXML private TableView<?> customersTableView;
+
+
+    @Override public void initialize(URL url, ResourceBundle rb) {
     }    
 
-    @FXML
-    private void editCustomerButton(ActionEvent event) throws IOException {
+    @FXML private void editCustomerButton(ActionEvent event) throws IOException {
         
         Parent addPartView = FXMLLoader.load(getClass().getResource("EditCustomerView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
@@ -42,8 +40,7 @@ public class CustomersViewController implements Initializable {
         
     }
 
-    @FXML
-    private void addCustomerButtonClicked(ActionEvent event) throws IOException {
+    @FXML private void addCustomerButtonClicked(ActionEvent event) throws IOException {
         
         Parent addPartView = FXMLLoader.load(getClass().getResource("AddCustomerView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
@@ -53,12 +50,10 @@ public class CustomersViewController implements Initializable {
         
     }
 
-    @FXML
-    private void deleteCustomerButtonClicked(ActionEvent event) {
+    @FXML private void deleteCustomerButtonClicked(ActionEvent event) {
     }
 
-    @FXML
-    private void customersHomeButtonClicked(ActionEvent event) throws IOException {
+    @FXML private void customersHomeButtonClicked(ActionEvent event) throws IOException {
         
         Parent addPartView = FXMLLoader.load(getClass().getResource("HomeView.fxml"));
         Scene addPartViewScene = new Scene(addPartView);
