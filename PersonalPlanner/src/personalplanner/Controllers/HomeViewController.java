@@ -31,7 +31,7 @@ public class HomeViewController implements Initializable {
 
     @FXML private void logoutButtonClicked(ActionEvent event) throws IOException {
 
-        ResourceBundle resources = ResourceBundle.getBundle("personalplanner.Resources.LoginForm");
+        ResourceBundle resources = ResourceBundle.getBundle("personalplanner.Resources.LoginView");
 
         Parent loginView = FXMLLoader.load(
                 getClass().getResource(loginViewURL),

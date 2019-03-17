@@ -17,44 +17,55 @@
                         <Label styleClass="mainLabels" text="Edit Customer" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <children>
-                              <TextField fx:id="nameTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1">
+                              <TextField fx:id="nameTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.valignment="CENTER">
                                  <cursor>
                                     <Cursor fx:constant="TEXT" />
                                  </cursor></TextField>
-                              <TextField fx:id="addressTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <TextField fx:id="addressTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <cursor>
                                     <Cursor fx:constant="TEXT" />
                                  </cursor></TextField>
-                              <TextField fx:id="cityTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <TextField fx:id="cityTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <cursor>
                                     <Cursor fx:constant="TEXT" />
                                  </cursor></TextField>
-                              <TextField fx:id="countrytTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <TextField fx:id="countryTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                  <cursor>
                                     <Cursor fx:constant="TEXT" />
                                  </cursor></TextField>
-                              <TextField editable="false" styleClass="leftTextField" text="Name">
+                              <TextField fx:id="phoneTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor>
+                              </TextField>
+                              <TextField editable="false" styleClass="leftTextField" text="Name" GridPane.valignment="CENTER">
                                  <cursor>
                                     <Cursor fx:constant="MOVE" />
                                  </cursor></TextField>
-                              <TextField editable="false" styleClass="leftTextField" text="Address" GridPane.rowIndex="1">
+                              <TextField editable="false" styleClass="leftTextField" text="Address" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <cursor>
                                     <Cursor fx:constant="MOVE" />
                                  </cursor></TextField>
-                              <TextField editable="false" styleClass="leftTextField" text="City" GridPane.rowIndex="2">
+                              <TextField editable="false" styleClass="leftTextField" text="City" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <cursor>
                                     <Cursor fx:constant="MOVE" />
                                  </cursor></TextField>
-                              <TextField editable="false" styleClass="leftTextField" text="Country" GridPane.rowIndex="3">
+                              <TextField editable="false" styleClass="leftTextField" text="Country" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                  <cursor>
                                     <Cursor fx:constant="MOVE" />
                                  </cursor></TextField>
+                              <TextField editable="false" styleClass="leftTextField" text="Phone" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                                 <cursor>
+                                    <Cursor fx:constant="MOVE" />
+                                 </cursor>
+                              </TextField>
                            </children>
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                               <ColumnConstraints hgrow="SOMETIMES" />
                            </columnConstraints>
                            <rowConstraints>
+                              <RowConstraints vgrow="SOMETIMES" />
                               <RowConstraints vgrow="SOMETIMES" />
                               <RowConstraints vgrow="SOMETIMES" />
                               <RowConstraints vgrow="SOMETIMES" />

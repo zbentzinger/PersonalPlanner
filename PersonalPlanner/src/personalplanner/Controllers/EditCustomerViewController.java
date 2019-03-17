@@ -23,8 +23,9 @@ public class EditCustomerViewController implements Initializable {
 
     @FXML private TextField nameTextField;
     @FXML private TextField cityTextField;
-    @FXML private TextField countrytTextField;
+    @FXML private TextField countryTextField;
     @FXML private TextField addressTextField;
+    @FXML private TextField phoneTextField;
 
 
     @Override public void initialize(URL url, ResourceBundle rb) {
