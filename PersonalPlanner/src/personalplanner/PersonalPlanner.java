@@ -10,17 +10,20 @@ import personalplanner.Utils.Database;
 
 public class PersonalPlanner extends Application {
 
-    @Override public void start(Stage stage) throws Exception {
-        ResourceBundle resources = ResourceBundle.getBundle("personalplanner.Resources.LoginForm");
+    private String loginViewURL = "/personalplanner/Views/LoginView.fxml";
 
-        Parent root = FXMLLoader.load(getClass().getResource("/personalplanner/Views/LoginView.fxml"), resources);
-        
-        Scene scene = new Scene(root);
-        
-        stage.setMinWidth(root.minWidth(-1));
-        stage.setMinHeight(root.minHeight(-1));
-        
-        stage.setScene(scene);
+    @Override public void start(Stage stage) throws Exception {
+
+        ResourceBundle resources = ResourceBundle.getBundle("personalplanner.Resources.LoginView");
+
+        Parent loginView = FXMLLoader.load(
+                getClass().getResource(loginViewURL),
+                resources
+        );
+
+        Scene loginScene = new Scene(loginView);
+
+        stage.setScene(loginScene);
         stage.show();
 
     }

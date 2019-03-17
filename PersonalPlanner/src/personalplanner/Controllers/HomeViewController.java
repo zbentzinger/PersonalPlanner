@@ -15,6 +15,11 @@ import javafx.stage.Stage;
 
 public class HomeViewController implements Initializable {
 
+    private String loginViewURL = "/personalplanner/Views/LoginView.fxml";
+    private String calendarViewURL = "/personalplanner/Views/CalendarView.fxml";
+    private String reportsViewURL = "/personalplanner/Views/ReportsView.fxml";
+    private String customersViewURL = "/personalplanner/Views/CustomersView.fxml";
+
     @FXML private Button logoutButton;
     @FXML private Button calendarButton;
     @FXML private Button reportsButton;
@@ -25,45 +30,60 @@ public class HomeViewController implements Initializable {
     }    
 
     @FXML private void logoutButtonClicked(ActionEvent event) throws IOException {
+
         ResourceBundle resources = ResourceBundle.getBundle("personalplanner.Resources.LoginForm");
 
-        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/LoginView.fxml"), resources);
-        
-        Scene addPartViewScene = new Scene(addPartView);
+        Parent loginView = FXMLLoader.load(
+                getClass().getResource(loginViewURL),
+                resources
+        );
+
+        Scene loginScene = new Scene(loginView);
+
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(addPartViewScene);
-        window.show();
-        
+
+        window.setScene(loginScene);
+        window.show();        
+
     }
 
-    @FXML private void calendarButtonClicked(ActionEvent event) throws IOException {
-        
-        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/CalendarView.fxml"));
-        Scene addPartViewScene = new Scene(addPartView);
+    @FXML private void calendarButtonClicked(ActionEvent event) throws IOException {        
+
+        Parent calendarView = FXMLLoader.load(getClass().getResource(calendarViewURL));
+
+        Scene calendarScene = new Scene(calendarView);
+
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(addPartViewScene);
-        window.show();
-        
+
+        window.setScene(calendarScene);
+        window.show();        
+
     }
 
-    @FXML private void reportsButtonClicked(ActionEvent event) throws IOException {
-        
-        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/ReportsView.fxml"));
-        Scene addPartViewScene = new Scene(addPartView);
+    @FXML private void reportsButtonClicked(ActionEvent event) throws IOException {        
+
+        Parent reportsView = FXMLLoader.load(getClass().getResource(reportsViewURL));
+
+        Scene reportsScene = new Scene(reportsView);
+
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(addPartViewScene);
-        window.show();
-        
+
+        window.setScene(reportsScene);
+        window.show();        
+
     }
 
-    @FXML private void customersButtonClicked(ActionEvent event) throws IOException {
-        
-        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/CustomersView.fxml"));
-        Scene addPartViewScene = new Scene(addPartView);
+    @FXML private void customersButtonClicked(ActionEvent event) throws IOException {        
+
+        Parent customersView = FXMLLoader.load(getClass().getResource(customersViewURL));
+
+        Scene customersScene = new Scene(customersView);
+
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(addPartViewScene);
-        window.show();
-        
+
+        window.setScene(customersScene);
+        window.show();        
+
     }
-    
+
 }

@@ -20,13 +20,7 @@ import personalplanner.Utils.Database;
 
 public class LoginViewController implements Initializable {
 
-    // Locale Values
-    private String localeExitButton;
-    private String localeInvalidMessage;
-    private String localeLoginButton;
-    private String localeMainLabel;
-    private String localePassButton;
-    private String localeUserButton;
+    private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
 
     @FXML private Button exitButton;
     @FXML private Button loginButton;
@@ -48,10 +42,13 @@ public class LoginViewController implements Initializable {
 
         if(validateUser()) {
 
-            Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/HomeView.fxml"));
-            Scene addPartViewScene = new Scene(addPartView);
+            Parent homeView = FXMLLoader.load(getClass().getResource(homeViewURL));
+
+            Scene homeScene = new Scene(homeView);
+
             Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-            window.setScene(addPartViewScene);
+
+            window.setScene(homeScene);
             window.show();
 
         } else {

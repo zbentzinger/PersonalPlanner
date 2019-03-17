@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 
 public class ReportsViewController implements Initializable {
 
+    private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
+
     @FXML private Button appointmentTypesReport;
     @FXML private Button customerAddressesReport;
     @FXML private Button homeButton;
@@ -37,10 +39,13 @@ public class ReportsViewController implements Initializable {
 
     @FXML private void homeButtonClicked(ActionEvent event) throws IOException {
 
-        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/HomeView.fxml"));
-        Scene addPartViewScene = new Scene(addPartView);
+        Parent homeView = FXMLLoader.load(getClass().getResource(homeViewURL));
+
+        Scene homeScene = new Scene(homeView);
+
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(addPartViewScene);
+
+        window.setScene(homeScene);
         window.show();
 
     }

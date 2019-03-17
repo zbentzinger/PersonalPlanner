@@ -17,6 +17,10 @@ import javafx.stage.Stage;
 
 public class CustomersViewController implements Initializable {
 
+    private String editCustViewURL = "/personalplanner/Views/EditCustomerView.fxml";
+    private String addCustViewURL = "/personalplanner/Views/AddCustomerView.fxml";
+    private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
+
     @FXML private Button editCustomerButton;
     @FXML private Button addCustomerButton;
     @FXML private Button deleteCustomerButton;
@@ -31,36 +35,45 @@ public class CustomersViewController implements Initializable {
     }    
 
     @FXML private void editCustomerButton(ActionEvent event) throws IOException {
-        
-        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/EditCustomerView.fxml"));
-        Scene addPartViewScene = new Scene(addPartView);
+
+        Parent editCustView = FXMLLoader.load(getClass().getResource(editCustViewURL));
+
+        Scene editCustScene = new Scene(editCustView);
+
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(addPartViewScene);
+
+        window.setScene(editCustScene);
         window.show();
-        
+
     }
 
     @FXML private void addCustomerButtonClicked(ActionEvent event) throws IOException {
-        
-        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/AddCustomerView.fxml"));
+
+        Parent addPartView = FXMLLoader.load(getClass().getResource(addCustViewURL));
+
         Scene addPartViewScene = new Scene(addPartView);
+
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
         window.setScene(addPartViewScene);
         window.show();
-        
+
     }
 
     @FXML private void deleteCustomerButtonClicked(ActionEvent event) {
     }
 
-    @FXML private void customersHomeButtonClicked(ActionEvent event) throws IOException {
-        
-        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/HomeView.fxml"));
-        Scene addPartViewScene = new Scene(addPartView);
+    @FXML private void customersHomeButtonClicked(ActionEvent event) throws IOException {        
+
+        Parent homeView = FXMLLoader.load(getClass().getResource(homeViewURL));
+
+        Scene homeScene = new Scene(homeView);
+
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(addPartViewScene);
-        window.show();
-        
+
+        window.setScene(homeScene);
+        window.show();        
+
     }
     
 }

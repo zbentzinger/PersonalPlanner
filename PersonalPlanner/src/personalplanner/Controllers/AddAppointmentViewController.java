@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 
 public class AddAppointmentViewController implements Initializable {
 
+    private String calendarViewURL = "/personalplanner/Views/CalendarView.fxml";
+
     @FXML private Button newAppCancelButton;
     @FXML private Button newAppSaveButton;
 
@@ -35,23 +37,29 @@ public class AddAppointmentViewController implements Initializable {
     }    
 
     @FXML private void newAppCancelButtonClicked(ActionEvent event) throws IOException {
-        
-        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/CalendarView.fxml"));
-        Scene addPartViewScene = new Scene(addPartView);
+
+        Parent calendarView = FXMLLoader.load(getClass().getResource(calendarViewURL));
+
+        Scene calendarScene = new Scene(calendarView);
+
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(addPartViewScene);
+
+        window.setScene(calendarScene);
         window.show();
-        
+
     }
 
     @FXML private void newAppSaveButtonClicked(ActionEvent event) throws IOException {
-        
-        Parent addPartView = FXMLLoader.load(getClass().getResource("CalendarView.fxml"));
-        Scene addPartViewScene = new Scene(addPartView);
+
+        Parent calendarView = FXMLLoader.load(getClass().getResource(calendarViewURL));
+
+        Scene calendarScene = new Scene(calendarView);
+
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(addPartViewScene);
+
+        window.setScene(calendarScene);
         window.show();
-        
+
     }
     
 }

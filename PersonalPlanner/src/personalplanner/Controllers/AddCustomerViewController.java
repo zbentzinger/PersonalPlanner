@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 
 public class AddCustomerViewController implements Initializable {
 
+    private String customersViewURL = "/personalplanner/Views/CustomersView.fxml";
+
     @FXML private Button newCustSaveButton;
     @FXML private Button newCustCancelButton;
 
@@ -28,24 +30,30 @@ public class AddCustomerViewController implements Initializable {
     @Override public void initialize(URL url, ResourceBundle rb) {
     }    
 
-    @FXML private void newCustSaveButtonClicked(ActionEvent event) throws IOException {
-        
-        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/CustomersView.fxml"));
-        Scene addPartViewScene = new Scene(addPartView);
+    @FXML private void newCustSaveButtonClicked(ActionEvent event) throws IOException {        
+
+        Parent customersView = FXMLLoader.load(getClass().getResource(customersViewURL));
+
+        Scene customersScene = new Scene(customersView);
+
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(addPartViewScene);
+
+        window.setScene(customersScene);
         window.show();
-        
+
     }
 
     @FXML private void newCustCancelButtonClicked(ActionEvent event) throws IOException {
-        
-        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/CustomersView.fxml"));
-        Scene addPartViewScene = new Scene(addPartView);
+
+        Parent customersView = FXMLLoader.load(getClass().getResource(customersViewURL));
+
+        Scene customersScene = new Scene(customersView);
+
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(addPartViewScene);
+
+        window.setScene(customersScene);
         window.show();
-        
+
     }
     
 }

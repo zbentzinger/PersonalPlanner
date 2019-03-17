@@ -19,6 +19,10 @@ import javafx.stage.Stage;
 
 public class CalendarViewController implements Initializable {
 
+    private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
+    private String editAppViewURL = "/personalplanner/Views/EditAppointmentView.fxml";
+    private String addAppViewURL = "/personalplanner/Views/AddAppointmentView.fxml";
+
     @FXML private Button homeButton;
     @FXML private Button editAppointmentButton;
     @FXML private Button addAppointmentButton;
@@ -44,34 +48,43 @@ public class CalendarViewController implements Initializable {
         
     }
 
-    @FXML private void homeButtonClicked(ActionEvent event) throws IOException {
-        
-        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/HomeView.fxml"));
-        Scene addPartViewScene = new Scene(addPartView);
+    @FXML private void homeButtonClicked(ActionEvent event) throws IOException {        
+
+        Parent homeView = FXMLLoader.load(getClass().getResource(homeViewURL));
+
+        Scene homeScene = new Scene(homeView);
+
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(addPartViewScene);
-        window.show();
-        
+
+        window.setScene(homeScene);
+        window.show();        
+
     }
 
-    @FXML private void editAppointmentButtonClicked(ActionEvent event) throws IOException {
-        
-        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/EditAppointmentView.fxml"));
-        Scene addPartViewScene = new Scene(addPartView);
+    @FXML private void editAppointmentButtonClicked(ActionEvent event) throws IOException {        
+
+        Parent editAppView = FXMLLoader.load(getClass().getResource(editAppViewURL));
+
+        Scene editAppScene = new Scene(editAppView);
+
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(addPartViewScene);
-        window.show();
-        
+
+        window.setScene(editAppScene);
+        window.show();        
+
     }
 
-    @FXML private void addAppointmentButtonClicked(ActionEvent event) throws IOException {
-        
-        Parent addPartView = FXMLLoader.load(getClass().getResource("/personalplanner/Views/AddAppointmentView.fxml"));
-        Scene addPartViewScene = new Scene(addPartView);
+    @FXML private void addAppointmentButtonClicked(ActionEvent event) throws IOException {        
+
+        Parent addAppView = FXMLLoader.load(getClass().getResource(addAppViewURL));
+
+        Scene addAppScene = new Scene(addAppView);
+
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(addPartViewScene);
-        window.show();
-        
+
+        window.setScene(addAppScene);
+        window.show();        
+
     }
 
     @FXML private void deleteAppointmentButtonClicked(ActionEvent event) {
