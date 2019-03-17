@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import personalplanner.Utils.Database;
 
 public class PersonalPlanner extends Application {
 
@@ -30,11 +29,7 @@ public class PersonalPlanner extends Application {
 
     public static void main(String[] args) {
 
-        Database.Connect();
-
         launch(args);
-
-        Database.Close();
 
     }
 

@@ -12,8 +12,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import personalplanner.Models.User;
 
 public class HomeViewController implements Initializable {
+
+    private User user;
 
     private String loginViewURL = "/personalplanner/Views/LoginView.fxml";
     private String calendarViewURL = "/personalplanner/Views/CalendarView.fxml";
@@ -25,8 +28,16 @@ public class HomeViewController implements Initializable {
     @FXML private Button reportsButton;
     @FXML private Button customersButton;
 
+    public void setUser(User user) {
+
+        this.user = user;
+
+    }
 
     @Override public void initialize(URL url, ResourceBundle rb) {
+
+        
+
     }    
 
     @FXML private void logoutButtonClicked(ActionEvent event) throws IOException {
