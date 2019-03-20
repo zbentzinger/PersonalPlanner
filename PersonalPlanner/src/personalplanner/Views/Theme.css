@@ -25,6 +25,36 @@ Global Variables
 
 /*****
 
+ChoiceBoxes
+
+*****/
+.choice-box {
+    -fx-pref-height: button-height;
+    -fx-min-height: button-height;
+    -fx-max-height: button-height;
+    -fx-border-style: solid;
+    -fx-border-width: 1;
+    -fx-border-color: dark-primary-color;
+    -fx-background-color: dark-primary-color;
+    -fx-background-radius: 0 2 2 0;
+    -fx-border-radius: 0 2 2 0;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,1), 10, 0, 0, 0);
+}
+
+.choice-box .context-menu {
+    -fx-text-fill: text-primary-color;
+    -fx-background-color: dark-primary-color;
+}
+
+.choice-box > .label {
+    -fx-text-fill: text-primary-color;
+}
+.choice-box .menu-item > .label {
+    -fx-text-fill: text-primary-color;
+}
+
+/*****
+
 Tables
 
 *****/

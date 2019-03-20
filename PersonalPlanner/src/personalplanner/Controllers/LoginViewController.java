@@ -24,55 +24,14 @@ import personalplanner.Utils.Database;
 
 public class LoginViewController implements Initializable {
 
-    private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
     private User user;
+    private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
 
     @FXML private Button exitButton;
     @FXML private Button loginButton;
-
     @FXML private Label invalidLabel;
-
     @FXML private TextField userNameField;
     @FXML private TextField passField;
-
-    @Override public void initialize(URL url, ResourceBundle rb) {
-
-        invalidLabel.setVisible(false);
-
-    }
-
-    @FXML private void loginButtonClicked(ActionEvent event) throws IOException, SQLException {
-
-        if(authenticateUser()) {
-
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(homeViewURL));
-
-            Parent homeView = loader.load();
-
-            Scene homeScene = new Scene(homeView);
-
-            HomeViewController controller = loader.getController();
-            controller.setUser(this.user);
-
-            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-            window.setScene(homeScene);
-            window.show();
-
-        } else {
-
-            invalidLabel.setVisible(true);
-
-        }
-
-    }
-
-    @FXML private void exitButtonClicked(ActionEvent event) {
-
-        Stage stage = (Stage) exitButton.getScene().getWindow();
-        stage.close();
-
-    }
 
     private boolean authenticateUser() throws SQLException {
         // return true if user is authenticated and populate user object.
@@ -98,21 +57,57 @@ public class LoginViewController implements Initializable {
                     LocalDateTime created = result.getTimestamp("createDate").toLocalDateTime();
                     LocalDateTime updated = result.getTimestamp("lastUpdate").toLocalDateTime();
 
-                    user = new User(
-                        result.getInt("userid"),
-                        result.getString("userName"),
-                        result.getString("password"),
-                        result.getInt("active"),
-                        result.getString("createBy"),
-                        created,
-                        result.getString("lastUpdatedBy"),
-                        updated
-                    );
+                    user = new User();
+                    user.setUserID(result.getInt("userid"));
+                    user.setUserName(result.getString("userName"));
+                    user.setPassword(result.getString("password"));
+                    user.setActive(result.getInt("active"));
+                    user.setCreatedBy(result.getString("createBy"));
+                    user.setCreatedAt(created);
+                    user.setUpdatedBy(result.getString("lastUpdatedBy"));
+                    user.setUpdatedAt(updated);
+
                 }
             }
         }
 
         return authenticated;
+
+    }
+
+    @FXML private void loginButtonClicked(ActionEvent event) throws IOException, SQLException {
+
+        if(authenticateUser()) {
+
+            // Load the next scene.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(homeViewURL));
+            Parent view = loader.load();
+            Scene scene = new Scene(view);
+            HomeViewController controller = loader.getController();
+            controller.initData(this.user);
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+
+        } else {
+
+            invalidLabel.setVisible(true);
+
+        }
+
+    }
+
+    @FXML private void exitButtonClicked(ActionEvent event) {
+
+        Stage stage = (Stage) exitButton.getScene().getWindow();
+        stage.close();
+
+    }
+
+    @Override public void initialize(URL url, ResourceBundle rb) {
+
+        invalidLabel.setVisible(false);
 
     }
 

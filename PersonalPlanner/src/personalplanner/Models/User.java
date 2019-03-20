@@ -13,26 +13,7 @@ public class User {
     private String updatedBy;
     private LocalDateTime updatedAt;
 
-    public User(
-            int userID,
-            String userName,
-            String password,
-            int active,
-            String createdBy,
-            LocalDateTime createdAt,
-            String updatedBy,
-            LocalDateTime updatedAt
-    ) {
-
-        this.userID = userID;
-        this.userName = userName;
-        this.password = password;
-        this.active = active;
-        this.createdBy = createdBy;
-        this.createdAt = createdAt;
-        this.updatedBy = updatedBy;
-        this.updatedAt = updatedAt;
-
+    public User() {
     }
 
     public int getUserID() {

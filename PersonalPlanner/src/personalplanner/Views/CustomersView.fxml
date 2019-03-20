@@ -56,8 +56,7 @@
                         <Label styleClass="mainLabels" text="Customers" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <TableView fx:id="customersTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                           <columns>
-                            <TableColumn fx:id="customerNameCol" prefWidth="75.0" styleClass="appDescCol" text="Name" />
-                            <TableColumn fx:id="customerAddressCol" prefWidth="75.0" styleClass="appDateCol" text="Address" />
+                            <TableColumn fx:id="customerNameCol" prefWidth="75.0" styleClass="roundTable" text="Name" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

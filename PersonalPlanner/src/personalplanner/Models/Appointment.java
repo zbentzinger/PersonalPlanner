@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 public class Appointment {
 
     private int appointmentID;
-    private Customer customer;
-    private User user;
+    private int customerID;
+    private int userID;
     private String title;
     private String description;
     private String location;
@@ -20,40 +20,7 @@ public class Appointment {
     private String updatedBy;
     private LocalDateTime updatedAt;
 
-    public Appointment(
-            int appointmentID,
-            Customer customer,
-            User user,
-            String title,
-            String description,
-            String location,
-            String contact,
-            String type,
-            String url,
-            LocalDateTime start,
-            LocalDateTime end,
-            String createdBy,
-            LocalDateTime createdAt,
-            String updatedBy,
-            LocalDateTime updatedAt
-    ) {
-
-        this.appointmentID = appointmentID;
-        this.customer = customer;
-        this.user = user;
-        this.title = title;
-        this.description = description;
-        this.location = location;
-        this.contact = contact;
-        this.type = type;
-        this.url = url;
-        this.start = start;
-        this.end = end;
-        this.createdBy = createdBy;
-        this.createdAt = createdAt;
-        this.updatedBy = updatedBy;
-        this.updatedAt = updatedAt;
-
+    public Appointment() {
     }
 
     public int getAppointmentID() {
@@ -68,27 +35,27 @@ public class Appointment {
 
     }
 
-    public Customer getCustomer() {
+    public int getCustomerID() {
 
-        return customer;
-
-    }
-
-    public void setCustomer(Customer customer) {
-
-        this.customer = customer;
+        return customerID;
 
     }
 
-    public User getUser() {
+    public void setCustomerID(int customerID) {
 
-        return user;
+        this.customerID = customerID;
 
     }
 
-    public void setUser(User user) {
+    public int getUserID() {
 
-        this.user = user;
+        return userID;
+
+    }
+
+    public void setUserID(int userID) {
+
+        this.userID = userID;
 
     }
 

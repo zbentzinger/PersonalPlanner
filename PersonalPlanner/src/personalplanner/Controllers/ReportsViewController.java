@@ -11,24 +11,28 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import personalplanner.Models.User;
 
 public class ReportsViewController implements Initializable {
 
+    private User user;
     private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
 
     @FXML private Button appointmentTypesReport;
     @FXML private Button customerAddressesReport;
     @FXML private Button homeButton;
     @FXML private Button consultantScheduleReport;
-
-    @FXML private TableColumn<?, ?> resultsCol;
     @FXML private TableView<?> resultsTableView;
+    @FXML private TableColumn<?, ?> resultsCol;
 
+    public void initData(User user) {
 
-    @Override public void initialize(URL url, ResourceBundle rb) {
+        this.user = user;
+
     }    
 
     @FXML private void appointmentTypesReportClicked(ActionEvent event) {
@@ -39,18 +43,26 @@ public class ReportsViewController implements Initializable {
 
     @FXML private void homeButtonClicked(ActionEvent event) throws IOException {
 
-        Parent homeView = FXMLLoader.load(getClass().getResource(homeViewURL));
-
-        Scene homeScene = new Scene(homeView);
-
+        // Load the next scene.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(homeViewURL));
+        Parent view = loader.load();
+        Scene scene = new Scene(view);
+        HomeViewController controller = loader.getController();
+        controller.initData(this.user);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-
-        window.setScene(homeScene);
+        window.setScene(scene);
         window.show();
 
     }
 
     @FXML private void consultantScheduleReportClicked(ActionEvent event) {
+    }
+
+    @Override public void initialize(URL url, ResourceBundle rb) {
+
+        resultsTableView.setPlaceholder(new Label(""));
+
     }
 
 }

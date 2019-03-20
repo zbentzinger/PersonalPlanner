@@ -6,33 +6,14 @@ public class Customer {
 
     private int customerID;
     private String customerName;
-    private Address address;
-    private boolean active;
+    private int addressID;
+    private int active;
     private String createdBy;
     private LocalDateTime createdAt;
     private String updatedBy;
     private LocalDateTime updatedAt;
 
-    public Customer(
-            int customerID,
-            String customerName,
-            Address address,
-            boolean active,
-            String createdBy,
-            LocalDateTime createdAt,
-            String updatedBy,
-            LocalDateTime updatedAt
-    ) {
-
-        this.customerID = customerID;
-        this.customerName = customerName;
-        this.address = address;
-        this.active = active;
-        this.createdBy = createdBy;
-        this.createdAt = createdAt;
-        this.updatedBy = updatedBy;
-        this.updatedAt = updatedAt;
-
+    public Customer() {
     }
 
     public int getCustomerID() {
@@ -59,25 +40,25 @@ public class Customer {
 
     }
 
-    public Address getAddress() {
+    public int getAddressID() {
 
-        return address;
-
-    }
-
-    public void setAddress(Address address) {
-
-        this.address = address;
+        return addressID;
 
     }
 
-    public boolean isActive() {
+    public void setAddressID(int addressID) {
+
+        this.addressID = addressID;
+
+    }
+
+    public int isActive() {
 
         return active;
 
     }
 
-    public void setActive(boolean active) {
+    public void setActive(int active) {
 
         this.active = active;
 

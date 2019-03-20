@@ -17,7 +17,6 @@ import personalplanner.Models.User;
 public class HomeViewController implements Initializable {
 
     private User user;
-
     private String loginViewURL = "/personalplanner/Views/LoginView.fxml";
     private String calendarViewURL = "/personalplanner/Views/CalendarView.fxml";
     private String reportsViewURL = "/personalplanner/Views/ReportsView.fxml";
@@ -28,31 +27,22 @@ public class HomeViewController implements Initializable {
     @FXML private Button reportsButton;
     @FXML private Button customersButton;
 
-    public void setUser(User user) {
+    public void initData(User user) {
 
         this.user = user;
 
     }
 
-    @Override public void initialize(URL url, ResourceBundle rb) {
-
-        
-
-    }    
-
     @FXML private void logoutButtonClicked(ActionEvent event) throws IOException {
 
+        // Load the next scene.
         ResourceBundle resources = ResourceBundle.getBundle("personalplanner.Resources.LoginView");
-
         Parent loginView = FXMLLoader.load(
                 getClass().getResource(loginViewURL),
                 resources
         );
-
         Scene loginScene = new Scene(loginView);
-
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-
         window.setScene(loginScene);
         window.show();        
 
@@ -60,41 +50,50 @@ public class HomeViewController implements Initializable {
 
     @FXML private void calendarButtonClicked(ActionEvent event) throws IOException {        
 
-        Parent calendarView = FXMLLoader.load(getClass().getResource(calendarViewURL));
-
-        Scene calendarScene = new Scene(calendarView);
-
+        // Load the next scene.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(calendarViewURL));
+        Parent view = loader.load();
+        Scene scene = new Scene(view);
+        CalendarViewController controller = loader.getController();
+        controller.initData(this.user);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-
-        window.setScene(calendarScene);
-        window.show();        
+        window.setScene(scene);
+        window.show();
 
     }
 
     @FXML private void reportsButtonClicked(ActionEvent event) throws IOException {        
 
-        Parent reportsView = FXMLLoader.load(getClass().getResource(reportsViewURL));
-
-        Scene reportsScene = new Scene(reportsView);
-
+        // Load the next scene.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(reportsViewURL));
+        Parent view = loader.load();
+        Scene scene = new Scene(view);
+        ReportsViewController controller = loader.getController();
+        controller.initData(this.user);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-
-        window.setScene(reportsScene);
-        window.show();        
+        window.setScene(scene);
+        window.show();
 
     }
 
     @FXML private void customersButtonClicked(ActionEvent event) throws IOException {        
 
-        Parent customersView = FXMLLoader.load(getClass().getResource(customersViewURL));
-
-        Scene customersScene = new Scene(customersView);
-
+        // Load the next scene.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(customersViewURL));
+        Parent view = loader.load();
+        Scene scene = new Scene(view);
+        CustomersViewController controller = loader.getController();
+        controller.initData(this.user);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
 
-        window.setScene(customersScene);
-        window.show();        
+    }
 
+    @Override public void initialize(URL url, ResourceBundle rb) {
     }
 
 }

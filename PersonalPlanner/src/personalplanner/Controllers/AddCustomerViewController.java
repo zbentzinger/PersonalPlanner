@@ -2,10 +2,15 @@ package personalplanner.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.beans.binding.BooleanBinding;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,43 +19,43 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import personalplanner.Models.User;
 import personalplanner.Utils.Database;
 
 public class AddCustomerViewController implements Initializable {
 
+    private User user;
     private String customersViewURL = "/personalplanner/Views/CustomersView.fxml";
 
     @FXML private Button newCustSaveButton;
-    @FXML private Button newCustCancelButton;
-
+    @FXML private ChoiceBox<String> cityDropDown;
+    @FXML private ChoiceBox<String> countryDropDown;
     @FXML private TextField nameTextField;
-    @FXML private TextField cityTextField;
-    @FXML private TextField countryTextField;
     @FXML private TextField addressTextField;
-    @FXML private TextField phoneTextField;    
+    @FXML private TextField phoneTextField;  
+    @FXML private TextField postalCodeTextField;
 
-    private void setSaveButtonState() {
+    private void bindTextFields() {
 
         BooleanBinding enabledState = new BooleanBinding() {
             {
                 super.bind(
                     nameTextField.textProperty(),
-                    cityTextField.textProperty(),
-                    countryTextField.textProperty(),
                     addressTextField.textProperty(),
-                    phoneTextField.textProperty()
+                    phoneTextField.textProperty(),
+                    postalCodeTextField.textProperty()
                 );
             }
 
             @Override protected boolean computeValue() {
                 return (
                     nameTextField.getText().isEmpty() ||
-                    cityTextField.getText().isEmpty() || 
-                    countryTextField.getText().isEmpty() ||
                     addressTextField.getText().isEmpty() ||
-                    phoneTextField.getText().isEmpty()
+                    phoneTextField.getText().isEmpty() ||
+                    postalCodeTextField.getText().isEmpty()
                 );
             }
         };
@@ -58,213 +63,230 @@ public class AddCustomerViewController implements Initializable {
         newCustSaveButton.disableProperty().bind(enabledState);
 
     }
+    
+    private int createAddress(int cityID) throws SQLException {
 
-    private int getAddressId(String address) {
+        int addressID = -1;
+        
+        String query = "INSERT INTO address "
+                     + "(address,address2,cityId,postalCode,phone,createDate,createdBy,lastUpdateBy) "
+                     + "VALUES (?,'',?,?,?,NOW(),?,?)";
 
-        int id = -1;
+        try (
+            Connection conn = Database.getConnection();
+            PreparedStatement pstmnt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        ) { 
 
-        String query = String.format(
-                "SELECT addressId FROM address WHERE address = '%s'",
-                address
-        );
+            pstmnt.setString(1, addressTextField.getText());
+            pstmnt.setInt(2, cityID);
+            pstmnt.setString(3, postalCodeTextField.getText());
+            pstmnt.setString(4, phoneTextField.getText());
+            pstmnt.setString(5, this.user.getUserName());
+            pstmnt.setString(6, this.user.getUserName());
 
-        try {
-            ResultSet result = Database.Select(query);
+            pstmnt.executeUpdate();
 
-            while(result.next()) {
-                if(result.getInt(1) >= 1) {
-                    id = result.getInt(1);
+            try (ResultSet generatedKeys = pstmnt.getGeneratedKeys()) {
+
+                while(generatedKeys.next()) {
+                    addressID = generatedKeys.getInt(1);
                 }
             }
 
-        } catch (SQLException e) {
-            System.out.println("Exception: " + e);
+            return addressID;
 
         }
-
-        return id;
-
     }
 
-    private int getCityId(String cityName) {
+    private void createCustomer(int addressID) throws SQLException {
 
-        int id = -1;
+        String query = "INSERT INTO customer " 
+                     + "(customerName,addressId,active,createDate,createdBy,lastUpdateBy) "
+                     + "VALUES (?,?,1,NOW(),?,?)";
 
-        String query = String.format(
-                "SELECT cityid FROM city WHERE city = '%s'",
-                cityName
-        );
+        try (
+            Connection conn = Database.getConnection();
+            PreparedStatement pstmnt = conn.prepareStatement(query);
+        ) { 
 
-        try {
-            ResultSet result = Database.Select(query);
+            pstmnt.setString(1, nameTextField.getText());
+            pstmnt.setInt(2, addressID);
+            pstmnt.setString(3, this.user.getUserName());
+            pstmnt.setString(4, this.user.getUserName());
 
-            while(result.next()) {
-                if(result.getInt(1) >= 1) {
-                    id = result.getInt(1);
+            pstmnt.executeUpdate();
+
+        }
+    }
+    
+    private ObservableList<String> getCities(String country) throws SQLException {
+
+        ObservableList<String> cities = FXCollections.observableArrayList();
+
+        String query = "SELECT c.city "
+                     + "FROM city c "
+                     + "JOIN country cc "
+                     + "ON c.countryId = cc.countryid "
+                     + "WHERE cc.country = ?";
+
+        try (
+            Connection conn = Database.getConnection();
+            PreparedStatement pstmnt = conn.prepareStatement(query);
+        ) { 
+
+            pstmnt.setString(1, country);
+            try (ResultSet result = pstmnt.executeQuery()) {
+
+                while(result.next()) {
+                    cities.add(result.getString("city"));
                 }
             }
-
-        } catch (SQLException e) {
-            System.out.println("Exception: " + e);
-
         }
 
-        return id;
+        return cities;
 
     }
 
-    private int getCountryId(String countryName) {
+    private int getCityId(String city) throws SQLException {
 
-        int id = -1;
+        int cityID = -1;
 
-        String query = String.format(
-                "SELECT countryId FROM country WHERE country = '%s'",
-                countryName
-        );
+        String query = "SELECT cityid " 
+                     + "FROM city " 
+                     + "WHERE city = ?";
 
-        try {
-            ResultSet result = Database.Select(query);
+        try (
+            Connection conn = Database.getConnection();
+            PreparedStatement pstmnt = conn.prepareStatement(query);
+        ) { 
 
-            while(result.next()) {
-                if(result.getInt(1) >= 1) {
-                    id = result.getInt(1);
+            pstmnt.setString(1, city);
+            try (ResultSet result = pstmnt.executeQuery()) {
+
+                while(result.next()) {
+                    cityID = result.getInt("cityid");
                 }
             }
-
-        } catch (SQLException e) {
-            System.out.println("Exception: " + e);
-
         }
 
-        return id;
+        return cityID;
 
     }
 
-    private int getLatestId(String tableName) {
+    private ObservableList<String> getCountries() throws SQLException {
 
-        int id = -1;
+        ObservableList<String> countries = FXCollections.observableArrayList();
 
-        // hack
-        String query = String.format(
-                "SELECT %sId FROM %s ORDER BY %sId DESC limit 1;",
-                tableName,
-                tableName,
-                tableName
-        );
+        String query = "SELECT country " 
+                     + "FROM country";
 
-        try {
-            ResultSet result = Database.Select(query);
+        try (
+            Connection conn = Database.getConnection();
+            PreparedStatement pstmnt = conn.prepareStatement(query);
+        ) { 
 
-            while(result.next()) {
-                if(result.getInt(1) >= 1) {
-                    id = result.getInt(1);
+            try (ResultSet result = pstmnt.executeQuery()) {
+
+                while(result.next()) {
+                    countries.add(result.getString("country"));
                 }
             }
-
-        } catch (SQLException e) {
-            System.out.println("Exception: " + e);
-
         }
 
-        return id;
+        return countries;
 
     }
 
-    private void insertAddress(int cityID) {
+    public void newCustCancelButtonClicked(ActionEvent event) throws IOException {
 
-        String query = String.format(
-                "INSERT INTO address (address, address2, cityId, postalCode, phone, createDate, createdBy, lastUpdateBy) VALUES ('%s', '', '%s', '', '%s', NOW(), '', '')",
-                addressTextField.getText(),
-                String.valueOf(cityID),
-                phoneTextField.getText()
-        );
-
-        Database.Update(query);
-
-    }
-
-    private void insertCity(int countryID) {
-
-        String query = String.format(
-                "INSERT INTO city (city, countryId, createDate, createdBy, lastUpdateBy) VALUES ('%s', '%s', NOW(), '', '')",
-                cityTextField.getText(),
-                String.valueOf(countryID)
-        );
-
-        Database.Update(query);
-
-    }
-
-    private void insertCountry() {
-
-        String query = String.format(
-                "INSERT INTO country (country, createDate, createdBy, lastUpdateBy) VALUES ('%s', NOW(), '', '')",
-                countryTextField.getText()
-        );
-
-        Database.Update(query);
-
-    }
-
-    private void insertCustomer(int addressID) {
-
-        String query = String.format(
-                "INSERT INTO customer (customerName, addressId, active, createDate, createdBy, lastUpdateBy) VALUES ('%s', '%s', TRUE, NOW(), '', '')",
-                nameTextField.getText(),
-                String.valueOf(addressID)
-        );
-
-        Database.Update(query);
-
-    }
-
-    @FXML private void newCustSaveButtonClicked(ActionEvent event) throws IOException {        
-
-        int countryID = getCountryId(countryTextField.getText());
-        int cityID = getCityId(cityTextField.getText());
-
-        if(countryID == -1) {
-            insertCountry();
-            countryID = getLatestId("country");
-
-        }
-
-        if (cityID == -1) {
-            insertCity(countryID);
-            cityID = getLatestId("city");
-
-        }
-
-        insertAddress(cityID);
-        insertCustomer(getLatestId("address"));
-
-        Parent customersView = FXMLLoader.load(getClass().getResource(customersViewURL));
-
-        Scene customersScene = new Scene(customersView);
-
+        // Load the next scene.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(customersViewURL));
+        Parent view = loader.load();
+        Scene scene = new Scene(view);
+        CustomersViewController controller = loader.getController();
+        controller.initData(this.user);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-
-        window.setScene(customersScene);
+        window.setScene(scene);
         window.show();
 
     }
 
-    @FXML private void newCustCancelButtonClicked(ActionEvent event) throws IOException {
+    public void newCustSaveButtonClicked(ActionEvent event) throws IOException, SQLException {        
 
-        Parent customersView = FXMLLoader.load(getClass().getResource(customersViewURL));
+        // Create Address, returns its ID and then create a Customer.
+        int city = getCityId(cityDropDown.getSelectionModel().getSelectedItem());
+        int addr = createAddress(city);
+        
+        createCustomer(addr);
 
-        Scene customersScene = new Scene(customersView);
-
+        // Load the next scene.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(customersViewURL));
+        Parent view = loader.load();
+        Scene scene = new Scene(view);
+        CustomersViewController controller = loader.getController();
+        controller.initData(this.user);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-
-        window.setScene(customersScene);
+        window.setScene(scene);
         window.show();
+
+    }
+
+    private void populateCityDropdown(String country) {
+
+        cityDropDown.getItems().clear();
+
+        try {
+
+            cityDropDown.getItems().addAll(getCities(country));
+
+        } catch (SQLException e) {
+
+            System.out.println("Exception in getCities query: %s" + e);
+
+        }
+
+        cityDropDown.getSelectionModel().select(0);
+
+    }
+
+    private void populateCountryDropdown() {
+
+        try {
+
+            countryDropDown.getItems().addAll(getCountries());
+
+        } catch (SQLException e) {
+
+            System.out.println("Exception in getCountries query: %s" + e);
+
+        }
+
+        countryDropDown.getSelectionModel().select(0);
+
+        populateCityDropdown(countryDropDown.getSelectionModel().getSelectedItem());
+
+    }
+
+    public void initData(User user) {
+
+        this.user = user;
 
     }
 
     @Override public void initialize(URL url, ResourceBundle rb) {
 
-        setSaveButtonState();
+        bindTextFields();
+        populateCountryDropdown();
+
+        // Lambda: add listener to country dropdown
+        // so that city dropdown repopulates if another country is selected.
+        countryDropDown.getSelectionModel()
+                       .selectedItemProperty()
+                       .addListener(
+                           (obs, oldVal, newVal) -> populateCityDropdown(newVal)
+                       );
 
     }
 
