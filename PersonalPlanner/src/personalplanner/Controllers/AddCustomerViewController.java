@@ -38,32 +38,6 @@ public class AddCustomerViewController implements Initializable {
     @FXML private TextField phoneTextField;  
     @FXML private TextField postalCodeTextField;
 
-    private void bindTextFields() {
-
-        BooleanBinding enabledState = new BooleanBinding() {
-            {
-                super.bind(
-                    nameTextField.textProperty(),
-                    addressTextField.textProperty(),
-                    phoneTextField.textProperty(),
-                    postalCodeTextField.textProperty()
-                );
-            }
-
-            @Override protected boolean computeValue() {
-                return (
-                    nameTextField.getText().isEmpty() ||
-                    addressTextField.getText().isEmpty() ||
-                    phoneTextField.getText().isEmpty() ||
-                    postalCodeTextField.getText().isEmpty()
-                );
-            }
-        };
-
-        newCustSaveButton.disableProperty().bind(enabledState);
-
-    }
-    
     private int createAddress(int cityID) throws SQLException {
 
         int addressID = -1;
@@ -277,7 +251,29 @@ public class AddCustomerViewController implements Initializable {
 
     @Override public void initialize(URL url, ResourceBundle rb) {
 
-        bindTextFields();
+        // Make sure that all fields have a value before enabling save button.
+        BooleanBinding enabledState = new BooleanBinding() {
+            {
+                super.bind(
+                    nameTextField.textProperty(),
+                    addressTextField.textProperty(),
+                    phoneTextField.textProperty(),
+                    postalCodeTextField.textProperty()
+                );
+            }
+
+            @Override protected boolean computeValue() {
+                return (
+                    nameTextField.getText().isEmpty() ||
+                    addressTextField.getText().isEmpty() ||
+                    phoneTextField.getText().isEmpty() ||
+                    postalCodeTextField.getText().isEmpty()
+                );
+            }
+        };
+
+        newCustSaveButton.disableProperty().bind(enabledState);
+
         populateCountryDropdown();
 
         // Lambda: add listener to country dropdown
