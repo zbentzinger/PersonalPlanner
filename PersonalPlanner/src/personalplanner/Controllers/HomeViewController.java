@@ -12,10 +12,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import personalplanner.DAO.MainDAO;
 import personalplanner.Models.User;
 
 public class HomeViewController implements Initializable {
 
+    private MainDAO database;
     private User user;
     private String loginViewURL = "/personalplanner/Views/LoginView.fxml";
     private String calendarViewURL = "/personalplanner/Views/CalendarView.fxml";
@@ -27,16 +29,17 @@ public class HomeViewController implements Initializable {
     @FXML private Button reportsButton;
     @FXML private Button customersButton;
 
-    public void initData(User user) {
+    public void initData(User user, MainDAO dao) {
 
         this.user = user;
+        this.database = dao;
 
     }
 
     @FXML private void logoutButtonClicked(ActionEvent event) throws IOException {
 
         // Load the next scene.
-        ResourceBundle resources = ResourceBundle.getBundle("personalplanner.Resources.LoginView");
+        ResourceBundle resources = ResourceBundle.getBundle("personalplanner.Utils.LoginView");
         Parent loginView = FXMLLoader.load(
                 getClass().getResource(loginViewURL),
                 resources
@@ -56,7 +59,7 @@ public class HomeViewController implements Initializable {
         Parent view = loader.load();
         Scene scene = new Scene(view);
         CalendarViewController controller = loader.getController();
-        controller.initData(this.user);
+        controller.initData(this.user, this.database);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
@@ -71,7 +74,7 @@ public class HomeViewController implements Initializable {
         Parent view = loader.load();
         Scene scene = new Scene(view);
         ReportsViewController controller = loader.getController();
-        controller.initData(this.user);
+        controller.initData(this.user, this.database);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
@@ -86,7 +89,7 @@ public class HomeViewController implements Initializable {
         Parent view = loader.load();
         Scene scene = new Scene(view);
         CustomersViewController controller = loader.getController();
-        controller.initData(this.user);
+        controller.initData(this.user, this.database);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();

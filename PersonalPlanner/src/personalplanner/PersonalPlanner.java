@@ -13,7 +13,7 @@ public class PersonalPlanner extends Application {
 
     @Override public void start(Stage stage) throws Exception {
 
-        ResourceBundle resources = ResourceBundle.getBundle("personalplanner.Resources.LoginView");
+        ResourceBundle resources = ResourceBundle.getBundle("personalplanner.Utils.LoginView");
 
         Parent loginView = FXMLLoader.load(
                 getClass().getResource(loginViewURL),

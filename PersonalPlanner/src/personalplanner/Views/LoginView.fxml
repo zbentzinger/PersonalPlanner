@@ -93,12 +93,12 @@
                               <RowConstraints vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="loginButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loginButtonClicked" styleClass="mainButtons" text="%login_button" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                              <Button fx:id="loginButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="mainButtons" text="%login_button" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="exitButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#exitButtonClicked" styleClass="secondaryButtons" text="%exit_button" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                              <Button fx:id="exitButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="secondaryButtons" text="%exit_button" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                                  <GridPane.margin>
                                     <Insets />
                                  </GridPane.margin>

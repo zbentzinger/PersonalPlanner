@@ -21,19 +21,18 @@
                                  <cursor>
                                     <Cursor fx:constant="TEXT" />
                                  </cursor></TextField>
-                              <TextField fx:id="addressTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <ChoiceBox fx:id="countryDropDown" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="cityDropDown" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="addressTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                  <cursor>
                                     <Cursor fx:constant="TEXT" />
                                  </cursor></TextField>
-                              <TextField fx:id="cityTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                              <TextField fx:id="postalCodeTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                  <cursor>
                                     <Cursor fx:constant="TEXT" />
-                                 </cursor></TextField>
-                              <TextField fx:id="countryTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-                                 <cursor>
-                                    <Cursor fx:constant="TEXT" />
-                                 </cursor></TextField>
-                              <TextField fx:id="phoneTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                                 </cursor>
+                              </TextField>
+                              <TextField fx:id="phoneTextField" maxWidth="1.7976931348623157E308" styleClass="rightTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                                  <cursor>
                                     <Cursor fx:constant="TEXT" />
                                  </cursor>
@@ -42,7 +41,7 @@
                                  <cursor>
                                     <Cursor fx:constant="MOVE" />
                                  </cursor></TextField>
-                              <TextField editable="false" styleClass="leftTextField" text="Address" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <TextField editable="false" styleClass="leftTextField" text="Address" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                  <cursor>
                                     <Cursor fx:constant="MOVE" />
                                  </cursor></TextField>
@@ -50,11 +49,16 @@
                                  <cursor>
                                     <Cursor fx:constant="MOVE" />
                                  </cursor></TextField>
-                              <TextField editable="false" styleClass="leftTextField" text="Country" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                              <TextField editable="false" styleClass="leftTextField" text="Country" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <cursor>
                                     <Cursor fx:constant="MOVE" />
                                  </cursor></TextField>
-                              <TextField editable="false" styleClass="leftTextField" text="Phone" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                              <TextField editable="false" styleClass="leftTextField" text="Phone" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                 <cursor>
+                                    <Cursor fx:constant="MOVE" />
+                                 </cursor>
+                              </TextField>
+                              <TextField editable="false" styleClass="leftTextField" text="Zip" GridPane.rowIndex="4">
                                  <cursor>
                                     <Cursor fx:constant="MOVE" />
                                  </cursor>
@@ -70,6 +74,7 @@
                               <RowConstraints vgrow="SOMETIMES" />
                               <RowConstraints vgrow="SOMETIMES" />
                               <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                         </GridPane>
                         <GridPane GridPane.columnIndex="3" GridPane.rowIndex="3">
@@ -88,7 +93,7 @@
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints vgrow="SOMETIMES" />
-                              <RowConstraints percentHeight="50.0" vgrow="SOMETIMES" />
+                              <RowConstraints percentHeight="67.0" vgrow="SOMETIMES" />
                               <RowConstraints vgrow="SOMETIMES" />
                            </rowConstraints>
                         </GridPane>
@@ -119,9 +124,9 @@
             <ColumnConstraints hgrow="ALWAYS" percentWidth="25.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints percentHeight="25.0" vgrow="ALWAYS" />
+            <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="0.0" vgrow="ALWAYS" />
-            <RowConstraints percentHeight="25.0" vgrow="ALWAYS" />
+            <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
          </rowConstraints>
       </GridPane>
    </children>

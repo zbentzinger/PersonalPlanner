@@ -2,12 +2,9 @@ package personalplanner.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,11 +16,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import personalplanner.DAO.MainDAO;
+import personalplanner.DAO.MainDAOImpl;
 import personalplanner.Models.User;
-import personalplanner.Utils.Database;
 
 public class LoginViewController implements Initializable {
 
+    private MainDAO database;
     private User user;
     private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
 
@@ -32,60 +31,35 @@ public class LoginViewController implements Initializable {
     @FXML private Label invalidLabel;
     @FXML private TextField userNameField;
     @FXML private TextField passField;
+  
+    private void exit() {
 
-    private boolean authenticateUser() throws SQLException {
-        // return true if user is authenticated and populate user object.
-
-        boolean authenticated = false;
-        String query = "SELECT * " 
-                     + "FROM user " 
-                     + "WHERE userName = ? AND password = ?";
-
-        try (
-            Connection conn = Database.getConnection();
-            PreparedStatement pstmnt = conn.prepareStatement(query);
-        ) {
-
-            pstmnt.setString(1, userNameField.getText());
-            pstmnt.setString(2, passField.getText());
-
-            try (ResultSet result = pstmnt.executeQuery()) {
-
-                if(result.next()) {
-
-                    authenticated = true;
-                    LocalDateTime created = result.getTimestamp("createDate").toLocalDateTime();
-                    LocalDateTime updated = result.getTimestamp("lastUpdate").toLocalDateTime();
-
-                    user = new User();
-                    user.setUserID(result.getInt("userid"));
-                    user.setUserName(result.getString("userName"));
-                    user.setPassword(result.getString("password"));
-                    user.setActive(result.getInt("active"));
-                    user.setCreatedBy(result.getString("createBy"));
-                    user.setCreatedAt(created);
-                    user.setUpdatedBy(result.getString("lastUpdatedBy"));
-                    user.setUpdatedAt(updated);
-
-                }
-            }
-        }
-
-        return authenticated;
+        Stage stage = (Stage) exitButton.getScene().getWindow();
+        stage.close(); 
 
     }
 
-    @FXML private void loginButtonClicked(ActionEvent event) throws IOException, SQLException {
+    private void login(ActionEvent event) {
 
-        if(authenticateUser()) {
+        this.user = database.getUser(
+            userNameField.getText(),
+            passField.getText()
+        );
+
+        if(this.user.getUserID() > 0) {
 
             // Load the next scene.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(homeViewURL));
-            Parent view = loader.load();
+            Parent view = null;
+            try {
+                view = loader.load();
+            } catch (IOException ex) {
+                Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             Scene scene = new Scene(view);
             HomeViewController controller = loader.getController();
-            controller.initData(this.user);
+            controller.initData(this.user, this.database);
             Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
             window.setScene(scene);
             window.show();
@@ -98,16 +72,15 @@ public class LoginViewController implements Initializable {
 
     }
 
-    @FXML private void exitButtonClicked(ActionEvent event) {
-
-        Stage stage = (Stage) exitButton.getScene().getWindow();
-        stage.close();
-
-    }
-
     @Override public void initialize(URL url, ResourceBundle rb) {
 
+        this.database = new MainDAOImpl();
+
         invalidLabel.setVisible(false);
+
+        exitButton.setOnAction(event -> exit());
+        loginButton.setOnAction(event -> login(event));
+
 
     }
 

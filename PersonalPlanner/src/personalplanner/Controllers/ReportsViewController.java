@@ -15,10 +15,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import personalplanner.DAO.MainDAO;
 import personalplanner.Models.User;
 
 public class ReportsViewController implements Initializable {
 
+    private MainDAO database;
     private User user;
     private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
 
@@ -29,9 +31,10 @@ public class ReportsViewController implements Initializable {
     @FXML private TableView<?> resultsTableView;
     @FXML private TableColumn<?, ?> resultsCol;
 
-    public void initData(User user) {
+    public void initData(User user, MainDAO dao) {
 
         this.user = user;
+        this.database = dao;
 
     }    
 
@@ -49,7 +52,7 @@ public class ReportsViewController implements Initializable {
         Parent view = loader.load();
         Scene scene = new Scene(view);
         HomeViewController controller = loader.getController();
-        controller.initData(this.user);
+        controller.initData(this.user, this.database);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();

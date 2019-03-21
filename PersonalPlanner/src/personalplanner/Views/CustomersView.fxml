@@ -47,14 +47,14 @@
                                     <RowConstraints vgrow="SOMETIMES" />
                                     <RowConstraints vgrow="SOMETIMES" />
                                     <RowConstraints vgrow="SOMETIMES" />
-                                    <RowConstraints percentHeight="50.0" vgrow="SOMETIMES" />
+                                    <RowConstraints percentHeight="20.0" vgrow="SOMETIMES" />
                                     <RowConstraints vgrow="SOMETIMES" />
                                  </rowConstraints>
                               </GridPane>
                            </children>
                         </AnchorPane>
                         <Label styleClass="mainLabels" text="Customers" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <TableView fx:id="customersTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <TableView fx:id="customersTableView" GridPane.columnIndex="1" GridPane.rowIndex="3">
                           <columns>
                             <TableColumn fx:id="customerNameCol" prefWidth="75.0" styleClass="roundTable" text="Name" />
                           </columns>
@@ -88,14 +88,14 @@
             </AnchorPane>
          </children>
          <columnConstraints>
-            <ColumnConstraints hgrow="ALWAYS" percentWidth="15.0" />
+            <ColumnConstraints hgrow="ALWAYS" percentWidth="25.0" />
             <ColumnConstraints hgrow="ALWAYS" />
-            <ColumnConstraints hgrow="ALWAYS" percentWidth="15.0" />
+            <ColumnConstraints hgrow="ALWAYS" percentWidth="25.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
+            <RowConstraints percentHeight="25.0" vgrow="ALWAYS" />
             <RowConstraints vgrow="ALWAYS" />
-            <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
+            <RowConstraints percentHeight="25.0" vgrow="ALWAYS" />
          </rowConstraints>
       </GridPane>
    </children>

@@ -23,10 +23,12 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import personalplanner.Models.User;
-import personalplanner.Utils.Database;
+import personalplanner.DAO.Database;
+import personalplanner.DAO.MainDAO;
 
 public class AddCustomerViewController implements Initializable {
 
+    private MainDAO database;
     private User user;
     private String customersViewURL = "/personalplanner/Views/CustomersView.fxml";
 
@@ -92,7 +94,7 @@ public class AddCustomerViewController implements Initializable {
 
         }
     }
-    
+
     private ObservableList<String> getCities(String country) throws SQLException {
 
         ObservableList<String> cities = FXCollections.observableArrayList();
@@ -179,7 +181,7 @@ public class AddCustomerViewController implements Initializable {
         Parent view = loader.load();
         Scene scene = new Scene(view);
         CustomersViewController controller = loader.getController();
-        controller.initData(this.user);
+        controller.initData(this.user, this.database);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
@@ -191,7 +193,7 @@ public class AddCustomerViewController implements Initializable {
         // Create Address, returns its ID and then create a Customer.
         int city = getCityId(cityDropDown.getSelectionModel().getSelectedItem());
         int addr = createAddress(city);
-        
+
         createCustomer(addr);
 
         // Load the next scene.
@@ -200,7 +202,7 @@ public class AddCustomerViewController implements Initializable {
         Parent view = loader.load();
         Scene scene = new Scene(view);
         CustomersViewController controller = loader.getController();
-        controller.initData(this.user);
+        controller.initData(this.user, this.database);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
@@ -243,9 +245,10 @@ public class AddCustomerViewController implements Initializable {
 
     }
 
-    public void initData(User user) {
+    public void initData(User user, MainDAO dao) {
 
         this.user = user;
+        this.database = dao;
 
     }
 

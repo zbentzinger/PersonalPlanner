@@ -17,10 +17,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
+import personalplanner.DAO.MainDAO;
 import personalplanner.Models.User;
 
 public class CalendarViewController implements Initializable {
 
+    private MainDAO database;
     private User user;
     private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
     private String editAppViewURL = "/personalplanner/Views/EditAppointmentView.fxml";
@@ -40,9 +42,10 @@ public class CalendarViewController implements Initializable {
     @FXML private ToggleButton weekToggleButton;
     @FXML private ToggleGroup calendarToggleButtons = new ToggleGroup();
 
-    public void initData(User user) {
+    public void initData(User user, MainDAO dao) {
 
         this.user = user;
+        this.database = dao;
 
     }
 
@@ -54,7 +57,7 @@ public class CalendarViewController implements Initializable {
         Parent view = loader.load();
         Scene scene = new Scene(view);
         HomeViewController controller = loader.getController();
-        controller.initData(this.user);
+        controller.initData(this.user, this.database);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
@@ -69,7 +72,7 @@ public class CalendarViewController implements Initializable {
         Parent view = loader.load();
         Scene scene = new Scene(view);
         EditAppointmentViewController controller = loader.getController();
-        controller.initData(this.user);
+        controller.initData(this.user, this.database);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
@@ -84,7 +87,7 @@ public class CalendarViewController implements Initializable {
         Parent view = loader.load();
         Scene scene = new Scene(view);
         AddAppointmentViewController controller = loader.getController();
-        controller.initData(this.user);
+        controller.initData(this.user, this.database);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();

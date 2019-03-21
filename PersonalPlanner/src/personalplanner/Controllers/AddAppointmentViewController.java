@@ -16,10 +16,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import personalplanner.DAO.MainDAO;
 import personalplanner.Models.User;
 
 public class AddAppointmentViewController implements Initializable {
 
+    private MainDAO database;
     private User user;
     private String calendarViewURL = "/personalplanner/Views/CalendarView.fxml";
 
@@ -33,9 +35,10 @@ public class AddAppointmentViewController implements Initializable {
     @FXML private TextField endTimeTextField;
     @FXML private TextField locationTextField; 
 
-    public void initData(User user) {
+    public void initData(User user, MainDAO dao) {
 
         this.user = user;
+        this.database = dao;
 
     }
 
@@ -47,7 +50,7 @@ public class AddAppointmentViewController implements Initializable {
         Parent view = loader.load();
         Scene scene = new Scene(view);
         CalendarViewController controller = loader.getController();
-        controller.initData(this.user);
+        controller.initData(this.user, this.database);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
@@ -62,7 +65,7 @@ public class AddAppointmentViewController implements Initializable {
         Parent view = loader.load();
         Scene scene = new Scene(view);
         CalendarViewController controller = loader.getController();
-        controller.initData(this.user);
+        controller.initData(this.user, this.database);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();

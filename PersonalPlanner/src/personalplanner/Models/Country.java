@@ -2,65 +2,39 @@ package personalplanner.Models;
 
 import java.time.LocalDateTime;
 
-public class Customer {
+public class Country {
 
-    private int customerID;
-    private String customerName;
-    private Address address;
-    private int active;
+    private int countryID;
+    private String countryName;
     private String createdBy;
     private LocalDateTime createdAt;
     private String updatedBy;
     private LocalDateTime updatedAt;
 
-    public Customer() {
+    public Country() {
     }
 
-    public int getCustomerID() {
+    public int getCountryID() {
 
-        return customerID;
-
-    }
-
-    public void setCustomerID(int customerID) {
-
-        this.customerID = customerID;
+        return countryID;
 
     }
 
-    public String getCustomerName() {
+    public void setCountryID(int countryID) {
 
-        return customerName;
-
-    }
-
-    public void setCustomerName(String customerName) {
-
-        this.customerName = customerName;
+        this.countryID = countryID;
 
     }
 
-    public Address getAddress() {
+    public String getCountryName() {
 
-        return address;
-
-    }
-
-    public void setAddress(Address address) {
-
-        this.address = address;
+        return countryName;
 
     }
 
-    public int isActive() {
+    public void setCountryName(String countryName) {
 
-        return active;
-
-    }
-
-    public void setActive(int active) {
-
-        this.active = active;
+        this.countryName = countryName;
 
     }
 
