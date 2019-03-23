@@ -103,25 +103,25 @@ public class AddCustomerViewController implements Initializable {
 
     private void save() {
 
+        Address address = new Address();
+        address.setAddress(addressTextField.getText());
+        address.setAddress2("");
+        address.setZip(postalCodeTextField.getText());
+        address.setPhone(phoneTextField.getText());
+        address.setCity(this.database.getCity(cityDropDown.getSelectionModel().getSelectedItem()));
+        address.setCreatedBy(this.user.getUserName());
+        address.setUpdatedBy(this.user.getUserName());
+
+        Customer customer = new Customer();
+        customer.setCustomerName(nameTextField.getText());
+        customer.setAddress(address);
+        customer.setCreatedBy(this.user.getUserName());
+        customer.setUpdatedBy(this.user.getUserName());
+        customer.setActive(1);
+
+        this.database.insertCustomer(customer);
+
         try {
-
-            Address address = new Address();
-            address.setAddress(addressTextField.getText());
-            address.setAddress2("");
-            address.setZip(postalCodeTextField.getText());
-            address.setPhone(phoneTextField.getText());
-            address.setCity(this.database.getCity(cityDropDown.getSelectionModel().getSelectedItem()));
-            address.setCreatedBy(this.user.getUserName());
-            address.setUpdatedBy(this.user.getUserName());
-
-            Customer customer = new Customer();
-            customer.setCustomerName(nameTextField.getText());
-            customer.setAddress(address);
-            customer.setCreatedBy(this.user.getUserName());
-            customer.setUpdatedBy(this.user.getUserName());
-            customer.setActive(1);
-
-            this.database.insertCustomer(customer);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(customersViewURL));
             

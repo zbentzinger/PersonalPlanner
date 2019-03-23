@@ -3,12 +3,12 @@ package personalplanner.Controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.binding.BooleanBinding;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -35,66 +35,7 @@ public class EditCustomerViewController implements Initializable {
     @FXML private TextField phoneTextField;
     @FXML private TextField postalCodeTextField;
 
-    public void editCustSaveButtonClicked(ActionEvent event) throws IOException {        
-
-        // Load the next scene.
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(custViewURL));
-        Parent view = loader.load();
-        Scene scene = new Scene(view);
-        CustomersViewController controller = loader.getController();
-        controller.initData(this.user, this.database);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
-
-    }
-
-    public void editCustCancelButtonClicked(ActionEvent event) throws IOException {        
-
-        // Load the next scene.
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(custViewURL));
-        Parent view = loader.load();
-        Scene scene = new Scene(view);
-        CustomersViewController controller = loader.getController();
-        controller.initData(this.user, this.database);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
-
-    }
-
-    private void populateCityDropdown(String country) {
-
-        cityDropDown.getItems().clear();
-
-        cityDropDown.getSelectionModel().select(0);
-
-    }
-
-    private void populateCountryDropdown() {
-
-        countryDropDown.getSelectionModel().select(0);
-
-        populateCityDropdown(countryDropDown.getSelectionModel().getSelectedItem());
-
-    }
-
-    public void initData(User user, Customer customer, MainDAO dao) {
-
-        this.user = user;
-        this.customer = customer;
-        this.database = dao;
-        
-        nameTextField.setText(this.customer.getCustomerName());
-        addressTextField.setText(this.customer.getAddress().getAddress());
-        phoneTextField.setText(this.customer.getAddress().getPhone());
-        postalCodeTextField.setText(this.customer.getAddress().getZip());
-
-    }
-
-    @Override public void initialize(URL url, ResourceBundle rb) {
+    private void bindButtons() {
 
         // Make sure that all fields have a value before enabling save button.
         BooleanBinding enabledState = new BooleanBinding() {
@@ -119,15 +60,110 @@ public class EditCustomerViewController implements Initializable {
 
         editCustSaveButton.disableProperty().bind(enabledState);
 
+    }
+
+    private void cancel() {
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(custViewURL));
+            
+            Stage stage = (Stage) editCustCancelButton.getScene().getWindow();
+            stage.setScene(new Scene((Parent) loader.load()));
+            
+            CustomersViewController controller = loader.getController();
+            controller.initData(this.user, this.database);
+            
+            stage.show();
+
+        } catch (IOException ex) {
+
+            Logger.getLogger(AddCustomerViewController.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+    }
+
+    private void populateCityDropdown(String country) {
+
+        cityDropDown.getItems().clear();
+        cityDropDown.getItems().addAll(this.database.getCities(country));
+        cityDropDown.getSelectionModel().select(0);
+
+    }
+
+    private void populateCountryDropdown() {
+
+        countryDropDown.getItems().addAll(this.database.getAllCountries());
+        countryDropDown.getSelectionModel().select(0);
+
+        populateCityDropdown(countryDropDown.getSelectionModel().getSelectedItem());
+
+    }
+
+    private void save() {
+
+        this.customer.getAddress().setAddress(addressTextField.getText());
+        this.customer.getAddress().setZip(postalCodeTextField.getText());
+        this.customer.getAddress().setPhone(phoneTextField.getText());
+        this.customer.getAddress().setCity(
+            this.database.getCity(
+                cityDropDown.getSelectionModel().getSelectedItem()
+            )
+        );
+        this.customer.getAddress().setUpdatedBy(this.user.getUserName());
+        this.customer.setCustomerName(nameTextField.getText());
+        this.customer.setUpdatedBy(this.user.getUserName());
+        
+        this.database.updateCustomer(this.customer);
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(custViewURL));
+            
+            Stage stage = (Stage) editCustSaveButton.getScene().getWindow();
+            stage.setScene(new Scene((Parent) loader.load()));
+            
+            CustomersViewController controller = loader.getController();
+            controller.initData(this.user, this.database);
+            
+            stage.show();
+
+        } catch (IOException ex) {
+
+            Logger.getLogger(EditCustomerViewController.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+    }
+
+    public void initData(User user, Customer customer, MainDAO dao) {
+
+        this.user = user;
+        this.customer = customer;
+        this.database = dao;
+        
         populateCountryDropdown();
 
-        // Lambda: add listener to country dropdown
-        // so that city dropdown repopulates if another country is selected.
-        countryDropDown.getSelectionModel()
-                       .selectedItemProperty()
-                       .addListener(
-                           (obs, oldVal, newVal) -> populateCityDropdown(newVal)
-                       );
+        countryDropDown.getSelectionModel().select(
+            this.customer.getAddress().getCity().getCountry().getCountryName()
+        );
+        cityDropDown.getSelectionModel().select(
+            this.customer.getAddress().getCity().getCityName()
+        );
+        nameTextField.setText(this.customer.getCustomerName());
+        addressTextField.setText(this.customer.getAddress().getAddress());
+        phoneTextField.setText(this.customer.getAddress().getPhone());
+        postalCodeTextField.setText(this.customer.getAddress().getZip());
+
+    }
+
+    @Override public void initialize(URL url, ResourceBundle rb) {
+
+        bindButtons();
+        countryDropDown.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> populateCityDropdown(newVal));
+        editCustCancelButton.setOnAction(e -> cancel());
+        editCustSaveButton.setOnAction(e -> save());
 
     }
     

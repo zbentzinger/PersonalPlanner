@@ -19,8 +19,10 @@ public class MainDAOImpl implements MainDAO {
 
         int addressID = -1;
 
-        String query = "INSERT INTO address (address,address2,cityId,postalCode,phone,createDate,createdBy,lastUpdateBy) "
-                     + "VALUES (?,?,?,?,?,NOW(),?,?)";
+        String query = "INSERT INTO address "
+                     + "  (address,address2,cityId,postalCode,phone,createDate,createdBy,lastUpdateBy) "
+                     + "VALUES "
+                     + "  (?,?,?,?,?,NOW(),?,?)";
 
         try {
 
@@ -75,6 +77,43 @@ public class MainDAOImpl implements MainDAO {
         } catch (SQLException e) {
 
             System.out.println("Exception when removing address: " + e);
+
+        } finally {
+
+            Database.closeConnection();
+
+        }
+
+    }
+
+    private void updateAddress(Address address) {
+
+        String query = "UPDATE address SET"
+                     + "  address = ?,"
+                     + "  address2 = ?,"
+                     + "  cityId = ?,"
+                     + "  postalCode = ?,"
+                     + "  phone = ?,"
+                     + "  lastUpdateBy = ? "
+                     + "WHERE addressid = ?";
+
+        try {
+
+            PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
+
+            pstmnt.setString(1, address.getAddress());
+            pstmnt.setString(2, address.getAddress2());
+            pstmnt.setInt(3, address.getCity().getCityID());
+            pstmnt.setString(4, address.getZip());
+            pstmnt.setString(5, address.getPhone());
+            pstmnt.setString(6, address.getUpdatedBy());
+            pstmnt.setInt(7, address.getAddressID());
+
+            pstmnt.executeUpdate();
+
+        } catch (SQLException e) {
+
+            System.out.println("Exception when updating address: " + e);
 
         } finally {
 
@@ -371,8 +410,10 @@ public class MainDAOImpl implements MainDAO {
             createAddress(customer.getAddress())
         );
 
-        String query = "INSERT INTO customer (customerName,addressId,active,createDate,createdBy,lastUpdateBy) "
-                     + "VALUES (?,?,?,NOW(),?,?)";
+        String query = "INSERT INTO customer "
+                     + "  (customerName,addressId,active,createDate,createdBy,lastUpdateBy) "
+                     + "VALUES"
+                     + "  (?,?,?,NOW(),?,?)";
 
         try {
 
@@ -399,7 +440,38 @@ public class MainDAOImpl implements MainDAO {
     }
 
     @Override public void updateCustomer(Customer customer) {        
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        updateAddress(customer.getAddress());
+
+        String query = "UPDATE customer SET"
+                     + "  customerName=?,"
+                     + "  addressId=?,"
+                     + "  active=?,"
+                     + "  lastUpdateBy=? "
+                     + "WHERE customerid = ?";
+
+        try {
+
+            PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
+
+            pstmnt.setString(1, customer.getCustomerName());
+            pstmnt.setInt(2, customer.getAddress().getAddressID());
+            pstmnt.setInt(3, customer.isActive());
+            pstmnt.setString(4, customer.getUpdatedBy());
+            pstmnt.setInt(5, customer.getCustomerID());
+
+            pstmnt.executeUpdate();
+
+        } catch (SQLException e) {
+
+            System.out.println("Exception when updating customer: " + e);
+
+        } finally {
+
+            Database.closeConnection();
+
+        }
+
     }
 
     @Override public User getUser(String username, String pass) {
