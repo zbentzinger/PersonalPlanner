@@ -138,4 +138,21 @@ public class Address {
 
     }
 
+    @Override public String toString() {
+
+        return "Address{" 
+                        + "addressID=" + addressID 
+                        + ", address=" + address 
+                        + ", address2=" + address2 
+                        + ", city=" + city 
+                        + ", zip=" + zip 
+                        + ", phone=" + phone 
+                        + ", createdBy=" + createdBy 
+                        + ", createdAt=" + createdAt 
+                        + ", updatedBy=" + updatedBy 
+                        + ", updatedAt=" + updatedAt
+                + '}';
+
+    }
+
 }

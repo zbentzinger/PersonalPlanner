@@ -86,4 +86,17 @@ public class Country {
 
     }
 
+    @Override public String toString() {
+
+        return "Country{" 
+                        + "countryID=" + countryID 
+                        + ", countryName=" + countryName 
+                        + ", createdBy=" + createdBy 
+                        + ", createdAt=" + createdAt 
+                        + ", updatedBy=" + updatedBy 
+                        + ", updatedAt=" + updatedAt 
+                + '}';
+
+    }
+
 }

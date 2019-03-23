@@ -87,11 +87,11 @@
                               <RowConstraints vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="newCustSaveButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#newCustSaveButtonClicked" styleClass="mainButtons" text="Save" GridPane.valignment="CENTER">
+                              <Button fx:id="newCustSaveButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="mainButtons" text="Save" GridPane.valignment="CENTER">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></Button>
-                              <Button fx:id="newCustCancelButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#newCustCancelButtonClicked" styleClass="secondaryButtons" text="Cancel" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                              <Button fx:id="newCustCancelButton" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="secondaryButtons" text="Cancel" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></Button>

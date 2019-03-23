@@ -112,4 +112,19 @@ public class Customer {
 
     }
 
+    @Override public String toString() {
+
+        return "Customer{" 
+                        + "customerID=" + customerID 
+                        + ", customerName=" + customerName 
+                        + ", address=" + address 
+                        + ", active=" + active 
+                        + ", createdBy=" + createdBy 
+                        + ", createdAt=" + createdAt 
+                        + ", updatedBy=" + updatedBy 
+                        + ", updatedAt=" + updatedAt 
+                + '}';
+
+    }
+
 }

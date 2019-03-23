@@ -113,16 +113,18 @@ public class User {
     }
 
     @Override public String toString() {
+
         return "User{" 
-             + "userID=" + userID 
-             + ", userName=" + userName 
-             + ", password=" + password 
-             + ", active=" + active 
-             + ", createdBy=" + createdBy 
-             + ", createdAt=" + createdAt 
-             + ", updatedBy=" + updatedBy 
-             + ", updatedAt=" + updatedAt 
+                    + "userID=" + userID 
+                    + ", userName=" + userName 
+                    + ", password=" + password 
+                    + ", active=" + active 
+                    + ", createdBy=" + createdBy 
+                    + ", createdAt=" + createdAt 
+                    + ", updatedBy=" + updatedBy 
+                    + ", updatedAt=" + updatedAt 
              + '}';
+
     }
 
 }

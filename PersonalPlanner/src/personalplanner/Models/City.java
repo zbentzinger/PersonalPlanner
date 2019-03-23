@@ -99,4 +99,18 @@ public class City {
 
     }
 
+    @Override public String toString() {
+
+        return "City{" 
+                    + "cityID=" + cityID 
+                    + ", country=" + country 
+                    + ", cityName=" + cityName 
+                    + ", createdBy=" + createdBy 
+                    + ", createdAt=" + createdAt 
+                    + ", updatedBy=" + updatedBy 
+                    + ", updatedAt=" + updatedAt 
+                + '}';
+
+    }
+
 }
