@@ -12,10 +12,7 @@ import personalplanner.Models.Country;
 import personalplanner.Models.Customer;
 import personalplanner.Models.User;
 
-
 public class MainDAOImpl implements MainDAO {
-
-    
 
     @Override public ObservableList<Appointment> getAllAppointments() {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -116,7 +113,7 @@ public class MainDAOImpl implements MainDAO {
 
         } catch (SQLException e) {
 
-            System.out.println("Exception when retrieving user: " + e);
+            System.out.println("Exception when retrieving all customers: " + e);
 
         } finally {
 
@@ -132,31 +129,53 @@ public class MainDAOImpl implements MainDAO {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override public boolean deleteAppointment(Appointment appointment) {
+    @Override public void deleteAppointment(Appointment appointment) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override public boolean insertAppointment(Appointment appointment) {
+    @Override public void insertAppointment(Appointment appointment) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override public boolean updateAppointment(Appointment appointment) {
+    @Override public void updateAppointment(Appointment appointment) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override public boolean deleteCustomer(Customer customer) {
+    @Override public void deleteCustomer(Customer customer) {
+
+        String query = "DELETE "
+                     + "FROM customer "
+                     + "WHERE customerid = ?";
+
+        try {
+
+            PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
+            pstmnt.setInt(1, customer.getCustomerID());
+
+            pstmnt.executeUpdate();
+
+        } catch (SQLException e) {
+
+            System.out.println("Exception when removing customer: " + e);
+
+        } finally {
+
+            Database.closeConnection();
+
+        }
+
+    }
+
+    @Override public void insertCustomer(Customer customer) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override public boolean insertCustomer(Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override public boolean updateCustomer(Customer customer) {
+    @Override public void updateCustomer(Customer customer) {        
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override public User getUser(String username, String pass) {
+
         User user = new User();
 
         String query = "SELECT * " 

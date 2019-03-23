@@ -5,11 +5,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -39,30 +37,33 @@ public class LoginViewController implements Initializable {
 
     }
 
-    private void login(ActionEvent event) {
+    private void login() {
 
         this.user = database.getUser(
             userNameField.getText(),
             passField.getText()
         );
 
+        // Auth the user and load HomeView.
         if(this.user.getUserID() > 0) {
 
-            // Load the next scene.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(homeViewURL));
-            Parent view = null;
             try {
-                view = loader.load();
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(homeViewURL));
+
+                Stage stage = (Stage) loginButton.getScene().getWindow();
+                stage.setScene(new Scene((Parent) loader.load()));
+
+                HomeViewController controller = loader.getController();
+                controller.initData(this.user, this.database);
+
+                stage.show();
+
             } catch (IOException ex) {
+
                 Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
+
             }
-            Scene scene = new Scene(view);
-            HomeViewController controller = loader.getController();
-            controller.initData(this.user, this.database);
-            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
 
         } else {
 
@@ -78,8 +79,8 @@ public class LoginViewController implements Initializable {
 
         invalidLabel.setVisible(false);
 
-        exitButton.setOnAction(event -> exit());
-        loginButton.setOnAction(event -> login(event));
+        exitButton.setOnAction(e -> exit());
+        loginButton.setOnAction(e -> login());
 
 
     }

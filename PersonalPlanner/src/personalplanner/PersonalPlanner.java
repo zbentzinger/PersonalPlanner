@@ -11,25 +11,21 @@ public class PersonalPlanner extends Application {
 
     private String loginViewURL = "/personalplanner/Views/LoginView.fxml";
 
-    @Override public void start(Stage stage) throws Exception {
-
-        ResourceBundle resources = ResourceBundle.getBundle("personalplanner.Utils.LoginView");
-
-        Parent loginView = FXMLLoader.load(
-                getClass().getResource(loginViewURL),
-                resources
-        );
-
-        Scene loginScene = new Scene(loginView);
-
-        stage.setScene(loginScene);
-        stage.show();
-
-    }
-
     public static void main(String[] args) {
 
         launch(args);
+
+    }
+
+    @Override public void start(Stage stage) throws Exception {
+
+        Parent loginView = FXMLLoader.load(
+            getClass().getResource(loginViewURL),
+            ResourceBundle.getBundle("personalplanner.Utils.LoginView")
+        );
+
+        stage.setScene(new Scene(loginView));
+        stage.show();
 
     }
 

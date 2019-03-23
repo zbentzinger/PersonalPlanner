@@ -2,15 +2,10 @@ package personalplanner.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,64 +38,107 @@ public class CustomersViewController implements Initializable {
     @FXML private TableView<Customer> customersTableView;
     @FXML private TableColumn<Customer, String> customerNameCol;
 
+    private void add() {  
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(addCustViewURL));
+
+            Stage stage = (Stage) addCustomerButton.getScene().getWindow();
+            stage.setScene(new Scene((Parent) loader.load()));
+
+            AddCustomerViewController controller = loader.getController();
+            controller.initData(this.user, this.database);
+
+            stage.show();
+
+        } catch (IOException ex) {
+
+            Logger.getLogger(CustomersViewController.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+    }
+
+    private void bindButtons() {
+
+        editCustomerButton.disableProperty().bind(
+            Bindings.isEmpty(
+                customersTableView.getSelectionModel().getSelectedItems()
+            )
+        );
+
+        deleteCustomerButton.disableProperty().bind(
+            Bindings.isEmpty(
+                customersTableView.getSelectionModel().getSelectedItems()
+            )
+        );
+
+    }
+
+    private void delete() {
+
+        Customer selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
+        customersTableView.getItems().remove(selectedCustomer);
+
+        this.database.deleteCustomer(selectedCustomer);
+
+    }
+
+    private void edit() {
+
+        try {
+
+            Customer selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(editCustViewURL));
+
+            Stage stage = (Stage) editCustomerButton.getScene().getWindow();
+            stage.setScene(new Scene((Parent) loader.load()));
+
+            EditCustomerViewController controller = loader.getController();
+            controller.initData(this.user, selectedCustomer, this.database);
+
+            stage.show();
+
+        } catch (IOException ex) {
+
+            Logger.getLogger(CustomersViewController.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+    }
+    
+    private void home() {
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(homeViewURL));
+
+            Stage stage = (Stage) customersHomeButton.getScene().getWindow();
+            stage.setScene(new Scene((Parent) loader.load()));
+
+            HomeViewController controller = loader.getController();
+            controller.initData(this.user, this.database);
+
+            stage.show();
+
+        } catch (IOException ex) {
+
+            Logger.getLogger(CustomersViewController.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+    }
+
     private void populateCustomersTable() {
 
         customerNameCol.setCellValueFactory(
-                new PropertyValueFactory<Customer, String>("customerName")
+            new PropertyValueFactory<>("customerName")
         );
 
         customersTableView.setItems(this.database.getAllCustomers());
         customersTableView.setPlaceholder(new Label(""));
-
-    }
-
-    public void editCustomerButton(ActionEvent event) throws IOException {
-
-        Customer selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
-
-        // Load the next scene.
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(editCustViewURL));
-        Parent view = loader.load();
-        Scene scene = new Scene(view);
-        EditCustomerViewController controller = loader.getController();
-        controller.initData(this.user, selectedCustomer, this.database);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
-
-    }
-
-    public void addCustomerButtonClicked(ActionEvent event) throws IOException {
-
-        // Load the next scene.
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(addCustViewURL));
-        Parent view = loader.load();
-        Scene scene = new Scene(view);
-        AddCustomerViewController controller = loader.getController();
-        controller.initData(this.user, this.database);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
-
-    }
-
-    public void deleteCustomerButtonClicked(ActionEvent event) {
-    }
-
-    public void customersHomeButtonClicked(ActionEvent event) throws IOException {        
-
-        // Load the next scene.
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(homeViewURL));
-        Parent view = loader.load();
-        Scene scene = new Scene(view);
-        HomeViewController controller = loader.getController();
-        controller.initData(this.user, this.database);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
 
     }
 
@@ -115,18 +153,11 @@ public class CustomersViewController implements Initializable {
 
     @Override public void initialize(URL url, ResourceBundle rb) {
 
-        editCustomerButton.disableProperty().bind(
-            Bindings.isEmpty(
-                customersTableView.getSelectionModel().getSelectedItems()
-            )
-        );
-
-        deleteCustomerButton.disableProperty().bind(
-            Bindings.isEmpty(
-                customersTableView.getSelectionModel().getSelectedItems()
-            )
-        );
-
+        bindButtons();
+        addCustomerButton.setOnAction(e -> add());
+        deleteCustomerButton.setOnAction(e -> delete());
+        editCustomerButton.setOnAction(e -> edit());
+        customersHomeButton.setOnAction(e -> home());
 
     }
 

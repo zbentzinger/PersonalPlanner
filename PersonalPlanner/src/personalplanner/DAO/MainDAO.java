@@ -14,13 +14,13 @@ public interface MainDAO {
     ObservableList<Customer> getAllCustomers();
     ObservableList<City> getCities(String country);
 
-    boolean deleteAppointment(Appointment appointment);
-    boolean insertAppointment(Appointment appointment);
-    boolean updateAppointment(Appointment appointment);
+    void deleteAppointment(Appointment appointment);
+    void insertAppointment(Appointment appointment);
+    void updateAppointment(Appointment appointment);
 
-    boolean deleteCustomer(Customer customer);
-    boolean insertCustomer(Customer customer);
-    boolean updateCustomer(Customer customer);
+    void deleteCustomer(Customer customer);
+    void insertCustomer(Customer customer);
+    void updateCustomer(Customer customer);
 
     User getUser(String username, String pass);
 
