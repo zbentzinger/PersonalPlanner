@@ -12,6 +12,14 @@ public class Country {
     private LocalDateTime updatedAt;
 
     public Country() {
+
+        this.countryID = -1;
+        this.countryName = "";
+        this.createdBy = "";
+        this.createdAt = LocalDateTime.now();
+        this.updatedBy = "";
+        this.updatedAt = LocalDateTime.now();
+
     }
 
     public int getCountryID() {
@@ -86,16 +94,43 @@ public class Country {
 
     }
 
+    // Ive overriden the following three methods 
+    // for use with ChoiceBoxes in the AddCustomer and EditCustomer views.
     @Override public String toString() {
 
-        return "Country{" 
-                        + "countryID=" + countryID 
-                        + ", countryName=" + countryName 
-                        + ", createdBy=" + createdBy 
-                        + ", createdAt=" + createdAt 
-                        + ", updatedBy=" + updatedBy 
-                        + ", updatedAt=" + updatedAt 
-                + '}';
+        return this.countryName;
+
+    }
+
+    @Override public int hashCode() {
+
+        int hash = 7;
+        hash = 47 * hash + this.countryID;
+
+        return hash;
+    }
+
+    @Override public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        final Country other = (Country) obj;
+
+        if (this.countryID != other.countryID) {
+            return false;
+        }
+
+        return true;
 
     }
 

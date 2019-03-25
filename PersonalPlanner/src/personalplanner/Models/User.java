@@ -14,6 +14,16 @@ public class User {
     private LocalDateTime updatedAt;
 
     public User() {
+
+        this.userID = -1;
+        this.userName = "";
+        this.password = "";
+        this.active = 1;
+        this.createdBy = "";
+        this.createdAt = LocalDateTime.now();
+        this.updatedBy = "";
+        this.updatedAt = LocalDateTime.now();
+
     }
 
     public int getUserID() {

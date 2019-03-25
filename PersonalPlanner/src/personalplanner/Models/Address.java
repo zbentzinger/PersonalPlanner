@@ -16,6 +16,18 @@ public class Address {
     private LocalDateTime updatedAt;
 
     public Address() {
+
+        this.addressID = -1;
+        this.address = "";
+        this.address2 = "";
+        this.city = new City();
+        this.zip = "";
+        this.phone = "";
+        this.createdBy = "";
+        this.createdAt = LocalDateTime.now();
+        this.updatedBy = "";
+        this.updatedAt = LocalDateTime.now();
+
     }
 
     public int getAddressID() {

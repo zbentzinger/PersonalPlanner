@@ -21,6 +21,23 @@ public class Appointment {
     private LocalDateTime updatedAt;
 
     public Appointment() {
+
+        this.appointmentID = -1;
+        this.customer = new Customer();
+        this.user = new User();
+        this.title = "";
+        this.description = "";
+        this.location = "";
+        this.contact = "";
+        this.type = "";
+        this.url = "";
+        this.start = LocalDateTime.now();
+        this.end = LocalDateTime.now();
+        this.createdBy = "";
+        this.createdAt = LocalDateTime.now();
+        this.updatedBy = "";
+        this.updatedAt = LocalDateTime.now();
+
     }
 
     public int getAppointmentID() {

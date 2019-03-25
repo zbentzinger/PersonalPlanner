@@ -3,11 +3,11 @@ package personalplanner.Controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,7 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import personalplanner.DAO.MainDAO;
 import personalplanner.Models.User;
@@ -40,7 +39,97 @@ public class CalendarViewController implements Initializable {
     @FXML private TableView<?> calendarTableView;
     @FXML private ToggleButton monthToggleButton;
     @FXML private ToggleButton weekToggleButton;
-    @FXML private ToggleGroup calendarToggleButtons = new ToggleGroup();
+
+    private void add() {
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(addAppViewURL));
+
+            Stage stage = (Stage) addAppointmentButton.getScene().getWindow();
+            stage.setScene(new Scene((Parent) loader.load()));
+
+            AddAppointmentViewController controller = loader.getController();
+            controller.initData(this.user, this.database);
+
+            stage.show();
+
+        } catch (IOException ex) {
+
+            Logger.getLogger(CalendarViewController.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+    }
+
+    private void back() {
+    }
+
+    private void delete() {
+    }
+
+    private void edit() {
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(editAppViewURL));
+
+            Stage stage = (Stage) editAppointmentButton.getScene().getWindow();
+            stage.setScene(new Scene((Parent) loader.load()));
+
+            EditAppointmentViewController controller = loader.getController();
+            controller.initData(this.user, this.database);
+
+            stage.show();
+
+        } catch (IOException ex) {
+
+            Logger.getLogger(CalendarViewController.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+    }
+
+    private void home() {
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(homeViewURL));
+            
+            Stage stage = (Stage) homeButton.getScene().getWindow();
+            stage.setScene(new Scene((Parent) loader.load()));
+            
+            HomeViewController controller = loader.getController();
+            controller.initData(this.user, this.database);
+            
+            stage.show();
+
+        } catch (IOException ex) {
+
+            Logger.getLogger(CalendarViewController.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+    }
+
+    private void monthToggle() {
+
+        // Prevent unselecting of a toggle button.
+        weekToggleButton.setDisable(false);
+        monthToggleButton.setDisable(true);
+
+    }
+
+    private void next() {
+    }
+
+    private void weekToggle() {
+
+        // Prevent unselecting of a toggle button.
+        monthToggleButton.setDisable(false);
+        weekToggleButton.setDisable(true);
+
+    }
 
     public void initData(User user, MainDAO dao) {
 
@@ -49,74 +138,20 @@ public class CalendarViewController implements Initializable {
 
     }
 
-    @FXML private void homeButtonClicked(ActionEvent event) throws IOException {        
-
-        // Load the next scene.
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(homeViewURL));
-        Parent view = loader.load();
-        Scene scene = new Scene(view);
-        HomeViewController controller = loader.getController();
-        controller.initData(this.user, this.database);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
-
-    }
-
-    @FXML private void editAppointmentButtonClicked(ActionEvent event) throws IOException {        
-
-        // Load the next scene.
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(editAppViewURL));
-        Parent view = loader.load();
-        Scene scene = new Scene(view);
-        EditAppointmentViewController controller = loader.getController();
-        controller.initData(this.user, this.database);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
-
-    }
-
-    @FXML private void addAppointmentButtonClicked(ActionEvent event) throws IOException {        
-
-        // Load the next scene.
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(addAppViewURL));
-        Parent view = loader.load();
-        Scene scene = new Scene(view);
-        AddAppointmentViewController controller = loader.getController();
-        controller.initData(this.user, this.database);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
-
-    }
-
-    @FXML private void deleteAppointmentButtonClicked(ActionEvent event) {
-    }
-
-    @FXML private void backButtonClicked(ActionEvent event) {
-    }
-
-    @FXML private void nextButtonClicked(ActionEvent event) {
-    }
-
-    @FXML private void monthToggleButtonClicked(ActionEvent event) {
-    }
-
-    @FXML private void weekToggleButtonClicked(ActionEvent event) {
-    }
-
     @Override public void initialize(URL url, ResourceBundle rb) {
 
+        addAppointmentButton.setOnAction(e -> add());
+        backButton.setOnAction(e -> back());
+        deleteAppointmentButton.setOnAction(e -> delete());
+        editAppointmentButton.setOnAction(e -> edit());
+        homeButton.setOnAction(e -> home());
+        monthToggleButton.setOnAction(e -> monthToggle());
+        nextButton.setOnAction(e -> next());
+        weekToggleButton.setOnAction(e -> weekToggle());
+
+        monthToggleButton.setSelected(true);
         calendarTableView.setPlaceholder(new Label(""));
 
-        monthToggleButton.setToggleGroup(calendarToggleButtons);
-        weekToggleButton.setToggleGroup(calendarToggleButtons);
-        monthToggleButton.setSelected(true);
-        
     }
-    
+
 }

@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import personalplanner.Models.Address;
@@ -132,39 +133,89 @@ public class MainDAOImpl implements MainDAO {
     }
 
     @Override public void insertAppointment(Appointment appointment) {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        String query = "INSERT INTO appointment "
+                     + "  (customerId,userId,title,description,location,contact,type,url,start,end,createDate,createdBy,lastUpdateBy) "
+                     + "VALUES"
+                     + "  (?,?,?,?,?,?,?,?,?,?,NOW(),?,?)";
+
+        try {
+
+            PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
+
+            pstmnt.setInt(1, appointment.getCustomer().getCustomerID());
+            pstmnt.setInt(2, appointment.getUser().getUserID());
+            pstmnt.setString(3, appointment.getTitle());
+            pstmnt.setString(4, appointment.getDescription());
+            pstmnt.setString(5, appointment.getLocation());
+            pstmnt.setString(6, appointment.getContact());
+            pstmnt.setString(7, appointment.getType());
+            pstmnt.setString(8, appointment.getUrl());
+            pstmnt.setTimestamp(9, Timestamp.valueOf(appointment.getStart()));
+            pstmnt.setTimestamp(10, Timestamp.valueOf(appointment.getEnd()));
+            pstmnt.setString(11, appointment.getCreatedBy());
+            pstmnt.setString(12, appointment.getUpdatedBy());
+
+            pstmnt.executeUpdate();
+
+        } catch (SQLException e) {
+
+            System.out.println("Exception when creating appointment: " + e);
+
+        } finally {
+
+            Database.closeConnection();
+
+        }
+
     }
 
     @Override public void updateAppointment(Appointment appointment) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override public ObservableList<String> getCities(String country) {
+    @Override public ObservableList<City> getCities(Country country) {
 
-        ObservableList<String> cities = FXCollections.observableArrayList();
+        ObservableList<City> cities = FXCollections.observableArrayList();
         
-        String query = "SELECT c.city "
+        String query = "SELECT"
+                     + "  c.cityid AS cityID,"
+                     + "  c.city AS city,"
+                     + "  c.createDate AS cityCreateDate,"
+                     + "  c.createdBy AS cityCreateBy,"
+                     + "  c.lastUpdate AS cityUpdateDate,"
+                     + "  c.lastUpdateBy cityUpdateBy "
                      + "FROM city c "
                      + "  JOIN country cc ON c.countryid = cc.countryid "
-                     + "WHERE cc.country = ?";
+                     + "WHERE cc.countryid = ?";
 
         try {
 
             PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
 
-            pstmnt.setString(1, country);
+            pstmnt.setInt(1, country.getCountryID());
 
             ResultSet result = pstmnt.executeQuery();
 
             while(result.next()) {
 
-                cities.add(result.getString("city"));
+                City city = new City();
+
+                city.setCityID(result.getInt("cityID"));
+                city.setCityName(result.getString("city"));
+                city.setCountry(country);
+                city.setCreatedAt(result.getTimestamp("cityCreateDate").toLocalDateTime());
+                city.setCreatedBy(result.getString("cityCreateBy"));
+                city.setUpdatedAt(result.getTimestamp("cityUpdateDate").toLocalDateTime());
+                city.setUpdatedBy(result.getString("cityUpdateBy"));
+
+                cities.add(city);
 
             }
 
         } catch (SQLException e) {
 
-            System.out.println("Exception when retrieving all countries: " + e);
+            System.out.println("Exception when retrieving all cities: " + e);
 
         } finally {
 
@@ -239,12 +290,18 @@ public class MainDAOImpl implements MainDAO {
 
     }
 
-    @Override public ObservableList<String> getAllCountries() {
+    @Override public ObservableList<Country> getAllCountries() {
 
-        ObservableList<String> countries = FXCollections.observableArrayList();
+        ObservableList<Country> countries = FXCollections.observableArrayList();
         
-        String query = "SELECT * "
-                     + "FROM country";
+        String query = "SELECT"
+                     + "  c.countryid AS countryID,"
+                     + "  c.country AS country,"
+                     + "  c.createDate AS countryCreateDate,"
+                     + "  c.createdBy AS countryCreateBy,"
+                     + "  c.lastUpdate AS countryUpdateDate,"
+                     + "  c.lastUpdateBy AS countryUpdateBy "
+                     + "FROM country c";
 
         try {
 
@@ -254,7 +311,16 @@ public class MainDAOImpl implements MainDAO {
 
             while(result.next()) {
 
-                countries.add(result.getString("country"));
+                Country country = new Country();
+
+                country.setCountryID(result.getInt("countryID"));
+                country.setCountryName(result.getString("country"));
+                country.setCreatedAt(result.getTimestamp("countryCreateDate").toLocalDateTime());
+                country.setCreatedBy(result.getString("countryCreateBy"));
+                country.setUpdatedAt(result.getTimestamp("countryUpdateDate").toLocalDateTime());
+                country.setUpdatedBy(result.getString("countryUpdateBy"));
+
+                countries.add(country);
 
             }
 

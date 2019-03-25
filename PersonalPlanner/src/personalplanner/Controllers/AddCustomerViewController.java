@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 import personalplanner.Models.User;
 import personalplanner.DAO.MainDAO;
 import personalplanner.Models.Address;
+import personalplanner.Models.City;
+import personalplanner.Models.Country;
 import personalplanner.Models.Customer;
 
 public class AddCustomerViewController implements Initializable {
@@ -28,8 +30,8 @@ public class AddCustomerViewController implements Initializable {
 
     @FXML private Button newCustCancelButton;
     @FXML private Button newCustSaveButton;
-    @FXML private ChoiceBox<String> cityDropDown;
-    @FXML private ChoiceBox<String> countryDropDown;
+    @FXML private ChoiceBox<City> cityDropDown;
+    @FXML private ChoiceBox<Country> countryDropDown;
     @FXML private TextField nameTextField;
     @FXML private TextField addressTextField;
     @FXML private TextField phoneTextField;  
@@ -84,7 +86,7 @@ public class AddCustomerViewController implements Initializable {
 
     }
 
-    private void populateCityDropdown(String country) {
+    private void populateCityDropdown(Country country) {
 
         cityDropDown.getItems().clear();
         cityDropDown.getItems().addAll(this.database.getCities(country));
@@ -105,10 +107,9 @@ public class AddCustomerViewController implements Initializable {
 
         Address address = new Address();
         address.setAddress(addressTextField.getText());
-        address.setAddress2("");
         address.setZip(postalCodeTextField.getText());
         address.setPhone(phoneTextField.getText());
-        address.setCity(this.database.getCity(cityDropDown.getSelectionModel().getSelectedItem()));
+        address.setCity(cityDropDown.getSelectionModel().getSelectedItem());
         address.setCreatedBy(this.user.getUserName());
         address.setUpdatedBy(this.user.getUserName());
 
@@ -117,7 +118,6 @@ public class AddCustomerViewController implements Initializable {
         customer.setAddress(address);
         customer.setCreatedBy(this.user.getUserName());
         customer.setUpdatedBy(this.user.getUserName());
-        customer.setActive(1);
 
         this.database.insertCustomer(customer);
 

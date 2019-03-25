@@ -14,6 +14,16 @@ public class Customer {
     private LocalDateTime updatedAt;
 
     public Customer() {
+
+        this.customerID = -1;
+        this.customerName = "";
+        this.address = new Address();
+        this.active = 1;
+        this.createdBy = "";
+        this.createdAt = LocalDateTime.now();
+        this.updatedBy = "";
+        this.updatedAt = LocalDateTime.now();
+
     }
 
     public int getCustomerID() {

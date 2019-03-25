@@ -55,6 +55,26 @@ ChoiceBoxes
 
 /*****
 
+DatePickers
+
+*****/
+.date-picker {
+    -fx-background-insets: 0;
+}
+
+.date-picker .text-field {
+    -fx-text-fill: text-primary-color;
+    -fx-pref-height: text-field-height;
+    -fx-min-height: text-field-height;
+    -fx-max-height: text-field-height;
+    -fx-background-color: dark-primary-color;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,1), 10, 0, 0, 0);
+}
+
+/*****
+
 Tables
 
 *****/
@@ -235,8 +255,10 @@ Buttons
     -fx-max-height: button-height;
 }
 
-.calendarToggleButtons:selected {
+.calendarToggleButtons:selected,
+.calendarToggleButtons:disabled {
     -fx-background-color: light-primary-color;
+    -fx-opacity: 1.0;
 }
 
 #monthToggleButton {

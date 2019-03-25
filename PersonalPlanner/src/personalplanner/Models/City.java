@@ -13,6 +13,15 @@ public class City {
     private LocalDateTime updatedAt;
 
     public City() {
+
+        this.cityID = -1;
+        this.country = new Country();
+        this.cityName = "";
+        this.createdBy = "";
+        this.createdAt = LocalDateTime.now();
+        this.updatedBy = "";
+        this.updatedAt = LocalDateTime.now();
+
     }
 
     public int getCityID() {
@@ -99,17 +108,44 @@ public class City {
 
     }
 
+    // Ive overriden the following three methods 
+    // for use with ChoiceBoxes in the AddCustomer and EditCustomer views.
     @Override public String toString() {
 
-        return "City{" 
-                    + "cityID=" + cityID 
-                    + ", country=" + country 
-                    + ", cityName=" + cityName 
-                    + ", createdBy=" + createdBy 
-                    + ", createdAt=" + createdAt 
-                    + ", updatedBy=" + updatedBy 
-                    + ", updatedAt=" + updatedAt 
-                + '}';
+        return this.cityName;
+
+    }
+
+    @Override public int hashCode() {
+
+        int hash = 7;
+        hash = 67 * hash + this.cityID;
+
+        return hash;
+
+    }
+
+    @Override public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        final City other = (City) obj;
+
+        if (this.cityID != other.cityID) {
+            return false;
+        }
+
+        return true;
 
     }
 

@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 import personalplanner.Models.Customer;
 import personalplanner.Models.User;
 import personalplanner.DAO.MainDAO;
+import personalplanner.Models.City;
+import personalplanner.Models.Country;
 
 public class EditCustomerViewController implements Initializable {
 
@@ -28,8 +30,8 @@ public class EditCustomerViewController implements Initializable {
 
     @FXML private Button editCustSaveButton;
     @FXML private Button editCustCancelButton;
-    @FXML private ChoiceBox<String> countryDropDown;
-    @FXML private ChoiceBox<String> cityDropDown;
+    @FXML private ChoiceBox<Country> countryDropDown;
+    @FXML private ChoiceBox<City> cityDropDown;
     @FXML private TextField nameTextField;
     @FXML private TextField addressTextField;
     @FXML private TextField phoneTextField;
@@ -84,7 +86,7 @@ public class EditCustomerViewController implements Initializable {
 
     }
 
-    private void populateCityDropdown(String country) {
+    private void populateCityDropdown(Country country) {
 
         cityDropDown.getItems().clear();
         cityDropDown.getItems().addAll(this.database.getCities(country));
@@ -106,11 +108,7 @@ public class EditCustomerViewController implements Initializable {
         this.customer.getAddress().setAddress(addressTextField.getText());
         this.customer.getAddress().setZip(postalCodeTextField.getText());
         this.customer.getAddress().setPhone(phoneTextField.getText());
-        this.customer.getAddress().setCity(
-            this.database.getCity(
-                cityDropDown.getSelectionModel().getSelectedItem()
-            )
-        );
+        this.customer.getAddress().setCity(cityDropDown.getSelectionModel().getSelectedItem());
         this.customer.getAddress().setUpdatedBy(this.user.getUserName());
         this.customer.setCustomerName(nameTextField.getText());
         this.customer.setUpdatedBy(this.user.getUserName());
@@ -142,15 +140,11 @@ public class EditCustomerViewController implements Initializable {
         this.user = user;
         this.customer = customer;
         this.database = dao;
-        
+
         populateCountryDropdown();
 
-        countryDropDown.getSelectionModel().select(
-            this.customer.getAddress().getCity().getCountry().getCountryName()
-        );
-        cityDropDown.getSelectionModel().select(
-            this.customer.getAddress().getCity().getCityName()
-        );
+        countryDropDown.getSelectionModel().select(this.customer.getAddress().getCity().getCountry());
+        cityDropDown.getSelectionModel().select(this.customer.getAddress().getCity());
         nameTextField.setText(this.customer.getCustomerName());
         addressTextField.setText(this.customer.getAddress().getAddress());
         phoneTextField.setText(this.customer.getAddress().getPhone());
