@@ -16,6 +16,67 @@ import personalplanner.Models.User;
 
 public class MainDAOImpl implements MainDAO {
 
+    // Used for building select queries, needed to standardize the fieldlist.
+    private String addr_fields = "address.addressid AS AddressAddressID,"
+                               + "address.address AS AddressAddress,"
+                               + "address.address2 AS AddressAddress2,"
+                               + "address.cityid AS AddressCityID,"
+                               + "address.postalCode AS AddressPostalCode,"
+                               + "address.phone AS AddressPhone,"
+                               + "address.createDate AS AddressCreateDate,"
+                               + "address.createdBy AS AddressCreatedBy,"
+                               + "address.lastUpdate AS AddressLastUpdate,"
+                               + "address.lastUpdateBy AS AddressLastUpdateBy";
+
+    private String appt_fields = "appointment.appointmentid AS AppointmentAppointmentID,"
+                               + "appointment.customerid AS AppointmentCustomerID,"
+                               + "appointment.userid AS AppointmentUserID,"
+                               + "appointment.title AS AppointmentTitle,"
+                               + "appointment.description AS AppointmentDescription,"
+                               + "appointment.location AS AppointmentLocation,"
+                               + "appointment.contact AS AppointmentContact,"
+                               + "appointment.type AS AppointmentType,"
+                               + "appointment.url AS AppointmentUrl,"
+                               + "appointment.start AS AppointmentStart,"
+                               + "appointment.end AS AppointmentEnd,"
+                               + "appointment.createDate AS AppointmentCreateDate,"
+                               + "appointment.createdBy AS AppointmentCreatedBy,"
+                               + "appointment.lastUpdate AS AppointmentLastUpdate,"
+                               + "appointment.lastUpdateBy AS AppointmentLastUpdateBy";
+
+    private String city_fields = "city.cityid AS CityCityID,"
+                               + "city.city AS CityCity,"
+                               + "city.countryid AS CityCountryID,"
+                               + "city.createDate AS CityCreateDate,"
+                               + "city.createdBy AS CityCreatedBy,"
+                               + "city.lastUpdate AS CityLastUpdate,"
+                               + "city.lastUpdateBy AS CityLastUpdateBy";
+
+    private String ctry_fields = "country.countryid AS CountryCountryID,"
+                               + "country.country AS CountryCountry,"
+                               + "country.createDate AS CountryCreateDate,"
+                               + "country.createdBy AS CountryCreatedBy,"
+                               + "country.lastUpdate AS CountryLastUpdate,"
+                               + "country.lastUpdateBy AS CountryLastUpdateBy";
+
+    private String cust_fields = "customer.customerid AS CustomerCustomerID,"
+                               + "customer.customerName AS CustomerName,"
+                               + "customer.addressid AS CustomerAddressID,"
+                               + "customer.active AS CustomerActive,"
+                               + "customer.createDate AS CustomerCreateDate,"
+                               + "customer.createdBy AS CustomerCreatedBy,"
+                               + "customer.lastUpdate AS CustomerLastUpdate,"
+                               + "customer.lastUpdateBy AS CustomerLastUpdateBy";
+
+    private String user_fields = "user.userid AS UserUserID,"
+                               + "user.userName AS UserName,"
+                               + "user.password AS UserPassword,"
+                               + "user.active AS UserActive,"
+                               + "user.createBy AS UserCreateBy,"
+                               + "user.createDate AS UserCreateDate,"
+                               + "user.lastUpdate AS UserLastUpdate,"
+                               + "user.lastUpdatedBy AS UserLastUpdatedBy";
+
     private int createAddress(Address address) {
 
         int addressID = -1;
@@ -87,6 +148,120 @@ public class MainDAOImpl implements MainDAO {
 
     }
 
+    private Appointment retrieveAppointment(ResultSet result) throws SQLException {
+
+        Appointment appointment = new Appointment();
+
+        appointment.setCustomer(retrieveCustomer(result));
+        appointment.setUser(retrieveUser(result));
+
+        appointment.setAppointmentID(result.getInt("AppointmentAppointmentID"));
+        appointment.setTitle(result.getString("AppointmentTitle"));
+        appointment.setDescription(result.getString("AppointmentDescription"));
+        appointment.setLocation(result.getString("AppointmentLocation"));
+        appointment.setContact(result.getString("AppointmentContact"));
+        appointment.setType(result.getString("AppointmentType"));
+        appointment.setUrl(result.getString("AppointmentUrl"));
+        appointment.setStart(result.getTimestamp("AppointmentStart").toLocalDateTime());
+        appointment.setEnd(result.getTimestamp("AppointmentEnd").toLocalDateTime());
+        appointment.setCreatedAt(result.getTimestamp("AppointmentCreateDate").toLocalDateTime());
+        appointment.setCreatedBy(result.getString("AppointmentCreatedBy"));
+        appointment.setUpdatedAt(result.getTimestamp("AppointmentLastUpdate").toLocalDateTime());
+        appointment.setUpdatedBy(result.getString("AppointmentLastUpdateBy"));
+
+        return appointment;
+
+    }
+
+    private Address retrieveAddress(ResultSet result) throws SQLException {
+
+        Address address = new Address();
+
+        address.setAddressID(result.getInt("AddressAddressID"));
+        address.setAddress(result.getString("AddressAddress"));
+        address.setAddress2(result.getString("AddressAddress2"));
+
+        address.setCity(retrieveCity(result));
+
+        address.setZip(result.getString("AddressPostalCode"));
+        address.setPhone(result.getString("AddressPhone"));
+        address.setCreatedAt(result.getTimestamp("AddressCreateDate").toLocalDateTime());
+        address.setCreatedBy(result.getString("AddressCreatedBy"));
+        address.setUpdatedAt(result.getTimestamp("AddressLastUpdate").toLocalDateTime());
+        address.setUpdatedBy(result.getString("AddressLastUpdateBy"));
+
+        return address;
+
+    }
+
+    private City retrieveCity(ResultSet result) throws SQLException {
+
+        City city = new City();
+
+        city.setCityID(result.getInt("CityCityID"));
+        city.setCityName(result.getString("CityCity"));
+
+        city.setCountry(retrieveCountry(result));
+
+        city.setCreatedAt(result.getTimestamp("CityCreateDate").toLocalDateTime());
+        city.setCreatedBy(result.getString("CityCreatedBy"));
+        city.setUpdatedAt(result.getTimestamp("CityLastUpdate").toLocalDateTime());
+        city.setUpdatedBy(result.getString("CityLastUpdateBy"));
+
+        return city;
+
+    }
+
+    private Country retrieveCountry(ResultSet result) throws SQLException {
+
+        Country country = new Country();
+
+        country.setCountryID(result.getInt("CountryCountryID"));
+        country.setCountryName(result.getString("CountryCountry"));
+        country.setCreatedAt(result.getTimestamp("CountryCreateDate").toLocalDateTime());
+        country.setCreatedBy(result.getString("CountryCreatedBy"));
+        country.setUpdatedAt(result.getTimestamp("CountryLastUpdate").toLocalDateTime());
+        country.setUpdatedBy(result.getString("CountryLastUpdateBy"));
+
+        return country;
+    }
+
+    private Customer retrieveCustomer(ResultSet result) throws SQLException {
+
+        Customer customer = new Customer();
+
+        customer.setCustomerID(result.getInt("CustomerCustomerID"));
+        customer.setCustomerName(result.getString("CustomerName"));
+
+        customer.setAddress(retrieveAddress(result));
+
+        customer.setActive(result.getInt("CustomerActive"));
+        customer.setCreatedAt(result.getTimestamp("CustomerCreateDate").toLocalDateTime());
+        customer.setCreatedBy(result.getString("CustomerCreatedBy"));
+        customer.setUpdatedAt(result.getTimestamp("CustomerLastUpdate").toLocalDateTime());
+        customer.setUpdatedBy(result.getString("CustomerLastUpdateBy"));
+
+        return customer;
+
+    }
+
+    private User retrieveUser(ResultSet result) throws SQLException {
+
+        User user = new User();
+
+        user.setUserID(result.getInt("UserUserID"));
+        user.setUserName(result.getString("UserName"));
+        user.setPassword(result.getString("UserPassword"));
+        user.setActive(result.getInt("UserActive"));
+        user.setCreatedBy(result.getString("UserCreateBy"));
+        user.setCreatedAt(result.getTimestamp("UserCreateDate").toLocalDateTime());
+        user.setUpdatedBy(result.getString("UserLastUpdatedBy"));
+        user.setUpdatedAt(result.getTimestamp("UserLastUpdate").toLocalDateTime());
+
+        return user;
+
+    }
+
     private void updateAddress(Address address) {
 
         String query = "UPDATE address SET"
@@ -124,8 +299,100 @@ public class MainDAOImpl implements MainDAO {
 
     }
 
-    @Override public ObservableList<Appointment> getAllAppointments() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    @Override public ObservableList<Appointment> getAppointmentsByMonth(int month, int year) {
+
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+
+        String query = "SELECT "
+                     + appt_fields + ","
+                     + user_fields + ","
+                     + cust_fields + ","
+                     + addr_fields + ","
+                     + city_fields + ","
+                     + ctry_fields + " "
+                     + "FROM appointment "
+                     + "JOIN user ON appointment.userid = user.userid "
+                     + "JOIN customer ON appointment.customerid = customer.customerid "
+                     + "JOIN address ON customer.addressid = address.addressid "
+                     + "JOIN city ON address.cityid = city.cityid "
+                     + "JOIN country ON city.countryid = country.countryid "
+                     + "WHERE MONTH(appointment.start) = ? AND YEAR(appointment.start) = ?";
+
+        try {
+
+            PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
+
+            pstmnt.setInt(1, month);
+            pstmnt.setInt(2, year);
+
+            ResultSet result = pstmnt.executeQuery();
+
+            while(result.next()) {
+
+                appointments.add(retrieveAppointment(result));
+
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println("Exception when retrieving appointments by month: " + e);
+
+        } finally {
+
+            Database.closeConnection();
+
+        }
+
+        return appointments;
+
+    }
+
+    @Override public ObservableList<Appointment> getAppointmentsByWeek(int week, int year) {
+
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+
+        String query = "SELECT "
+                     + appt_fields + ","
+                     + user_fields + ","
+                     + cust_fields + ","
+                     + addr_fields + ","
+                     + city_fields + ","
+                     + ctry_fields + " "
+                     + "FROM appointment "
+                     + "JOIN user ON appointment.userid = user.userid "
+                     + "JOIN customer ON appointment.customerid = customer.customerid "
+                     + "JOIN address ON customer.addressid = address.addressid "
+                     + "JOIN city ON address.cityid = city.cityid "
+                     + "JOIN country ON city.countryid = country.countryid "
+                     + "WHERE WEEK(appointment.start) = ? AND YEAR(appointment.start) = ?";
+
+        try {
+
+            PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
+
+            pstmnt.setInt(1, week);
+            pstmnt.setInt(2, year);
+
+            ResultSet result = pstmnt.executeQuery();
+
+            while(result.next()) {
+
+                appointments.add(retrieveAppointment(result));
+
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println("Exception when retrieving appointments by week: " + e);
+
+        } finally {
+
+            Database.closeConnection();
+
+        }
+
+        return appointments;
+
     }
 
     @Override public void deleteAppointment(Appointment appointment) {
@@ -178,16 +445,12 @@ public class MainDAOImpl implements MainDAO {
 
         ObservableList<City> cities = FXCollections.observableArrayList();
         
-        String query = "SELECT"
-                     + "  c.cityid AS cityID,"
-                     + "  c.city AS city,"
-                     + "  c.createDate AS cityCreateDate,"
-                     + "  c.createdBy AS cityCreateBy,"
-                     + "  c.lastUpdate AS cityUpdateDate,"
-                     + "  c.lastUpdateBy cityUpdateBy "
-                     + "FROM city c "
-                     + "  JOIN country cc ON c.countryid = cc.countryid "
-                     + "WHERE cc.countryid = ?";
+        String query = "SELECT "
+                     + city_fields + ","
+                     + ctry_fields + " "
+                     + "FROM city "
+                     + "JOIN country ON city.countryid = country.countryid "
+                     + "WHERE country.countryid = ?";
 
         try {
 
@@ -199,17 +462,7 @@ public class MainDAOImpl implements MainDAO {
 
             while(result.next()) {
 
-                City city = new City();
-
-                city.setCityID(result.getInt("cityID"));
-                city.setCityName(result.getString("city"));
-                city.setCountry(country);
-                city.setCreatedAt(result.getTimestamp("cityCreateDate").toLocalDateTime());
-                city.setCreatedBy(result.getString("cityCreateBy"));
-                city.setUpdatedAt(result.getTimestamp("cityUpdateDate").toLocalDateTime());
-                city.setUpdatedBy(result.getString("cityUpdateBy"));
-
-                cities.add(city);
+                cities.add(retrieveCity(result));
 
             }
 
@@ -227,52 +480,28 @@ public class MainDAOImpl implements MainDAO {
 
     }
 
-    @Override public City getCity(String name) {
+    @Override public City getCity(String cityName) {
 
         City city = new City();
 
-        String query = "SELECT"
-                     + "  c.cityid AS cityID,"
-                     + "  c.city AS city,"
-                     + "  c.createDate AS cityCreateDate,"
-                     + "  c.createdBy AS cityCreateBy,"
-                     + "  c.lastUpdate AS cityUpdateDate,"
-                     + "  c.lastUpdateBy cityUpdateBy,"
-                     + "  cc.countryid AS countryID,"
-                     + "  cc.country AS country,"
-                     + "  cc.createDate AS countryCreateDate,"
-                     + "  cc.createdBy AS countryCreateBy,"
-                     + "  cc.lastUpdate AS countryUpdateDate,"
-                     + "  cc.lastUpdateBy AS countryUpdateBy "
-                     + "FROM city c"
-                     + "  JOIN country cc ON c.countryid = cc.countryid "
-                     + "WHERE c.city = ?";
+        String query = "SELECT "
+                     + city_fields + ","
+                     + ctry_fields + " "
+                     + "FROM city "
+                     + "JOIN country ON city.countryid = country.countryid "
+                     + "WHERE city.city = ?";
 
         try {
 
             PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
 
-            pstmnt.setString(1, name);
+            pstmnt.setString(1, cityName);
 
             ResultSet result = pstmnt.executeQuery();
 
             while(result.next()) {
 
-                Country country = new Country();
-                country.setCountryID(result.getInt("countryID"));
-                country.setCountryName(result.getString("country"));
-                country.setCreatedAt(result.getTimestamp("countryCreateDate").toLocalDateTime());
-                country.setCreatedBy(result.getString("countryCreateBy"));
-                country.setUpdatedAt(result.getTimestamp("countryUpdateDate").toLocalDateTime());
-                country.setUpdatedBy(result.getString("countryUpdateBy"));
-                
-                city.setCityID(result.getInt("cityID"));
-                city.setCityName(result.getString("city"));
-                city.setCountry(country);
-                city.setCreatedAt(result.getTimestamp("cityCreateDate").toLocalDateTime());
-                city.setCreatedBy(result.getString("cityCreateBy"));
-                city.setUpdatedAt(result.getTimestamp("cityUpdateDate").toLocalDateTime());
-                city.setUpdatedBy(result.getString("cityUpdateBy"));
+                city = retrieveCity(result);
  
             }
 
@@ -294,33 +523,18 @@ public class MainDAOImpl implements MainDAO {
 
         ObservableList<Country> countries = FXCollections.observableArrayList();
         
-        String query = "SELECT"
-                     + "  c.countryid AS countryID,"
-                     + "  c.country AS country,"
-                     + "  c.createDate AS countryCreateDate,"
-                     + "  c.createdBy AS countryCreateBy,"
-                     + "  c.lastUpdate AS countryUpdateDate,"
-                     + "  c.lastUpdateBy AS countryUpdateBy "
-                     + "FROM country c";
+        String query = "SELECT "
+                     + ctry_fields + " "
+                     + "FROM country";
 
         try {
 
             PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
-
             ResultSet result = pstmnt.executeQuery();
 
             while(result.next()) {
 
-                Country country = new Country();
-
-                country.setCountryID(result.getInt("countryID"));
-                country.setCountryName(result.getString("country"));
-                country.setCreatedAt(result.getTimestamp("countryCreateDate").toLocalDateTime());
-                country.setCreatedBy(result.getString("countryCreateBy"));
-                country.setUpdatedAt(result.getTimestamp("countryUpdateDate").toLocalDateTime());
-                country.setUpdatedBy(result.getString("countryUpdateBy"));
-
-                countries.add(country);
+                countries.add(retrieveCountry(result));
 
             }
 
@@ -342,89 +556,25 @@ public class MainDAOImpl implements MainDAO {
         
         ObservableList<Customer> customers = FXCollections.observableArrayList();
 
-        String query = "SELECT"
-                     + "  c.customerid AS custID,"
-                     + "  c.customerName AS cust,"
-                     + "  c.active AS custActive,"
-                     + "  c.createDate AS custCreateDate,"
-                     + "  c.createdBy AS custCreateBy,"
-                     + "  c.lastUpdate AS custUpdateDate,"
-                     + "  c.lastUpdateBy AS custUpdateBy,"
-                     + "  a.addressid AS addrID,"
-                     + "  a.address AS addr,"
-                     + "  a.address2 AS addr2,"
-                     + "  a.postalCode AS addrZip,"
-                     + "  a.phone AS addrPhone,"
-                     + "  a.createDate AS addrCreateDate,"
-                     + "  a.createdBy AS addrCreateBy,"
-                     + "  a.lastUpdate AS addrUpdateDate,"
-                     + "  a.lastUpdateBy AS addrUpdateBy,"
-                     + "  cc.cityid AS cityID,"
-                     + "  cc.city AS city,"
-                     + "  cc.createDate AS cityCreateDate,"
-                     + "  cc.createdBy AS cityCreateBy,"
-                     + "  cc.lastUpdate AS cityUpdateDate,"
-                     + "  cc.lastUpdateBy AS cityUpdateBy,"
-                     + "  ccc.countryid AS countryID,"
-                     + "  ccc.country AS country,"
-                     + "  ccc.createDate AS countryCreateDate,"
-                     + "  ccc.createdBy AS countryCreateBy,"
-                     + "  ccc.lastUpdate AS countryUpdateDate,"
-                     + "  ccc.lastUpdateBy AS countryUpdateBy "
-                     + "FROM customer c"
-                     + "  JOIN address a ON c.addressid = a.addressid"
-                     + "  JOIN city cc ON a.cityid=cc.cityid"
-                     + "  JOIN country ccc ON cc.countryid=ccc.countryid "
-                     + "WHERE c.active IS TRUE";
+        String query = "SELECT "
+                     + cust_fields + ","
+                     + addr_fields + ","
+                     + city_fields + ","
+                     + ctry_fields + " "
+                     + "FROM customer "
+                     + "JOIN address ON customer.addressid = address.addressid "
+                     + "JOIN city ON address.cityid = city.cityid "
+                     + "JOIN country ON city.countryid = country.countryid "
+                     + "WHERE customer.active IS TRUE";
 
         try {
 
             PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
-
             ResultSet result = pstmnt.executeQuery();
 
             while(result.next()) {
 
-                Country country = new Country();
-                country.setCountryID(result.getInt("countryID"));
-                country.setCountryName(result.getString("country"));
-                country.setCreatedAt(result.getTimestamp("countryCreateDate").toLocalDateTime());
-                country.setCreatedBy(result.getString("countryCreateBy"));
-                country.setUpdatedAt(result.getTimestamp("countryUpdateDate").toLocalDateTime());
-                country.setUpdatedBy(result.getString("countryUpdateBy"));
-
-                City city = new City();
-                city.setCityID(result.getInt("cityID"));
-                city.setCityName(result.getString("city"));
-                city.setCountry(country);
-                city.setCreatedAt(result.getTimestamp("cityCreateDate").toLocalDateTime());
-                city.setCreatedBy(result.getString("cityCreateBy"));
-                city.setUpdatedAt(result.getTimestamp("cityUpdateDate").toLocalDateTime());
-                city.setUpdatedBy(result.getString("cityUpdateBy"));
-
-                Address address = new Address();
-                address.setAddressID(result.getInt("addrID"));
-                address.setAddress(result.getString("addr"));
-                address.setAddress2(result.getString("addr2"));
-                address.setCity(city);
-                address.setZip(result.getString("addrZip"));
-                address.setPhone(result.getString("addrPhone"));
-                address.setCreatedAt(result.getTimestamp("addrCreateDate").toLocalDateTime());
-                address.setCreatedBy(result.getString("addrCreateBy"));
-                address.setUpdatedAt(result.getTimestamp("addrUpdateDate").toLocalDateTime());
-                address.setUpdatedBy(result.getString("addrUpdateBy"));
-
-                Customer customer = new Customer();
-                customer.setCustomerID(result.getInt("custID"));
-                customer.setCustomerName(result.getString("cust"));
-                customer.setAddress(address);
-                customer.setActive(result.getInt("custActive"));
-                customer.setCreatedAt(result.getTimestamp("custCreateDate").toLocalDateTime());
-                customer.setCreatedBy(result.getString("custCreateBy"));
-                customer.setUpdatedAt(result.getTimestamp("custUpdateDate").toLocalDateTime());
-                customer.setUpdatedBy(result.getString("custUpdateBy"));
-
-                customers.add(customer);
+                customers.add(retrieveCustomer(result));
 
             }
 
@@ -451,9 +601,7 @@ public class MainDAOImpl implements MainDAO {
         try {
 
             PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
-
             pstmnt.setInt(1, customer.getCustomerID());
-
             pstmnt.executeUpdate();
 
         } catch (SQLException e) {
@@ -544,13 +692,15 @@ public class MainDAOImpl implements MainDAO {
 
         User user = new User();
 
-        String query = "SELECT * " 
-                     + "FROM user " 
+        String query = "SELECT "
+                     + user_fields + " "
+                     + "FROM user "
                      + "WHERE userName = ? AND password = ?";
 
         try {
 
             PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
+
             pstmnt.setString(1, username);
             pstmnt.setString(2, pass);
 
@@ -558,14 +708,7 @@ public class MainDAOImpl implements MainDAO {
 
             while(result.next()) {
 
-                user.setUserID(result.getInt("userid"));
-                user.setUserName(result.getString("userName"));
-                user.setPassword(result.getString("password"));
-                user.setActive(result.getInt("active"));
-                user.setCreatedBy(result.getString("createBy"));
-                user.setCreatedAt(result.getTimestamp("createDate").toLocalDateTime());
-                user.setUpdatedBy(result.getString("lastUpdatedBy"));
-                user.setUpdatedAt(result.getTimestamp("lastUpdate").toLocalDateTime());
+                user = retrieveUser(result);
 
             }
 

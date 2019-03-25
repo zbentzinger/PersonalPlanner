@@ -167,6 +167,7 @@ public class AddAppointmentViewController implements Initializable {
         this.database = dao;
 
         populateCustomersTable();
+        this.database.getAppointmentsByMonth(1, 1);
 
 
     }

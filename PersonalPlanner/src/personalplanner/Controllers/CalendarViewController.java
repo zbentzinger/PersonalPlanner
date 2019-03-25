@@ -17,6 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
 import personalplanner.DAO.MainDAO;
+import personalplanner.Models.Appointment;
 import personalplanner.Models.User;
 
 public class CalendarViewController implements Initializable {
@@ -34,9 +35,9 @@ public class CalendarViewController implements Initializable {
     @FXML private Button calendarCenterButton;
     @FXML private Button backButton;
     @FXML private Button nextButton;
-    @FXML private TableColumn<?, ?> appDesc;
-    @FXML private TableColumn<?, ?> appDate;
-    @FXML private TableView<?> calendarTableView;
+    @FXML private TableColumn<Appointment, String> appDesc;
+    @FXML private TableColumn<Appointment, String> appDate;
+    @FXML private TableView<Appointment> calendarTableView;
     @FXML private ToggleButton monthToggleButton;
     @FXML private ToggleButton weekToggleButton;
 

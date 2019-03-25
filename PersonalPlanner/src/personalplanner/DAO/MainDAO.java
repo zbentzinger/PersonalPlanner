@@ -9,13 +9,14 @@ import personalplanner.Models.User;
 
 public interface MainDAO {
 
-    ObservableList<Appointment> getAllAppointments();
+    ObservableList<Appointment> getAppointmentsByMonth(int month, int year);
+    ObservableList<Appointment> getAppointmentsByWeek(int week, int year);
     void deleteAppointment(Appointment appointment);
     void insertAppointment(Appointment appointment);
     void updateAppointment(Appointment appointment);
 
     ObservableList<City> getCities(Country country);
-    City getCity(String name);
+    City getCity(String cityName);
 
     ObservableList<Country> getAllCountries();
 
