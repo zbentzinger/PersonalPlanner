@@ -24,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import personalplanner.DAO.MainDAO;
+import personalplanner.DAO.MainDAOImpl;
 import personalplanner.Models.Appointment;
 import personalplanner.Models.Customer;
 import personalplanner.Models.User;
@@ -87,7 +88,7 @@ public class AddAppointmentViewController implements Initializable {
             stage.setScene(new Scene((Parent) loader.load()));
 
             CalendarViewController controller = loader.getController();
-            controller.initData(this.user, this.database);
+            controller.initData(this.user);
 
             stage.show();
 
@@ -149,7 +150,7 @@ public class AddAppointmentViewController implements Initializable {
             stage.setScene(new Scene((Parent) loader.load()));
             
             CalendarViewController controller = loader.getController();
-            controller.initData(this.user, this.database);
+            controller.initData(this.user);
             
             stage.show();
 
@@ -161,18 +162,17 @@ public class AddAppointmentViewController implements Initializable {
 
     }
 
-    public void initData(User user, MainDAO dao) {
+    public void initData(User user) {
 
         this.user = user;
-        this.database = dao;
-
-        populateCustomersTable();
-        this.database.getAppointmentsByMonth(1, 1);
-
 
     }
 
     @Override public void initialize(URL url, ResourceBundle rb) {
+
+        this.database = new MainDAOImpl();
+
+        populateCustomersTable();
 
         bindButtons();
 

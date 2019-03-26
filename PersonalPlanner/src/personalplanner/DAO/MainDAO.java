@@ -1,5 +1,6 @@
 package personalplanner.DAO;
 
+import java.time.LocalDateTime;
 import javafx.collections.ObservableList;
 import personalplanner.Models.Appointment;
 import personalplanner.Models.City;
@@ -9,8 +10,8 @@ import personalplanner.Models.User;
 
 public interface MainDAO {
 
-    ObservableList<Appointment> getAppointmentsByMonth(int month, int year);
-    ObservableList<Appointment> getAppointmentsByWeek(int week, int year);
+    ObservableList<Appointment> getAppointmentsByMonth(LocalDateTime date);
+    ObservableList<Appointment> getAppointmentsByWeek(LocalDateTime date);
     void deleteAppointment(Appointment appointment);
     void insertAppointment(Appointment appointment);
     void updateAppointment(Appointment appointment);

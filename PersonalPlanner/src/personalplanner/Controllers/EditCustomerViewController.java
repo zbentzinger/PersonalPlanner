@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import personalplanner.Models.Customer;
 import personalplanner.Models.User;
 import personalplanner.DAO.MainDAO;
+import personalplanner.DAO.MainDAOImpl;
 import personalplanner.Models.City;
 import personalplanner.Models.Country;
 
@@ -74,7 +75,7 @@ public class EditCustomerViewController implements Initializable {
             stage.setScene(new Scene((Parent) loader.load()));
             
             CustomersViewController controller = loader.getController();
-            controller.initData(this.user, this.database);
+            controller.initData(this.user);
             
             stage.show();
 
@@ -123,7 +124,7 @@ public class EditCustomerViewController implements Initializable {
             stage.setScene(new Scene((Parent) loader.load()));
             
             CustomersViewController controller = loader.getController();
-            controller.initData(this.user, this.database);
+            controller.initData(this.user);
             
             stage.show();
 
@@ -135,13 +136,10 @@ public class EditCustomerViewController implements Initializable {
 
     }
 
-    public void initData(User user, Customer customer, MainDAO dao) {
+    public void initData(User user, Customer customer) {
 
         this.user = user;
         this.customer = customer;
-        this.database = dao;
-
-        populateCountryDropdown();
 
         countryDropDown.getSelectionModel().select(this.customer.getAddress().getCity().getCountry());
         cityDropDown.getSelectionModel().select(this.customer.getAddress().getCity());
@@ -154,7 +152,12 @@ public class EditCustomerViewController implements Initializable {
 
     @Override public void initialize(URL url, ResourceBundle rb) {
 
+        this.database = new MainDAOImpl();
+
+        populateCountryDropdown();
+
         bindButtons();
+
         countryDropDown.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> populateCityDropdown(newVal));
         editCustCancelButton.setOnAction(e -> cancel());
         editCustSaveButton.setOnAction(e -> save());

@@ -17,10 +17,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import personalplanner.DAO.MainDAO;
+import personalplanner.DAO.MainDAOImpl;
+import personalplanner.Models.Appointment;
 import personalplanner.Models.User;
 
 public class EditAppointmentViewController implements Initializable {
 
+    private Appointment appointment; 
     private MainDAO database;
     private User user;
     private String calendarViewURL = "/personalplanner/Views/CalendarView.fxml";
@@ -35,13 +38,6 @@ public class EditAppointmentViewController implements Initializable {
     @FXML private TextField startTimeTextField;
     @FXML private TextField endTimeTextField;
 
-    public void initData(User user, MainDAO dao) {
-
-        this.user = user;
-        this.database = dao;
-
-    }
-
     @FXML private void editAppCancelButtonClicked(ActionEvent event) throws IOException {
 
         // Load the next scene.
@@ -50,7 +46,7 @@ public class EditAppointmentViewController implements Initializable {
         Parent view = loader.load();
         Scene scene = new Scene(view);
         CalendarViewController controller = loader.getController();
-        controller.initData(this.user, this.database);
+        controller.initData(this.user);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
@@ -65,14 +61,23 @@ public class EditAppointmentViewController implements Initializable {
         Parent view = loader.load();
         Scene scene = new Scene(view);
         CalendarViewController controller = loader.getController();
-        controller.initData(this.user, this.database);
+        controller.initData(this.user);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
 
     }
 
+    public void initData(User user, Appointment app) {
+
+        this.user = user;
+        this.appointment = app;
+
+    }
+
     @Override public void initialize(URL url, ResourceBundle rb) {
+
+        this.database = new MainDAOImpl();
 
         selectCustTable.setPlaceholder(new Label(""));
 

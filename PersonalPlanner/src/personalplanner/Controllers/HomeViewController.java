@@ -12,12 +12,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import personalplanner.DAO.MainDAO;
 import personalplanner.Models.User;
 
 public class HomeViewController implements Initializable {
 
-    private MainDAO database;
     private User user;
     private String loginViewURL = "/personalplanner/Views/LoginView.fxml";
     private String calendarViewURL = "/personalplanner/Views/CalendarView.fxml";
@@ -39,7 +37,7 @@ public class HomeViewController implements Initializable {
             stage.setScene(new Scene((Parent) loader.load()));
 
             CalendarViewController controller = loader.getController();
-            controller.initData(this.user, this.database);
+            controller.initData(this.user);
 
             stage.show();
 
@@ -61,7 +59,7 @@ public class HomeViewController implements Initializable {
             stage.setScene(new Scene((Parent) loader.load()));
 
             CustomersViewController controller = loader.getController();
-            controller.initData(this.user, this.database);
+            controller.initData(this.user);
 
             stage.show();
 
@@ -105,7 +103,7 @@ public class HomeViewController implements Initializable {
             stage.setScene(new Scene((Parent) loader.load()));
 
             ReportsViewController controller = loader.getController();
-            controller.initData(this.user, this.database);
+            controller.initData(this.user);
 
             stage.show();
 
@@ -117,10 +115,9 @@ public class HomeViewController implements Initializable {
 
     }
 
-    public void initData(User user, MainDAO dao) {
+    public void initData(User user) {
 
         this.user = user;
-        this.database = dao;
 
     }
 

@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import personalplanner.Models.Customer;
 import personalplanner.Models.User;
 import personalplanner.DAO.MainDAO;
+import personalplanner.DAO.MainDAOImpl;
 
 public class CustomersViewController implements Initializable {
 
@@ -46,7 +47,7 @@ public class CustomersViewController implements Initializable {
             stage.setScene(new Scene((Parent) loader.load()));
 
             AddCustomerViewController controller = loader.getController();
-            controller.initData(this.user, this.database);
+            controller.initData(this.user);
 
             stage.show();
 
@@ -85,9 +86,9 @@ public class CustomersViewController implements Initializable {
 
     private void edit() {
 
-        try {
+        Customer selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
 
-            Customer selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
+        try {
             
             FXMLLoader loader = new FXMLLoader(getClass().getResource(editCustViewURL));
 
@@ -95,7 +96,7 @@ public class CustomersViewController implements Initializable {
             stage.setScene(new Scene((Parent) loader.load()));
 
             EditCustomerViewController controller = loader.getController();
-            controller.initData(this.user, selectedCustomer, this.database);
+            controller.initData(this.user, selectedCustomer);
 
             stage.show();
 
@@ -117,7 +118,7 @@ public class CustomersViewController implements Initializable {
             stage.setScene(new Scene((Parent) loader.load()));
 
             HomeViewController controller = loader.getController();
-            controller.initData(this.user, this.database);
+            controller.initData(this.user);
 
             stage.show();
 
@@ -131,25 +132,26 @@ public class CustomersViewController implements Initializable {
 
     private void populateCustomersTable() {
 
-        customerNameCol.setCellValueFactory(
-            new PropertyValueFactory<>("customerName")
-        );
-
         customersTableView.setItems(this.database.getAllCustomers());
         customersTableView.setPlaceholder(new Label(""));
 
     }
 
-    public void initData(User user, MainDAO dao) {
+    public void initData(User user) {
 
         this.user = user;
-        this.database = dao;
-
-        populateCustomersTable();
 
     }
 
     @Override public void initialize(URL url, ResourceBundle rb) {
+
+        this.database = new MainDAOImpl();
+
+        customerNameCol.setCellValueFactory(
+            new PropertyValueFactory<>("customerName")
+        );
+
+        populateCustomersTable();
 
         bindButtons();
         addCustomerButton.setOnAction(e -> add());

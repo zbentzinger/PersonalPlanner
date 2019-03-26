@@ -55,7 +55,7 @@ public class LoginViewController implements Initializable {
                 stage.setScene(new Scene((Parent) loader.load()));
 
                 HomeViewController controller = loader.getController();
-                controller.initData(this.user, this.database);
+                controller.initData(this.user);
 
                 stage.show();
 
@@ -81,7 +81,6 @@ public class LoginViewController implements Initializable {
 
         exitButton.setOnAction(e -> exit());
         loginButton.setOnAction(e -> login());
-
 
     }
 

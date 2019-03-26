@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import personalplanner.Models.Address;
@@ -299,7 +300,7 @@ public class MainDAOImpl implements MainDAO {
 
     }
 
-    @Override public ObservableList<Appointment> getAppointmentsByMonth(int month, int year) {
+    @Override public ObservableList<Appointment> getAppointmentsByMonth(LocalDateTime date) {
 
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
@@ -316,14 +317,14 @@ public class MainDAOImpl implements MainDAO {
                      + "JOIN address ON customer.addressid = address.addressid "
                      + "JOIN city ON address.cityid = city.cityid "
                      + "JOIN country ON city.countryid = country.countryid "
-                     + "WHERE MONTH(appointment.start) = ? AND YEAR(appointment.start) = ?";
+                     + "WHERE MONTH(appointment.start) = MONTH(?) AND YEAR(appointment.start) = YEAR(?)";
 
         try {
 
             PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
 
-            pstmnt.setInt(1, month);
-            pstmnt.setInt(2, year);
+            pstmnt.setTimestamp(1, Timestamp.valueOf(date));
+            pstmnt.setTimestamp(2, Timestamp.valueOf(date));
 
             ResultSet result = pstmnt.executeQuery();
 
@@ -347,7 +348,7 @@ public class MainDAOImpl implements MainDAO {
 
     }
 
-    @Override public ObservableList<Appointment> getAppointmentsByWeek(int week, int year) {
+    @Override public ObservableList<Appointment> getAppointmentsByWeek(LocalDateTime date) {
 
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
@@ -364,14 +365,14 @@ public class MainDAOImpl implements MainDAO {
                      + "JOIN address ON customer.addressid = address.addressid "
                      + "JOIN city ON address.cityid = city.cityid "
                      + "JOIN country ON city.countryid = country.countryid "
-                     + "WHERE WEEK(appointment.start) = ? AND YEAR(appointment.start) = ?";
+                     + "WHERE WEEK(appointment.start) = WEEK(?) AND YEAR(appointment.start) = YEAR(?)";
 
         try {
 
             PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
 
-            pstmnt.setInt(1, week);
-            pstmnt.setInt(2, year);
+            pstmnt.setTimestamp(1, Timestamp.valueOf(date));
+            pstmnt.setTimestamp(2, Timestamp.valueOf(date));
 
             ResultSet result = pstmnt.executeQuery();
 
@@ -396,7 +397,27 @@ public class MainDAOImpl implements MainDAO {
     }
 
     @Override public void deleteAppointment(Appointment appointment) {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        String query = "DELETE "
+                     + "FROM appointment "
+                     + "WHERE appointmentid = ?";
+
+        try {
+
+            PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
+            pstmnt.setInt(1, appointment.getAppointmentID());
+            pstmnt.executeUpdate();
+
+        } catch (SQLException e) {
+
+            System.out.println("Exception when removing appointment: " + e);
+
+        } finally {
+
+            Database.closeConnection();
+
+        }
+
     }
 
     @Override public void insertAppointment(Appointment appointment) {
