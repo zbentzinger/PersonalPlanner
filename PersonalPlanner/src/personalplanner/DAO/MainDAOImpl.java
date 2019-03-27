@@ -459,7 +459,50 @@ public class MainDAOImpl implements MainDAO {
     }
 
     @Override public void updateAppointment(Appointment appointment) {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        String query = "UPDATE appointment SET"
+                     + "  customerId=?,"
+                     + "  userId=?,"
+                     + "  title=?,"
+                     + "  description=?,"
+                     + "  location=?,"
+                     + "  contact=?,"
+                     + "  type=?,"
+                     + "  url=?,"
+                     + "  start=?,"
+                     + "  end=?,"
+                     + "  lastUpdateBy=? "
+                     + "WHERE appointmentid = ?";
+
+        try {
+
+            PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
+
+            pstmnt.setInt(1, appointment.getCustomer().getCustomerID());
+            pstmnt.setInt(2, appointment.getUser().getUserID());
+            pstmnt.setString(3, appointment.getTitle());
+            pstmnt.setString(4, appointment.getDescription());
+            pstmnt.setString(5, appointment.getLocation());
+            pstmnt.setString(6, appointment.getContact());
+            pstmnt.setString(7, appointment.getType());
+            pstmnt.setString(8, appointment.getUrl());
+            pstmnt.setTimestamp(9, Timestamp.valueOf(appointment.getStart()));
+            pstmnt.setTimestamp(10, Timestamp.valueOf(appointment.getEnd()));
+            pstmnt.setString(11, appointment.getUpdatedBy());
+            pstmnt.setInt(12, appointment.getAppointmentID());
+
+            pstmnt.executeUpdate();
+
+        } catch (SQLException e) {
+
+            System.out.println("Exception when updating appointment: " + e);
+
+        } finally {
+
+            Database.closeConnection();
+
+        }
+
     }
 
     @Override public ObservableList<City> getCities(Country country) {

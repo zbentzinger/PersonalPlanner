@@ -100,24 +100,17 @@ public class AddAppointmentViewController implements Initializable {
 
     }
 
-    private LocalDateTime getDateTime(String hourMin) {
+    private LocalTime getTime(String timeStr) {
 
          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h[:mm]a");
 
-         LocalTime parsedTime = LocalTime.parse(
-            hourMin.replaceAll("\\s+","").toUpperCase(),
-            formatter
-         );
+         String sanitized = timeStr.replaceAll("\\s+","").toUpperCase();
 
-         return LocalDateTime.of(dayPicker.getValue(), parsedTime);
+         return LocalTime.parse(sanitized, formatter);
 
     }
 
     private void populateCustomersTable() {
-
-        custNameCol.setCellValueFactory(
-            new PropertyValueFactory<>("customerName")
-        );
 
         selectCustTable.setItems(this.database.getAllCustomers());
         selectCustTable.setPlaceholder(new Label(""));
@@ -135,8 +128,20 @@ public class AddAppointmentViewController implements Initializable {
 
         app.setType(typeTextField.getText());
 
-        app.setStart(getDateTime(fromText.getText()));
-        app.setEnd(getDateTime(toText.getText()));
+        app.setStart(
+            LocalDateTime.of(
+                dayPicker.getValue(),
+                getTime(fromText.getText())
+            )
+        );
+
+        app.setEnd(
+            LocalDateTime.of(
+                dayPicker.getValue(),
+                getTime(toText.getText())
+            )
+        );
+
         app.setCreatedBy(this.user.getUserName());
         app.setUpdatedBy(this.user.getUserName());
 
@@ -171,6 +176,10 @@ public class AddAppointmentViewController implements Initializable {
     @Override public void initialize(URL url, ResourceBundle rb) {
 
         this.database = new MainDAOImpl();
+
+        custNameCol.setCellValueFactory(
+            new PropertyValueFactory<>("customerName")
+        );
 
         populateCustomersTable();
 

@@ -182,7 +182,6 @@ public class CalendarViewController implements Initializable {
         calendarCenterButton.setText(selectedMonth.format(format));
 
         calendarTableView.setItems(this.database.getAppointmentsByMonth(selectedMonth));
-        calendarTableView.setPlaceholder(new Label(""));
 
     }
 
@@ -194,7 +193,6 @@ public class CalendarViewController implements Initializable {
         calendarCenterButton.setText(label);
 
         calendarTableView.setItems(this.database.getAppointmentsByWeek(selectedWeek));
-        calendarTableView.setPlaceholder(new Label(""));
 
     }
 
@@ -238,6 +236,8 @@ public class CalendarViewController implements Initializable {
         appDate.setCellValueFactory(
             new PropertyValueFactory<>("start")
         );
+
+        calendarTableView.setPlaceholder(new Label(""));
 
         toggleMonth();
 
