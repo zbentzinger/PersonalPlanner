@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -32,6 +33,7 @@ public class CalendarViewController implements Initializable {
     private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
     private String editAppViewURL = "/personalplanner/Views/EditAppointmentView.fxml";
     private String addAppViewURL = "/personalplanner/Views/AddAppointmentView.fxml";
+    private  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mma");
     private LocalDateTime selectedMonth = LocalDateTime.now();
     private LocalDateTime selectedWeek = LocalDateTime.now();
 
@@ -43,7 +45,7 @@ public class CalendarViewController implements Initializable {
     @FXML private Button backButton;
     @FXML private Button nextButton;
     @FXML private TableColumn<Appointment, String> appDesc;
-    @FXML private TableColumn<Appointment, LocalDateTime> appDate;
+    @FXML private TableColumn<Appointment, String> appDate;
     @FXML private TableView<Appointment> calendarTableView;
     @FXML private ToggleButton monthToggleButton;
     @FXML private ToggleButton weekToggleButton;
@@ -233,9 +235,10 @@ public class CalendarViewController implements Initializable {
         appDesc.setCellValueFactory(
             new PropertyValueFactory<>("description")
         );
-        appDate.setCellValueFactory(
-            new PropertyValueFactory<>("start")
-        );
+        appDate.setCellValueFactory(appointment -> new SimpleStringProperty(appointment.getValue().getStart().format(formatter)));
+        //appDate.setCellValueFactory(
+        //    new PropertyValueFactory<>("start")
+        //);
 
         calendarTableView.setPlaceholder(new Label(""));
 

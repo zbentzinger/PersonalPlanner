@@ -19,17 +19,18 @@ public class Database {
 
     // Example: jdbc:mysql://user:pass@host:port/database
     private static String URL = String.format(
-            "jdbc:%s://%s:%s@%s:%s/%s",
-            PROTOCOL, USERNAME, PASSWORD, HOSTNAME, PORT, DATABASE
+        "jdbc:%s://%s:%s/%s",
+        PROTOCOL, HOSTNAME, PORT, DATABASE
     );
 
     public static Connection getConnection() {
 
         try {
 
-            CONN = DriverManager.getConnection(URL);
+            Class.forName("com.mysql.jdbc.Driver");
+            CONN = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
 
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
 

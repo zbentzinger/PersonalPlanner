@@ -49,7 +49,6 @@ public class AddAppointmentViewController implements Initializable {
 
     private void bindButtons() {
 
-        // Make sure that all fields have a value before enabling save button.
         BooleanBinding enabledState = new BooleanBinding() {
             {
                 super.bind(

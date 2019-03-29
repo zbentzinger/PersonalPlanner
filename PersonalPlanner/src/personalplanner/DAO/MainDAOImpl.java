@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import personalplanner.Models.Address;
@@ -153,8 +156,8 @@ public class MainDAOImpl implements MainDAO {
 
         Appointment appointment = new Appointment();
 
-        appointment.setCustomer(retrieveCustomer(result));
-        appointment.setUser(retrieveUser(result));
+        appointment.setCustomer(this.retrieveCustomer(result));
+        appointment.setUser(this.retrieveUser(result));
 
         appointment.setAppointmentID(result.getInt("AppointmentAppointmentID"));
         appointment.setTitle(result.getString("AppointmentTitle"));
@@ -163,11 +166,11 @@ public class MainDAOImpl implements MainDAO {
         appointment.setContact(result.getString("AppointmentContact"));
         appointment.setType(result.getString("AppointmentType"));
         appointment.setUrl(result.getString("AppointmentUrl"));
-        appointment.setStart(result.getTimestamp("AppointmentStart").toLocalDateTime());
-        appointment.setEnd(result.getTimestamp("AppointmentEnd").toLocalDateTime());
-        appointment.setCreatedAt(result.getTimestamp("AppointmentCreateDate").toLocalDateTime());
+        appointment.setStart(this.toLocalTimeZone(result.getTimestamp("AppointmentStart").toLocalDateTime()));
+        appointment.setEnd(this.toLocalTimeZone(result.getTimestamp("AppointmentEnd").toLocalDateTime()));
+        appointment.setCreatedAt(this.toLocalTimeZone(result.getTimestamp("AppointmentCreateDate").toLocalDateTime()));
         appointment.setCreatedBy(result.getString("AppointmentCreatedBy"));
-        appointment.setUpdatedAt(result.getTimestamp("AppointmentLastUpdate").toLocalDateTime());
+        appointment.setUpdatedAt(this.toLocalTimeZone(result.getTimestamp("AppointmentLastUpdate").toLocalDateTime()));
         appointment.setUpdatedBy(result.getString("AppointmentLastUpdateBy"));
 
         return appointment;
@@ -182,13 +185,13 @@ public class MainDAOImpl implements MainDAO {
         address.setAddress(result.getString("AddressAddress"));
         address.setAddress2(result.getString("AddressAddress2"));
 
-        address.setCity(retrieveCity(result));
+        address.setCity(this.retrieveCity(result));
 
         address.setZip(result.getString("AddressPostalCode"));
         address.setPhone(result.getString("AddressPhone"));
-        address.setCreatedAt(result.getTimestamp("AddressCreateDate").toLocalDateTime());
+        address.setCreatedAt(this.toLocalTimeZone(result.getTimestamp("AddressCreateDate").toLocalDateTime()));
         address.setCreatedBy(result.getString("AddressCreatedBy"));
-        address.setUpdatedAt(result.getTimestamp("AddressLastUpdate").toLocalDateTime());
+        address.setUpdatedAt(this.toLocalTimeZone(result.getTimestamp("AddressLastUpdate").toLocalDateTime()));
         address.setUpdatedBy(result.getString("AddressLastUpdateBy"));
 
         return address;
@@ -202,11 +205,11 @@ public class MainDAOImpl implements MainDAO {
         city.setCityID(result.getInt("CityCityID"));
         city.setCityName(result.getString("CityCity"));
 
-        city.setCountry(retrieveCountry(result));
+        city.setCountry(this.retrieveCountry(result));
 
-        city.setCreatedAt(result.getTimestamp("CityCreateDate").toLocalDateTime());
+        city.setCreatedAt(this.toLocalTimeZone(result.getTimestamp("CityCreateDate").toLocalDateTime()));
         city.setCreatedBy(result.getString("CityCreatedBy"));
-        city.setUpdatedAt(result.getTimestamp("CityLastUpdate").toLocalDateTime());
+        city.setUpdatedAt(this.toLocalTimeZone(result.getTimestamp("CityLastUpdate").toLocalDateTime()));
         city.setUpdatedBy(result.getString("CityLastUpdateBy"));
 
         return city;
@@ -219,9 +222,9 @@ public class MainDAOImpl implements MainDAO {
 
         country.setCountryID(result.getInt("CountryCountryID"));
         country.setCountryName(result.getString("CountryCountry"));
-        country.setCreatedAt(result.getTimestamp("CountryCreateDate").toLocalDateTime());
+        country.setCreatedAt(this.toLocalTimeZone(result.getTimestamp("CountryCreateDate").toLocalDateTime()));
         country.setCreatedBy(result.getString("CountryCreatedBy"));
-        country.setUpdatedAt(result.getTimestamp("CountryLastUpdate").toLocalDateTime());
+        country.setUpdatedAt(this.toLocalTimeZone(result.getTimestamp("CountryLastUpdate").toLocalDateTime()));
         country.setUpdatedBy(result.getString("CountryLastUpdateBy"));
 
         return country;
@@ -234,12 +237,12 @@ public class MainDAOImpl implements MainDAO {
         customer.setCustomerID(result.getInt("CustomerCustomerID"));
         customer.setCustomerName(result.getString("CustomerName"));
 
-        customer.setAddress(retrieveAddress(result));
+        customer.setAddress(this.retrieveAddress(result));
 
         customer.setActive(result.getInt("CustomerActive"));
-        customer.setCreatedAt(result.getTimestamp("CustomerCreateDate").toLocalDateTime());
+        customer.setCreatedAt(this.toLocalTimeZone(result.getTimestamp("CustomerCreateDate").toLocalDateTime()));
         customer.setCreatedBy(result.getString("CustomerCreatedBy"));
-        customer.setUpdatedAt(result.getTimestamp("CustomerLastUpdate").toLocalDateTime());
+        customer.setUpdatedAt(this.toLocalTimeZone(result.getTimestamp("CustomerLastUpdate").toLocalDateTime()));
         customer.setUpdatedBy(result.getString("CustomerLastUpdateBy"));
 
         return customer;
@@ -255,11 +258,29 @@ public class MainDAOImpl implements MainDAO {
         user.setPassword(result.getString("UserPassword"));
         user.setActive(result.getInt("UserActive"));
         user.setCreatedBy(result.getString("UserCreateBy"));
-        user.setCreatedAt(result.getTimestamp("UserCreateDate").toLocalDateTime());
+        user.setCreatedAt(this.toLocalTimeZone(result.getTimestamp("UserCreateDate").toLocalDateTime()));
         user.setUpdatedBy(result.getString("UserLastUpdatedBy"));
-        user.setUpdatedAt(result.getTimestamp("UserLastUpdate").toLocalDateTime());
+        user.setUpdatedAt(this.toLocalTimeZone(result.getTimestamp("UserLastUpdate").toLocalDateTime()));
 
         return user;
+
+    }
+
+    private LocalDateTime toLocalTimeZone(LocalDateTime dateTime) {
+
+        ZonedDateTime utcZoned = dateTime.atZone(ZoneId.of("UTC"));
+        LocalDateTime localZoned = utcZoned.withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
+
+        return localZoned;
+
+    }
+
+    private LocalDateTime toUTC(LocalDateTime dateTime) {
+
+        ZonedDateTime localZoned = dateTime.atZone(ZoneId.systemDefault());
+        LocalDateTime utcZoned = localZoned.withZoneSameInstant(ZoneId.of("UTC")).toLocalDateTime();
+
+        return utcZoned;
 
     }
 
@@ -323,14 +344,14 @@ public class MainDAOImpl implements MainDAO {
 
             PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
 
-            pstmnt.setTimestamp(1, Timestamp.valueOf(date));
-            pstmnt.setTimestamp(2, Timestamp.valueOf(date));
+            pstmnt.setTimestamp(1, Timestamp.valueOf(this.toUTC(date)));
+            pstmnt.setTimestamp(2, Timestamp.valueOf(this.toUTC(date)));
 
             ResultSet result = pstmnt.executeQuery();
 
             while(result.next()) {
 
-                appointments.add(retrieveAppointment(result));
+                appointments.add(this.retrieveAppointment(result));
 
             }
 
@@ -371,14 +392,14 @@ public class MainDAOImpl implements MainDAO {
 
             PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
 
-            pstmnt.setTimestamp(1, Timestamp.valueOf(date));
-            pstmnt.setTimestamp(2, Timestamp.valueOf(date));
+            pstmnt.setTimestamp(1, Timestamp.valueOf(this.toUTC(date)));
+            pstmnt.setTimestamp(2, Timestamp.valueOf(this.toUTC(date)));
 
             ResultSet result = pstmnt.executeQuery();
 
             while(result.next()) {
 
-                appointments.add(retrieveAppointment(result));
+                appointments.add(this.retrieveAppointment(result));
 
             }
 
@@ -439,8 +460,8 @@ public class MainDAOImpl implements MainDAO {
             pstmnt.setString(6, appointment.getContact());
             pstmnt.setString(7, appointment.getType());
             pstmnt.setString(8, appointment.getUrl());
-            pstmnt.setTimestamp(9, Timestamp.valueOf(appointment.getStart()));
-            pstmnt.setTimestamp(10, Timestamp.valueOf(appointment.getEnd()));
+            pstmnt.setTimestamp(9, Timestamp.valueOf(this.toUTC(appointment.getStart())));
+            pstmnt.setTimestamp(10, Timestamp.valueOf(this.toUTC(appointment.getEnd())));
             pstmnt.setString(11, appointment.getCreatedBy());
             pstmnt.setString(12, appointment.getUpdatedBy());
 
@@ -486,8 +507,8 @@ public class MainDAOImpl implements MainDAO {
             pstmnt.setString(6, appointment.getContact());
             pstmnt.setString(7, appointment.getType());
             pstmnt.setString(8, appointment.getUrl());
-            pstmnt.setTimestamp(9, Timestamp.valueOf(appointment.getStart()));
-            pstmnt.setTimestamp(10, Timestamp.valueOf(appointment.getEnd()));
+            pstmnt.setTimestamp(9, Timestamp.valueOf(this.toUTC(appointment.getStart())));
+            pstmnt.setTimestamp(10, Timestamp.valueOf(this.toUTC(appointment.getEnd())));
             pstmnt.setString(11, appointment.getUpdatedBy());
             pstmnt.setInt(12, appointment.getAppointmentID());
 
@@ -526,7 +547,7 @@ public class MainDAOImpl implements MainDAO {
 
             while(result.next()) {
 
-                cities.add(retrieveCity(result));
+                cities.add(this.retrieveCity(result));
 
             }
 
@@ -565,7 +586,7 @@ public class MainDAOImpl implements MainDAO {
 
             while(result.next()) {
 
-                city = retrieveCity(result);
+                city = this.retrieveCity(result);
  
             }
 
@@ -598,7 +619,7 @@ public class MainDAOImpl implements MainDAO {
 
             while(result.next()) {
 
-                countries.add(retrieveCountry(result));
+                countries.add(this.retrieveCountry(result));
 
             }
 
@@ -638,7 +659,7 @@ public class MainDAOImpl implements MainDAO {
 
             while(result.next()) {
 
-                customers.add(retrieveCustomer(result));
+                customers.add(this.retrieveCustomer(result));
 
             }
 
@@ -678,7 +699,7 @@ public class MainDAOImpl implements MainDAO {
 
         }
 
-        deleteAddress(customer.getAddress());
+        this.deleteAddress(customer.getAddress());
 
     }
 
@@ -772,7 +793,7 @@ public class MainDAOImpl implements MainDAO {
 
             while(result.next()) {
 
-                user = retrieveUser(result);
+                user = this.retrieveUser(result);
 
             }
 
