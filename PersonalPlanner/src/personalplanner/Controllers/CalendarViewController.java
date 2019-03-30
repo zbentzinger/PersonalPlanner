@@ -28,6 +28,8 @@ import personalplanner.Models.User;
 
 public class CalendarViewController implements Initializable {
 
+    private static final Logger LOGGER = Logger.getLogger("PersonalPlanner");
+
     private MainDAO database;
     private User user;
     private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
@@ -56,18 +58,15 @@ public class CalendarViewController implements Initializable {
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(addAppViewURL));
-
             Stage stage = (Stage) addAppointmentButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
-
             AddAppointmentViewController controller = loader.getController();
             controller.initData(this.user);
-
             stage.show();
 
         } catch (IOException ex) {
 
-            Logger.getLogger(CalendarViewController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -125,18 +124,15 @@ public class CalendarViewController implements Initializable {
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(editAppViewURL));
-
             Stage stage = (Stage) editAppointmentButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
-
             EditAppointmentViewController controller = loader.getController();
             controller.initData(this.user, selectedApp);
-
             stage.show();
 
         } catch (IOException ex) {
 
-            Logger.getLogger(CalendarViewController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -147,18 +143,15 @@ public class CalendarViewController implements Initializable {
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(homeViewURL));
-            
             Stage stage = (Stage) homeButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
-            
             HomeViewController controller = loader.getController();
             controller.initData(this.user);
-            
             stage.show();
 
         } catch (IOException ex) {
 
-            Logger.getLogger(CalendarViewController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -183,9 +176,7 @@ public class CalendarViewController implements Initializable {
     private void populateByMonth() {
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MMMM, yyyy");
-
         calendarCenterButton.setText(selectedMonth.format(format));
-
         calendarTableView.setItems(this.database.getAppointmentsByMonth(selectedMonth));
 
     }
@@ -194,7 +185,6 @@ public class CalendarViewController implements Initializable {
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
         String label = selectedWeek.format(format) + " - " + selectedWeek.plusWeeks(1).format(format);
-
         calendarCenterButton.setText(label);
 
         calendarTableView.setItems(this.database.getAppointmentsByWeek(selectedWeek));

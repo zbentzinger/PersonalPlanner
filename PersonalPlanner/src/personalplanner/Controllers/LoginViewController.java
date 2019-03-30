@@ -22,6 +22,8 @@ import personalplanner.Models.User;
 
 public class LoginViewController implements Initializable {
 
+    private static final Logger LOGGER = Logger.getLogger("PersonalPlanner");
+
     private MainDAO database;
     private User user;
     private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
@@ -47,8 +49,7 @@ public class LoginViewController implements Initializable {
         appointmentSoon.setTitle("Upcoming Appointment");
         appointmentSoon.setHeaderText("You have an appointment soon");
 
-        if (this.database.isAppointmentSoon(user))
-        {
+        if (this.database.isAppointmentSoon(user)){
 
             appointmentSoon.show();
 
@@ -68,23 +69,25 @@ public class LoginViewController implements Initializable {
             // Rubric H: show alert if appointment starting within 15 minutes.
             this.checkAppointment();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(homeViewURL));
+            // Rubric J: Add log file entries when a user logs in.
+            LOGGER.log(Level.INFO, "User: `{0}` Logged in", this.user.getUserName());
 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(homeViewURL));
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
-
             HomeViewController controller = loader.getController();
             controller.initData(this.user);
-
             stage.show();
 
         } catch (IOException ex) {
 
-            Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
         // Rubric F4: Entering incorrect user credentials - show invalid label.
         } catch (InvalidUserException e) {
         
+            LOGGER.log(Level.INFO, "Login attempt with invalid credentials.");
+
             invalidLabel.setText(e.getLocalizedMessage());
             invalidLabel.setVisible(true);
         

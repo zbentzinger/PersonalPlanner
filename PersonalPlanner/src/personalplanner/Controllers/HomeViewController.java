@@ -16,6 +16,8 @@ import personalplanner.Models.User;
 
 public class HomeViewController implements Initializable {
 
+    private static final Logger LOGGER = Logger.getLogger("PersonalPlanner");
+
     private User user;
     private String loginViewURL = "/personalplanner/Views/LoginView.fxml";
     private String calendarViewURL = "/personalplanner/Views/CalendarView.fxml";
@@ -32,18 +34,15 @@ public class HomeViewController implements Initializable {
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(calendarViewURL));
-
             Stage stage = (Stage) calendarButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
-
             CalendarViewController controller = loader.getController();
             controller.initData(this.user);
-
             stage.show();
 
         } catch (IOException ex) {
 
-            Logger.getLogger(HomeViewController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -54,18 +53,15 @@ public class HomeViewController implements Initializable {
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(customersViewURL));
-
             Stage stage = (Stage) customersButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
-
             CustomersViewController controller = loader.getController();
             controller.initData(this.user);
-
             stage.show();
 
         } catch (IOException ex) {
 
-            Logger.getLogger(HomeViewController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -75,6 +71,8 @@ public class HomeViewController implements Initializable {
 
         try {
 
+            LOGGER.log(Level.INFO, "User: `{0}` logging out", this.user.getUserName());
+
             FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(loginViewURL),
                 ResourceBundle.getBundle("personalplanner.Utils.LoginView")
@@ -82,12 +80,11 @@ public class HomeViewController implements Initializable {
 
             Stage stage = (Stage) logoutButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
-
             stage.show();
 
         } catch (IOException ex) {
 
-            Logger.getLogger(HomeViewController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -98,18 +95,15 @@ public class HomeViewController implements Initializable {
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(reportsViewURL));
-
             Stage stage = (Stage) reportsButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
-
             ReportsViewController controller = loader.getController();
             controller.initData(this.user);
-
             stage.show();
 
         } catch (IOException ex) {
 
-            Logger.getLogger(HomeViewController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
         }
 

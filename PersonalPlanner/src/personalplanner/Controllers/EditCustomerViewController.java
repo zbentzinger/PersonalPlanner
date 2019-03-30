@@ -24,6 +24,8 @@ import personalplanner.Models.Country;
 
 public class EditCustomerViewController implements Initializable {
 
+    private static final Logger LOGGER = Logger.getLogger("PersonalPlanner");
+
     private MainDAO database;
     private Customer customer;
     private User user;
@@ -70,18 +72,15 @@ public class EditCustomerViewController implements Initializable {
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(custViewURL));
-            
             Stage stage = (Stage) editCustCancelButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
-            
             CustomersViewController controller = loader.getController();
             controller.initData(this.user);
-            
             stage.show();
 
         } catch (IOException ex) {
 
-            Logger.getLogger(AddCustomerViewController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -119,18 +118,15 @@ public class EditCustomerViewController implements Initializable {
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(custViewURL));
-            
             Stage stage = (Stage) editCustSaveButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
-            
             CustomersViewController controller = loader.getController();
             controller.initData(this.user);
-            
             stage.show();
 
         } catch (IOException ex) {
 
-            Logger.getLogger(EditCustomerViewController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
         }
 

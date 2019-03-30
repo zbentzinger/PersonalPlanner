@@ -24,3 +24,4 @@ hs_err_pid*
 /PersonalPlanner/dist/
 /PersonalPlanner/build/
 .DS_Store
+log.txt

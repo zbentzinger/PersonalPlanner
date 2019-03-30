@@ -25,6 +25,8 @@ import personalplanner.Models.Customer;
 
 public class AddCustomerViewController implements Initializable {
 
+    private static final Logger LOGGER = Logger.getLogger("PersonalPlanner");
+
     private MainDAO database;
     private User user;
     private String customersViewURL = "/personalplanner/Views/CustomersView.fxml";
@@ -70,18 +72,15 @@ public class AddCustomerViewController implements Initializable {
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(customersViewURL));
-            
             Stage stage = (Stage) newCustCancelButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
-            
             CustomersViewController controller = loader.getController();
             controller.initData(this.user);
-            
             stage.show();
 
         } catch (IOException ex) {
 
-            Logger.getLogger(AddCustomerViewController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -125,18 +124,15 @@ public class AddCustomerViewController implements Initializable {
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(customersViewURL));
-            
             Stage stage = (Stage) newCustSaveButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
-            
             CustomersViewController controller = loader.getController();
             controller.initData(this.user);
-            
             stage.show();
 
         } catch (IOException ex) {
 
-            Logger.getLogger(AddCustomerViewController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -160,6 +156,7 @@ public class AddCustomerViewController implements Initializable {
         // Rubric G - Lambda: This lambda will populate my Country and City drop downs 
         // depending on which country is seleceted.
         countryDropDown.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> populateCityDropdown(newVal));
+
         // Rubric G - Lambda: I chose to map all button actions using a lambda.
         newCustCancelButton.setOnAction(e -> cancel());
         newCustSaveButton.setOnAction(e -> save());

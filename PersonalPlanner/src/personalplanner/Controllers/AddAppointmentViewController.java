@@ -33,6 +33,8 @@ import personalplanner.Models.User;
 
 public class AddAppointmentViewController implements Initializable {
 
+    private static final Logger LOGGER = Logger.getLogger("PersonalPlanner");
+
     private MainDAO database;
     private User user;
     private String calendarViewURL = "/personalplanner/Views/CalendarView.fxml";
@@ -84,18 +86,15 @@ public class AddAppointmentViewController implements Initializable {
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(calendarViewURL));
-            
             Stage stage = (Stage) newAppCancelButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
-
             CalendarViewController controller = loader.getController();
             controller.initData(this.user);
-
             stage.show();
 
         } catch (IOException ex) {
 
-            Logger.getLogger(AddAppointmentViewController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -104,7 +103,6 @@ public class AddAppointmentViewController implements Initializable {
     private LocalTime getTime(String timeStr) {
 
          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h[:mm]a");
-
          String sanitized = timeStr.replaceAll("\\s+","").toUpperCase();
 
          // instantiate with invalid time for error handling further on.
@@ -113,8 +111,7 @@ public class AddAppointmentViewController implements Initializable {
 
              time = LocalTime.parse(sanitized, formatter);
 
-         } catch (Exception e) {
-         } // do nothing
+         } catch (Exception e) {} // do nothing
 
          return time;
 
@@ -132,26 +129,21 @@ public class AddAppointmentViewController implements Initializable {
         Appointment app = new Appointment();
         app.setCustomer(selectCustTable.getSelectionModel().getSelectedItem());
         app.setUser(this.user);
-
         app.setDescription(descriptionTextField.getText());
         app.setLocation(locationTextField.getText());
-
         app.setType(typeTextField.getText());
-
         app.setStart(
             LocalDateTime.of(
                 dayPicker.getValue(),
                 getTime(fromText.getText())
             )
         );
-
         app.setEnd(
             LocalDateTime.of(
                 dayPicker.getValue(),
                 getTime(toText.getText())
             )
         );
-
         app.setCreatedBy(this.user.getUserName());
         app.setUpdatedBy(this.user.getUserName());
         
@@ -162,18 +154,15 @@ public class AddAppointmentViewController implements Initializable {
             try {
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(calendarViewURL));
-
                 Stage stage = (Stage) newAppSaveButton.getScene().getWindow();
                 stage.setScene(new Scene((Parent) loader.load()));
-
                 CalendarViewController controller = loader.getController();
                 controller.initData(this.user);
-
                 stage.show();
 
             } catch (IOException ex) {
 
-                Logger.getLogger(AddAppointmentViewController.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.log(Level.SEVERE, null, ex);
 
             }
 

@@ -24,6 +24,8 @@ import personalplanner.DAO.MainDAOImpl;
 
 public class CustomersViewController implements Initializable {
 
+    private static final Logger LOGGER = Logger.getLogger("PersonalPlanner");
+
     private MainDAO database;
     private User user;
     private String editCustViewURL = "/personalplanner/Views/EditCustomerView.fxml";
@@ -43,18 +45,15 @@ public class CustomersViewController implements Initializable {
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(addCustViewURL));
-
             Stage stage = (Stage) addCustomerButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
-
             AddCustomerViewController controller = loader.getController();
             controller.initData(this.user);
-
             stage.show();
 
         } catch (IOException ex) {
 
-            Logger.getLogger(CustomersViewController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -96,18 +95,15 @@ public class CustomersViewController implements Initializable {
         try {
             
             FXMLLoader loader = new FXMLLoader(getClass().getResource(editCustViewURL));
-
             Stage stage = (Stage) editCustomerButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
-
             EditCustomerViewController controller = loader.getController();
             controller.initData(this.user, selectedCustomer);
-
             stage.show();
 
         } catch (IOException ex) {
 
-            Logger.getLogger(CustomersViewController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -118,18 +114,15 @@ public class CustomersViewController implements Initializable {
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(homeViewURL));
-
             Stage stage = (Stage) customersHomeButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
-
             HomeViewController controller = loader.getController();
             controller.initData(this.user);
-
             stage.show();
 
         } catch (IOException ex) {
 
-            Logger.getLogger(CustomersViewController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
         }
 

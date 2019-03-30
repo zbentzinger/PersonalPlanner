@@ -26,6 +26,8 @@ import personalplanner.Models.User;
 
 public class ReportsViewController implements Initializable {
 
+    private static final Logger LOGGER = Logger.getLogger("PersonalPlanner");
+
     private MainDAO database;
     private User user;
     private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
@@ -54,18 +56,15 @@ public class ReportsViewController implements Initializable {
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(homeViewURL));
-
             Stage stage = (Stage) homeButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
-
             HomeViewController controller = loader.getController();
             controller.initData(this.user);
-
             stage.show();
 
         } catch (IOException ex) {
 
-            Logger.getLogger(CustomersViewController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
         }
 

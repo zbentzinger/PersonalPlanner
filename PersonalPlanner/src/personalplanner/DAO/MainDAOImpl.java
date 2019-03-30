@@ -1,5 +1,6 @@
 package personalplanner.DAO;
 
+import personalplanner.Utils.Database;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
