@@ -2,7 +2,6 @@ package personalplanner.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.DayOfWeek;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +18,6 @@ import javafx.stage.Stage;
 import personalplanner.DAO.InvalidUserException;
 import personalplanner.DAO.MainDAO;
 import personalplanner.DAO.MainDAOImpl;
-import personalplanner.Models.Appointment;
 import personalplanner.Models.User;
 
 public class LoginViewController implements Initializable {
