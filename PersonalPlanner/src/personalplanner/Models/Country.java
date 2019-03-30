@@ -94,8 +94,10 @@ public class Country {
 
     }
 
-    // Ive overriden the following three methods 
+    // Ive overriden the following three methods: hashCode(), equals() and toString()
     // for use with ChoiceBoxes in the AddCustomer and EditCustomer views.
+    //
+    // If the countryID is equal, I am assuming that the object is equal.
     @Override public String toString() {
 
         return this.countryName;

@@ -123,6 +123,7 @@ public class HomeViewController implements Initializable {
 
     @Override public void initialize(URL url, ResourceBundle rb) {
 
+        // Rubric G - Lambda: I chose to map all button actions using a lambda.
         calendarButton.setOnAction(e -> calendar());
         customersButton.setOnAction(e -> customers());
         logoutButton.setOnAction(e -> logout());

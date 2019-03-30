@@ -19,6 +19,8 @@ public class PersonalPlanner extends Application {
 
     @Override public void start(Stage stage) throws Exception {
 
+        // Rubric A; ResourceBundle is passed to FXML for internationalization.
+        // Currently supports en_US and fr_FR.
         Parent loginView = FXMLLoader.load(
             getClass().getResource(loginViewURL),
             ResourceBundle.getBundle("personalplanner.Utils.LoginView")

@@ -33,7 +33,7 @@ public class CalendarViewController implements Initializable {
     private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
     private String editAppViewURL = "/personalplanner/Views/EditAppointmentView.fxml";
     private String addAppViewURL = "/personalplanner/Views/AddAppointmentView.fxml";
-    private  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mma");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mma");
     private LocalDateTime selectedMonth = LocalDateTime.now();
     private LocalDateTime selectedWeek = LocalDateTime.now();
 
@@ -50,6 +50,7 @@ public class CalendarViewController implements Initializable {
     @FXML private ToggleButton monthToggleButton;
     @FXML private ToggleButton weekToggleButton;
 
+    // Rubric C: Ability to add appointments. Will redirect to AddAppointmentView.
     private void add() {
 
         try {
@@ -74,7 +75,6 @@ public class CalendarViewController implements Initializable {
 
     private void back() {
 
-        // Since we disable the active view.
         if(weekToggleButton.isDisable()) {
 
             selectedWeek = selectedWeek.minusWeeks(1);
@@ -89,6 +89,7 @@ public class CalendarViewController implements Initializable {
 
     }
 
+    // Rubric F: Do not enable edit or delete buttons if selection hasn't been made.
     private void bindButtons() {
 
         editAppointmentButton.disableProperty().bind(
@@ -105,6 +106,7 @@ public class CalendarViewController implements Initializable {
 
     }
 
+    // Rubric C: Ability to delete appointments. Will delete selected appointment from database.
     private void delete() {
 
         Appointment selectedAppointment = calendarTableView.getSelectionModel().getSelectedItem();
@@ -114,6 +116,8 @@ public class CalendarViewController implements Initializable {
 
     }
 
+    // Rubric C: Ability to update Appointment. Will take selected appointment
+    // and redirect to EditAppointmentView where it can be updated.
     private void edit() {
 
         Appointment selectedApp = calendarTableView.getSelectionModel().getSelectedItem();
@@ -162,7 +166,6 @@ public class CalendarViewController implements Initializable {
 
     private void next() {
 
-        // Since we disable the active view.
         if(weekToggleButton.isDisable()) {
             
             selectedWeek = selectedWeek.plusWeeks(1);
@@ -200,7 +203,6 @@ public class CalendarViewController implements Initializable {
 
     private void toggleMonth() {
 
-        // Prevent unselecting of a toggle button.
         weekToggleButton.setDisable(false);
         monthToggleButton.setDisable(true);
         monthToggleButton.setSelected(true);
@@ -211,7 +213,6 @@ public class CalendarViewController implements Initializable {
 
     private void toogleWeek() {
 
-        // Prevent unselecting of a toggle button.
         monthToggleButton.setDisable(false);
         weekToggleButton.setDisable(true);
         weekToggleButton.setSelected(true);
@@ -226,6 +227,7 @@ public class CalendarViewController implements Initializable {
 
     }
 
+    // Rubric D: Ability to view calendar by month and week.
     @Override public void initialize(URL url, ResourceBundle rb) {
 
         this.database = new MainDAOImpl();
@@ -235,15 +237,18 @@ public class CalendarViewController implements Initializable {
         appDesc.setCellValueFactory(
             new PropertyValueFactory<>("description")
         );
+
+        // Rubric G - Lambda: appointment.start is a LocalDateTime
+        // and looks kind of ugly when being displayed in a tableview.
+        // I chose to use a lambda here to convert that LocalDateTime 
+        // on the fly into a formatted string.
         appDate.setCellValueFactory(appointment -> new SimpleStringProperty(appointment.getValue().getStart().format(formatter)));
-        //appDate.setCellValueFactory(
-        //    new PropertyValueFactory<>("start")
-        //);
 
         calendarTableView.setPlaceholder(new Label(""));
 
         toggleMonth();
 
+        // Rubric G - Lambda: I chose to map all button actions using a lambda.
         addAppointmentButton.setOnAction(e -> add());
         backButton.setOnAction(e -> back());
         deleteAppointmentButton.setOnAction(e -> delete());

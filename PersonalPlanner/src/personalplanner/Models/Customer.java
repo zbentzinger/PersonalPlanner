@@ -122,18 +122,13 @@ public class Customer {
 
     }
 
+    // Ive overriden the following three methods: hashCode(), equals() and toString()
+    // for use with ChoiceBoxes in the AddCustomer and EditCustomer views.
+    //
+    // If the customerID is equal, I am assuming that the object is equal.
     @Override public String toString() {
 
-        return "Customer{" 
-                        + "customerID=" + customerID 
-                        + ", customerName=" + customerName 
-                        + ", address=" + address 
-                        + ", active=" + active 
-                        + ", createdBy=" + createdBy 
-                        + ", createdAt=" + createdAt 
-                        + ", updatedBy=" + updatedBy 
-                        + ", updatedAt=" + updatedAt 
-                + '}';
+        return this.customerName;
 
     }
 

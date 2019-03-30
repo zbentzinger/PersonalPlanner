@@ -15,6 +15,7 @@ public interface MainDAO {
     void deleteAppointment(Appointment appointment);
     void insertAppointment(Appointment appointment);
     void updateAppointment(Appointment appointment);
+    boolean appointmentConflicts(Appointment appointment);
 
     ObservableList<City> getCities(Country country);
     City getCity(String cityName);
@@ -26,6 +27,6 @@ public interface MainDAO {
     void insertCustomer(Customer customer);
     void updateCustomer(Customer customer);
 
-    User getUser(String username, String pass);
+    User getUser(String username, String pass) throws InvalidUserException;
 
 }

@@ -37,6 +37,7 @@ public class CustomersViewController implements Initializable {
     @FXML private TableView<Customer> customersTableView;
     @FXML private TableColumn<Customer, String> customerNameCol;
 
+    // Rubric B: Ability to add Customer. Will redirect to AddCustomerView.
     private void add() {  
 
         try {
@@ -59,6 +60,7 @@ public class CustomersViewController implements Initializable {
 
     }
 
+    // Rubric F: Do not enable edit or delete buttons if selection hasn't been made.
     private void bindButtons() {
 
         editCustomerButton.disableProperty().bind(
@@ -75,6 +77,7 @@ public class CustomersViewController implements Initializable {
 
     }
 
+    // Rubric B: Ability to delete customer. Will delete selected customer from database.
     private void delete() {
 
         Customer selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
@@ -84,6 +87,8 @@ public class CustomersViewController implements Initializable {
 
     }
 
+    // Rubric B: Ability to update customer. Will take selected customer and
+    // redirect to EditCustomerView which allows updating of customers.
     private void edit() {
 
         Customer selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
@@ -143,6 +148,7 @@ public class CustomersViewController implements Initializable {
 
     }
 
+    // Rubric B: Ability to add/update/delete customers.
     @Override public void initialize(URL url, ResourceBundle rb) {
 
         this.database = new MainDAOImpl();
@@ -154,6 +160,8 @@ public class CustomersViewController implements Initializable {
         populateCustomersTable();
 
         bindButtons();
+
+        // Rubric G - Lambda: I chose to map all button actions using a lambda.
         addCustomerButton.setOnAction(e -> add());
         deleteCustomerButton.setOnAction(e -> delete());
         editCustomerButton.setOnAction(e -> edit());

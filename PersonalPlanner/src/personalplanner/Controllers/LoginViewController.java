@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import personalplanner.DAO.InvalidUserException;
 import personalplanner.DAO.MainDAO;
 import personalplanner.DAO.MainDAOImpl;
 import personalplanner.Models.User;
@@ -39,46 +40,45 @@ public class LoginViewController implements Initializable {
 
     private void login() {
 
-        this.user = database.getUser(
-            userNameField.getText(),
-            passField.getText()
-        );
+        try {
 
-        // Auth the user and load HomeView.
-        if(this.user.getUserID() > 0) {
+            this.user = database.getUser(
+                userNameField.getText(),
+                passField.getText()
+            );
 
-            try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(homeViewURL));
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(homeViewURL));
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.setScene(new Scene((Parent) loader.load()));
 
-                Stage stage = (Stage) loginButton.getScene().getWindow();
-                stage.setScene(new Scene((Parent) loader.load()));
+            HomeViewController controller = loader.getController();
+            controller.initData(this.user);
 
-                HomeViewController controller = loader.getController();
-                controller.initData(this.user);
+            stage.show();
 
-                stage.show();
+        } catch (IOException ex) {
 
-            } catch (IOException ex) {
+            Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
 
-                Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
-
-            }
-
-        } else {
-
+        // Rubric F4: Entering incorrect user credentials - show invalid label.
+        } catch (InvalidUserException e) {
+        
+            invalidLabel.setText(e.getLocalizedMessage());
             invalidLabel.setVisible(true);
-
+        
         }
 
     }
 
+    // Rubric A and F: Login form; internationalization is handled through ResourceBundles, FXML and custom Exception.
     @Override public void initialize(URL url, ResourceBundle rb) {
 
         this.database = new MainDAOImpl();
 
         invalidLabel.setVisible(false);
 
+        // Rubric G - Lambda: I chose to map all button actions using a lambda.
         exitButton.setOnAction(e -> exit());
         loginButton.setOnAction(e -> login());
 

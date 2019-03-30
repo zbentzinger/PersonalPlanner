@@ -108,8 +108,10 @@ public class City {
 
     }
 
-    // Ive overriden the following three methods 
+    // Ive overriden the following three methods: hashCode(), equals() and toString()
     // for use with ChoiceBoxes in the AddCustomer and EditCustomer views.
+    //
+    // If the cityID is equal, I am assuming that the object is equal.
     @Override public String toString() {
 
         return this.cityName;

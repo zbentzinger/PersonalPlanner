@@ -38,9 +38,9 @@ public class EditCustomerViewController implements Initializable {
     @FXML private TextField phoneTextField;
     @FXML private TextField postalCodeTextField;
 
+    // Rubric F3: Do not enable buttons if not all data is filled in.
     private void bindButtons() {
 
-        // Make sure that all fields have a value before enabling save button.
         BooleanBinding enabledState = new BooleanBinding() {
             {
                 super.bind(
@@ -150,6 +150,7 @@ public class EditCustomerViewController implements Initializable {
 
     }
 
+    // Rubric B: Ability to update customer.
     @Override public void initialize(URL url, ResourceBundle rb) {
 
         this.database = new MainDAOImpl();
@@ -158,7 +159,11 @@ public class EditCustomerViewController implements Initializable {
 
         bindButtons();
 
+        // Rubric G - Lambda: This lambda will populate my Country and City drop downs 
+        // depending on which country is seleceted.
         countryDropDown.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> populateCityDropdown(newVal));
+
+        // Rubric G - Lambda: I chose to map all button actions using a lambda.
         editCustCancelButton.setOnAction(e -> cancel());
         editCustSaveButton.setOnAction(e -> save());
 

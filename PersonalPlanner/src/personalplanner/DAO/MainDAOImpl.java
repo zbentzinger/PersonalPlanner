@@ -19,7 +19,6 @@ import personalplanner.Models.User;
 
 public class MainDAOImpl implements MainDAO {
 
-    // Used for building select queries, needed to standardize the fieldlist.
     private String addr_fields = "address.addressid AS AddressAddressID,"
                                + "address.address AS AddressAddress,"
                                + "address.address2 AS AddressAddress2,"
@@ -177,6 +176,7 @@ public class MainDAOImpl implements MainDAO {
 
     }
 
+    // Rubric E: Adjust appointment times to user's local time.
     private Appointment retrieveAppointment(ResultSet result) throws SQLException {
 
         Appointment appointment = new Appointment();
@@ -291,6 +291,7 @@ public class MainDAOImpl implements MainDAO {
 
     }
 
+    // Rubric E: Convert UTC appointment times from database to user's local time.
     private LocalDateTime toLocalTimeZone(LocalDateTime dateTime) {
 
         ZonedDateTime utcZoned = dateTime.atZone(ZoneId.of("UTC"));
@@ -300,6 +301,7 @@ public class MainDAOImpl implements MainDAO {
 
     }
 
+    // Rubric E: Save appointments in database as UTC.
     private LocalDateTime toUTC(LocalDateTime dateTime) {
 
         ZonedDateTime localZoned = dateTime.atZone(ZoneId.systemDefault());
@@ -346,6 +348,7 @@ public class MainDAOImpl implements MainDAO {
 
     }
 
+    // Rubric E: Adjust appointment times to user's local time.
     @Override public ObservableList<Appointment> getAppointmentsByMonth(LocalDateTime date) {
 
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
@@ -394,6 +397,7 @@ public class MainDAOImpl implements MainDAO {
 
     }
 
+    // Rubric E: Adjust appointment times to user's local time.
     @Override public ObservableList<Appointment> getAppointmentsByWeek(LocalDateTime date) {
 
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
@@ -466,6 +470,7 @@ public class MainDAOImpl implements MainDAO {
 
     }
 
+    // Rubric E: Convert user's local time to UTC and save the appointment to database.
     @Override public void insertAppointment(Appointment appointment) {
 
         String query = "INSERT INTO appointment "
@@ -504,6 +509,7 @@ public class MainDAOImpl implements MainDAO {
 
     }
 
+    // Rubric E: Convert user's local time to UTC and save the appointment to database.
     @Override public void updateAppointment(Appointment appointment) {
 
         String query = "UPDATE appointment SET"
@@ -548,6 +554,48 @@ public class MainDAOImpl implements MainDAO {
             Database.closeConnection();
 
         }
+
+    }
+
+    // Rubric F3: Return boolean regarding if an appointment time conflicts with another owned by the user.
+    @Override public boolean appointmentConflicts(Appointment appointment) {
+
+        boolean conflicts = false;
+
+        String query = "SELECT * "
+                     + "FROM appointment "
+                     + "WHERE (? BETWEEN `start` AND `end`) OR (? BETWEEN `start` AND `end`) "
+                     + "HAVING appointmentid != ? AND userid = ?";
+
+        try {
+
+            PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
+
+            
+            pstmnt.setTimestamp(1, Timestamp.valueOf(this.toUTC(appointment.getStart())));
+            pstmnt.setTimestamp(2, Timestamp.valueOf(this.toUTC(appointment.getEnd())));
+            pstmnt.setInt(3, appointment.getAppointmentID());
+            pstmnt.setInt(4, appointment.getUser().getUserID());
+
+            ResultSet result = pstmnt.executeQuery();
+
+            if(result.next()) {
+
+                conflicts = true;
+
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println("Exception when checking appointment confliction: " + e);
+
+        } finally {
+
+            Database.closeConnection();
+
+        }
+
+        return conflicts;
 
     }
 
@@ -800,7 +848,8 @@ public class MainDAOImpl implements MainDAO {
 
     }
 
-    @Override public User getUser(String username, String pass) {
+    // Rubric F: Throw error if user cannot be found.
+    @Override public User getUser(String username, String pass) throws InvalidUserException {
 
         User user = new User();
 
@@ -818,9 +867,13 @@ public class MainDAOImpl implements MainDAO {
 
             ResultSet result = pstmnt.executeQuery();
 
-            while(result.next()) {
+            if(result.next()) {
 
                 user = this.retrieveUser(result);
+
+            } else {
+
+                throw new InvalidUserException("invalid_message");
 
             }
 

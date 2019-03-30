@@ -17,7 +17,7 @@ public class Database {
     private static final String PORT = "3306";
     private static final String DATABASE = "U04Szi";
 
-    // Example: jdbc:mysql://user:pass@host:port/database
+    // Example: jdbc:mysql://host:port/database
     private static String URL = String.format(
         "jdbc:%s://%s:%s/%s",
         PROTOCOL, HOSTNAME, PORT, DATABASE

@@ -64,7 +64,7 @@
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>
                                     </PasswordField>
-                                    <Label fx:id="invalidLabel" text="%invalid_message" textFill="#ee0101" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                    <Label fx:id="invalidLabel" textFill="#ee0101" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>
