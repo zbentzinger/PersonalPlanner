@@ -12,6 +12,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import personalplanner.Models.Address;
 import personalplanner.Models.Appointment;
+import personalplanner.Models.AppointmentsByCustomerReport;
+import personalplanner.Models.AppointmentsByMonthReport;
 import personalplanner.Models.City;
 import personalplanner.Models.Country;
 import personalplanner.Models.Customer;
@@ -199,6 +201,30 @@ public class MainDAOImpl implements MainDAO {
         appointment.setUpdatedBy(result.getString("AppointmentLastUpdateBy"));
 
         return appointment;
+
+    }
+
+    private AppointmentsByCustomerReport retrieveAppointmentByCustomerReport(ResultSet result) throws SQLException {
+
+        AppointmentsByCustomerReport app = new AppointmentsByCustomerReport();
+
+        app.setCustomerName(result.getString("CustomerName"));
+        app.setNumberOfAppointments(result.getInt("NumberOfAppointments"));
+
+        return app;
+
+    }
+
+    private AppointmentsByMonthReport retrieveAppointmentByMonthReport(ResultSet result) throws SQLException {
+
+        AppointmentsByMonthReport app = new AppointmentsByMonthReport();
+
+        app.setAppointmentMonth(result.getString("Month"));
+        app.setAppointmentType(result.getString("AppointmentType"));
+        app.setAppointmentYear(result.getInt("Year"));
+        app.setNumberOfAppointments(result.getInt("NumberOfAppointments"));
+
+        return app;
 
     }
 
@@ -926,6 +952,131 @@ public class MainDAOImpl implements MainDAO {
         }
 
         return user;
+
+    }
+
+    // Rubric I2: Schedule for each Consultant.
+    @Override public ObservableList<Appointment> getAppointmentsByUser() {
+
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+
+        String query = "SELECT "
+                     + appt_fields + ","
+                     + user_fields + ","
+                     + cust_fields + ","
+                     + addr_fields + ","
+                     + city_fields + ","
+                     + ctry_fields + " "
+                     + "FROM appointment "
+                     + "JOIN user ON appointment.userid = user.userid "
+                     + "JOIN customer ON appointment.customerid = customer.customerid "
+                     + "JOIN address ON customer.addressid = address.addressid "
+                     + "JOIN city ON address.cityid = city.cityid "
+                     + "JOIN country ON city.countryid = country.countryid "
+                     + "ORDER BY AppointmentUserID";
+
+        try {
+
+            PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
+            ResultSet result = pstmnt.executeQuery();
+
+            while(result.next()) {
+
+                appointments.add(this.retrieveAppointment(result));
+
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println("Exception when retrieving appointments by user: " + e);
+
+        } finally {
+
+            Database.closeConnection();
+
+        }
+
+        return appointments;
+
+    }
+
+    // Rubric I1: Number of Appointment Types by each month.
+    @Override public ObservableList<AppointmentsByMonthReport> appointmentsByMonthReport() {
+
+        ObservableList<AppointmentsByMonthReport> report = FXCollections.observableArrayList();
+
+        String query = "SELECT"
+                     + "  type AS AppointmentType,"
+                     + "  COUNT(*) AS NumberOfAppointments,"
+                     + "  MONTHNAME(start) AS Month,"
+                     + "  YEAR(start) AS Year "
+                     + "FROM appointment "
+                     + "GROUP BY"
+                     + "  AppointmentType,"
+                     + "  Month "
+                     + "ORDER BY"
+                     + "  AppointmentType,"
+                     + "  start";
+
+        try {
+
+            PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
+            ResultSet result = pstmnt.executeQuery();
+
+            while(result.next()) {
+
+                report.add(this.retrieveAppointmentByMonthReport(result));
+
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println("Exception when retrieving appointments by user: " + e);
+
+        } finally {
+
+            Database.closeConnection();
+
+        }
+
+        return report;
+
+    }
+
+    // Rubric I3: Additional report - Number of Appointments for each Customer.
+    @Override public ObservableList<AppointmentsByCustomerReport> appointmentsByCustomerReport() {
+
+        ObservableList<AppointmentsByCustomerReport> report = FXCollections.observableArrayList();
+
+        String query = "SELECT"
+                     + "  COUNT(appointment.appointmentid) AS NumberOfAppointments,"
+                     + "  customer.customername AS CustomerName "
+                     + "FROM customer "
+                     + "LEFT JOIN appointment ON customer.customerid = appointment.customerid "
+                     + "GROUP BY customer.customerid;";
+
+        try {
+
+            PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
+            ResultSet result = pstmnt.executeQuery();
+
+            while(result.next()) {
+
+                report.add(this.retrieveAppointmentByCustomerReport(result));
+
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println("Exception when retrieving appointments by user: " + e);
+
+        } finally {
+
+            Database.closeConnection();
+
+        }
+
+        return report;
 
     }
  

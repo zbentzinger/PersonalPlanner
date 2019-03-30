@@ -3,6 +3,8 @@ package personalplanner.DAO;
 import java.time.LocalDateTime;
 import javafx.collections.ObservableList;
 import personalplanner.Models.Appointment;
+import personalplanner.Models.AppointmentsByCustomerReport;
+import personalplanner.Models.AppointmentsByMonthReport;
 import personalplanner.Models.City;
 import personalplanner.Models.Country;
 import personalplanner.Models.Customer;
@@ -12,6 +14,7 @@ public interface MainDAO {
 
     ObservableList<Appointment> getAppointmentsByMonth(LocalDateTime date);
     ObservableList<Appointment> getAppointmentsByWeek(LocalDateTime date);
+    ObservableList<Appointment> getAppointmentsByUser();
     boolean isAppointmentSoon(User user);
     void deleteAppointment(Appointment appointment);
     void insertAppointment(Appointment appointment);
@@ -29,5 +32,8 @@ public interface MainDAO {
     void updateCustomer(Customer customer);
 
     User getUser(String username, String pass) throws InvalidUserException;
+
+    ObservableList<AppointmentsByMonthReport> appointmentsByMonthReport();
+    ObservableList<AppointmentsByCustomerReport> appointmentsByCustomerReport();
 
 }

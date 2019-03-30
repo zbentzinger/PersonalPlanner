@@ -335,3 +335,28 @@ Text Fields
 .leftTextField .text {
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 15, 0, 0, 0);
 }
+
+/*****
+
+Tabs and TabPanes
+
+*****/
+.tab-pane .tab-header-area {
+    -fx-padding: 0 0 0 1;
+}
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane .tab {
+    -fx-background-color: dark-secondary-color;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: light-secondary-color;
+    -fx-opacity: 1.0;
+}
+
+.tab .tab-label { 
+    -fx-text-fill: text-primary-color;
+}
