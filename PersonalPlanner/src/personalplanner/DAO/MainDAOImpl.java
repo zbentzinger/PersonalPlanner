@@ -446,6 +446,44 @@ public class MainDAOImpl implements MainDAO {
 
     }
 
+    // Rubric H: Throw an alert if appointment within 15 minutes.
+    @Override public boolean isAppointmentSoon(User user) {
+
+        boolean appointmentSoon = false;
+
+        String query = "SELECT * FROM appointment "
+                     + "WHERE start BETWEEN ? AND ? AND userid = ?";
+
+        try {
+
+            PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
+
+            pstmnt.setTimestamp(1, Timestamp.valueOf(this.toUTC(LocalDateTime.now())));
+            pstmnt.setTimestamp(2, Timestamp.valueOf(this.toUTC(LocalDateTime.now().plusMinutes(15))));
+            pstmnt.setInt(3, user.getUserID());
+
+            ResultSet result = pstmnt.executeQuery();
+
+            if(result.next()) {
+
+                appointmentSoon = true;
+
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println("Exception when retrieving appointments by week: " + e);
+
+        } finally {
+
+            Database.closeConnection();
+
+        }
+
+        return appointmentSoon;
+
+    }
+
     @Override public void deleteAppointment(Appointment appointment) {
 
         String query = "DELETE "
@@ -564,7 +602,7 @@ public class MainDAOImpl implements MainDAO {
 
         String query = "SELECT * "
                      + "FROM appointment "
-                     + "WHERE (? BETWEEN `start` AND `end`) OR (? BETWEEN `start` AND `end`) "
+                     + "WHERE (? BETWEEN start AND end) OR (? BETWEEN start AND end) "
                      + "HAVING appointmentid != ? AND userid = ?";
 
         try {

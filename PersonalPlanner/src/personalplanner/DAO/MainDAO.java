@@ -12,6 +12,7 @@ public interface MainDAO {
 
     ObservableList<Appointment> getAppointmentsByMonth(LocalDateTime date);
     ObservableList<Appointment> getAppointmentsByWeek(LocalDateTime date);
+    boolean isAppointmentSoon(User user);
     void deleteAppointment(Appointment appointment);
     void insertAppointment(Appointment appointment);
     void updateAppointment(Appointment appointment);
