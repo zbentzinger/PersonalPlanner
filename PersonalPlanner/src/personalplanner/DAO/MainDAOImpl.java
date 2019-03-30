@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -143,6 +142,32 @@ public class MainDAOImpl implements MainDAO {
         } catch (SQLException e) {
 
             System.out.println("Exception when removing address: " + e);
+
+        } finally {
+
+            Database.closeConnection();
+
+        }
+
+    }
+
+    private void deleteAppointmentForCustomer(Customer customer) {
+
+        String query = "DELETE "
+                     + "FROM appointment "
+                     + "WHERE customerid = ?";
+
+        try {
+
+            PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
+
+            pstmnt.setInt(1, customer.getCustomerID());
+
+            pstmnt.executeUpdate();
+
+        } catch (SQLException e) {
+
+            System.out.println("Exception when removing customer: " + e);
 
         } finally {
 
@@ -678,6 +703,8 @@ public class MainDAOImpl implements MainDAO {
     }
 
     @Override public void deleteCustomer(Customer customer) {
+
+        this.deleteAppointmentForCustomer(customer);
 
         String query = "DELETE "
                      + "FROM customer "

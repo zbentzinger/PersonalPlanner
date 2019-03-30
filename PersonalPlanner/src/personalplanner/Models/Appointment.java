@@ -222,23 +222,7 @@ public class Appointment {
 
     @Override public String toString() {
 
-        return "Appointment{"
-                            + "appointmentID=" + appointmentID 
-                            + ", customer=" + customer 
-                            + ", user=" + user 
-                            + ", title=" + title 
-                            + ", description=" + description 
-                            + ", location=" + location 
-                            + ", contact=" + contact 
-                            + ", type=" + type 
-                            + ", url=" + url 
-                            + ", start=" + start 
-                            + ", end=" + end 
-                            + ", createdBy=" + createdBy 
-                            + ", createdAt=" + createdAt 
-                            + ", updatedBy=" + updatedBy 
-                            + ", updatedAt=" + updatedAt 
-                + '}';
+        return this.description;
 
     }
 
