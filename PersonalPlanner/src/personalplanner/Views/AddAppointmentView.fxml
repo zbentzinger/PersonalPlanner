@@ -121,9 +121,12 @@
                            </children>
                         </GridPane>
                         <Separator GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <TableView id="appointmentTable" fx:id="selectCustTable" editable="true" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <TableView fx:id="selectCustTable" editable="true" maxWidth="1.7976931348623157E308" styleClass="roundTable" GridPane.columnIndex="1" GridPane.rowIndex="3">
                           <columns>
-                            <TableColumn fx:id="custNameCol" minWidth="-1.0" prefWidth="-1.0" styleClass="roundTable" text="Select Customer" />
+                            <TableColumn fx:id="customerCol" minWidth="-1.0" prefWidth="-1.0" text="Customer" />
+                              <TableColumn fx:id="phoneCol" minWidth="-1.0" prefWidth="-1.0" text="Phone" />
+                              <TableColumn fx:id="addressCol" minWidth="-1.0" prefWidth="-1.0" text="Address" />
+                              <TableColumn fx:id="cityCol" prefWidth="75.0" text="City" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

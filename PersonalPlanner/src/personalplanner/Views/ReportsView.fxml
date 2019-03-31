@@ -42,25 +42,6 @@
                         <Separator GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                         <TabPane tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.rowIndex="3">
                           <tabs>
-                            <Tab fx:id="byMonth" text="Appointments By Month">
-                              <content>
-                                <AnchorPane>
-                                       <children>
-                                          <TableView fx:id="byMonthTable" layoutX="126.0" layoutY="1.0" styleClass="roundTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                            <columns>
-                                              <TableColumn fx:id="byMonthAppTypeCol" minWidth="-1.0" prefWidth="-1.0" text="Appointment Type" />
-                                              <TableColumn fx:id="byMonthNumOfAppsCol" minWidth="-1.0" prefWidth="-1.0" text="Number of Appointments" />
-                                                <TableColumn fx:id="byMonthMonthCol" minWidth="-1.0" prefWidth="-1.0" text="Month" />
-                                                <TableColumn fx:id="byMonthYearCol" minWidth="-1.0" prefWidth="-1.0" text="Year" />
-                                            </columns>
-                                             <columnResizePolicy>
-                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                             </columnResizePolicy>
-                                          </TableView>
-                                       </children>
-                                    </AnchorPane>
-                              </content>
-                            </Tab>
                             <Tab fx:id="conSched" text="Consultant Schedules">
                               <content>
                                 <AnchorPane>
@@ -72,6 +53,25 @@
                                                 <TableColumn fx:id="conSchedFromCol" minWidth="-1.0" prefWidth="-1.0" text="From" />
                                                 <TableColumn fx:id="conSchedToCol" minWidth="-1.0" prefWidth="-1.0" text="To" />
                                                 <TableColumn fx:id="ConSchedCustCol" minWidth="-1.0" prefWidth="-1.0" text="Customer" />
+                                            </columns>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab fx:id="byMonth" text="Appointments By Month">
+                              <content>
+                                <AnchorPane>
+                                       <children>
+                                          <TableView fx:id="byMonthTable" layoutX="126.0" layoutY="1.0" styleClass="roundTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columns>
+                                              <TableColumn fx:id="byMonthAppTypeCol" minWidth="-1.0" prefWidth="-1.0" text="Appointment Type" />
+                                              <TableColumn fx:id="byMonthNumOfAppsCol" minWidth="-1.0" prefWidth="-1.0" text="Number of Appointments" />
+                                                <TableColumn fx:id="byMonthMonthCol" minWidth="-1.0" prefWidth="-1.0" text="Month" />
+                                                <TableColumn fx:id="byMonthYearCol" minWidth="-1.0" prefWidth="-1.0" text="Year" />
                                             </columns>
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

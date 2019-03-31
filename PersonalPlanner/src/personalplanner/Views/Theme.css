@@ -49,6 +49,7 @@ ChoiceBoxes
 .choice-box > .label {
     -fx-text-fill: text-primary-color;
 }
+
 .choice-box .menu-item > .label {
     -fx-text-fill: text-primary-color;
 }
@@ -89,11 +90,13 @@ Tables
 .table-view {
     -fx-background-color: dark-primary-color;
     -fx-padding: 0 0 0 0;
-}
-
-.roundTable {
     -fx-background-radius: 2 2 2 2;
     -fx-border-radius: 2 2 2 2;
+}
+
+.table-cell {
+    -fx-alignment: CENTER;
+    -fx-text-fill: text-primary-color;
 }
 
 .table-view .column-header {
@@ -110,40 +113,9 @@ Tables
     -fx-background-color: primary-color;
 }
 
-.table-view .appDescCol {
-    -fx-background-radius: 2 0 0 0;
-    -fx-border-radius: 2 0 0 0;
-    -fx-border-width: 1 0 1 1;
-}
-
-.table-view .appDateCol {
-    -fx-background-radius: 0 2 0 0;
-    -fx-border-radius: 0 2 0 0;
-    -fx-border-width: 1 1 1 0;
-}
-
-.table-view .mainCol {
-    -fx-background-radius: 2 2 0 0;
-    -fx-border-radius: 2 2 0 0;
-}
-
 .table-view .column-header .label {
     -fx-text-fill: text-primary-color;
     -fx-font-weight: normal;
-}
-
-#appointmentTable .column-header .label {
-    -fx-alignment: CENTER_LEFT;
-    -fx-padding: 5;
-}
-
-.table-view .table-cell {
-    -fx-text-fill: text-primary-color;
-}
-
-#appointmentTable .table-cell {
-    -fx-alignment: CENTER_LEFT;
-    -fx-padding: 5;
 }
 
 .table-view .table-row-cell {
@@ -176,11 +148,6 @@ Labels
 
 .mainLabels {
     -fx-font-size: 20pt;
-    -fx-text-fill: text-primary-color;
-}
-
-.secondaryLabels {
-    -fx-font-size: 10pt;
     -fx-text-fill: text-primary-color;
 }
 
@@ -221,11 +188,6 @@ Buttons
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 15, 0, 0, 0);
 }
 
-.transparentButtons {
-    -fx-background-color: transparent;
-    -fx-text-fill: text-secondary-color;
-}
-
 .secondaryButtons {
     -fx-background-color: secondary-color;
     -fx-text-fill: text-secondary-color;
@@ -240,11 +202,6 @@ Buttons
     -fx-pref-height: button-height;
     -fx-min-height: button-height;
     -fx-max-height: button-height;
-}
-
-.reportButtons {
-    -fx-background-color: light-secondary-color;
-    -fx-text-fill: text-secondary-color;
 }
 
 .calendarToggleButtons {
@@ -344,17 +301,19 @@ Tabs and TabPanes
 .tab-pane .tab-header-area {
     -fx-padding: 0 0 0 1;
 }
+
 .tab-pane .tab-header-area .tab-header-background {
     -fx-opacity: 0;
 }
 
 .tab-pane .tab {
-    -fx-background-color: dark-secondary-color;
+    -fx-background-color: dark-primary-color;
 }
 
 .tab-pane .tab:selected {
-    -fx-background-color: light-secondary-color;
+    -fx-background-color: light-primary-color;
     -fx-opacity: 1.0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 15, 0, 0, 0);
 }
 
 .tab .tab-label { 

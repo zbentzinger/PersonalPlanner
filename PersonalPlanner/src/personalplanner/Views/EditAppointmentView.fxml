@@ -33,12 +33,15 @@
                            </rowConstraints>
                         </GridPane>
                         <Separator GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <TableView id="appointmentTable" fx:id="selectCustTable" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <TableView fx:id="selectCustTable" maxWidth="1.7976931348623157E308" styleClass="roundTable" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                            <columns>
-                              <TableColumn fx:id="customerNameCol" minWidth="-1.0" prefWidth="-1.0" styleClass="roundTable" text="Select Customer" />
+                              <TableColumn fx:id="customerCol" minWidth="-1.0" prefWidth="-1.0" text="Customer" />
+                              <TableColumn fx:id="phoneCol" prefWidth="75.0" text="Phone" />
+                              <TableColumn fx:id="addressCol" prefWidth="75.0" text="Address" />
+                              <TableColumn fx:id="cityCol" prefWidth="75.0" text="City" />
                            </columns>
                         </TableView>
                         <Button fx:id="editAppSaveButton" alignment="CENTER_RIGHT" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="mainButtons" text="Save" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">

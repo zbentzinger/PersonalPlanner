@@ -34,14 +34,17 @@ public class AddAppointmentViewController implements Initializable {
 
     @FXML private Button newAppCancelButton;
     @FXML private Button newAppSaveButton;
-    @FXML private TableView<Customer> selectCustTable;
-    @FXML private TableColumn<Customer, String> custNameCol;
+    @FXML private DatePicker dayPicker;
     @FXML private TextField typeTextField;
     @FXML private TextField descriptionTextField;
     @FXML private TextField locationTextField;
-    @FXML private DatePicker dayPicker;
     @FXML private TextField fromText;
     @FXML private TextField toText;
+    @FXML private TableView<Customer> selectCustTable;
+    @FXML private TableColumn<Customer, String> customerCol;
+    @FXML private TableColumn<Customer, String> phoneCol;
+    @FXML private TableColumn<Customer, String> addressCol;
+    @FXML private TableColumn<Customer, String> cityCol;
 
     // Rubric F: Don't enable save button if not all fields are populated.
     private void bindButtonsToForm() {
@@ -96,8 +99,17 @@ public class AddAppointmentViewController implements Initializable {
     private void populateCustomersTable() {
 
         // Rubric G
-        custNameCol.setCellValueFactory(
+        customerCol.setCellValueFactory(
             column -> new SimpleStringProperty(column.getValue().getCustomerName())
+        );
+        phoneCol.setCellValueFactory(
+            column -> new SimpleStringProperty(column.getValue().getAddress().getPhone())
+        );
+        addressCol.setCellValueFactory(
+            column -> new SimpleStringProperty(column.getValue().getAddress().getAddress())
+        );
+        cityCol.setCellValueFactory(
+            column -> new SimpleStringProperty(column.getValue().getAddress().getCity().getCityName())
         );
 
         selectCustTable.setItems(Utils.DATABASE.getAllCustomers());

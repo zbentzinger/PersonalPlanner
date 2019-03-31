@@ -15,7 +15,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import personalplanner.Models.Customer;
 import personalplanner.Models.User;
@@ -30,7 +29,11 @@ public class CustomersViewController implements Initializable {
     @FXML private Button deleteCustomerButton;
     @FXML private Button customersHomeButton;
     @FXML private TableView<Customer> customersTableView;
-    @FXML private TableColumn<Customer, String> customerNameCol;
+    @FXML private TableColumn<Customer, String> customerCol;
+    @FXML private TableColumn<Customer, String> phoneCol;
+    @FXML private TableColumn<Customer, String> addressCol;
+    @FXML private TableColumn<Customer, String> cityCol;
+    @FXML private TableColumn<Customer, String> countryCol;
 
     // Rubric B: Ability to add Customer. Will redirect to AddCustomerView.
     private void add() {  
@@ -124,8 +127,20 @@ public class CustomersViewController implements Initializable {
     private void populateCustomersTable() {
 
         // Rubric G
-        customerNameCol.setCellValueFactory(
+        customerCol.setCellValueFactory(
             column -> new SimpleStringProperty(column.getValue().getCustomerName())
+        );
+        phoneCol.setCellValueFactory(
+            column -> new SimpleStringProperty(column.getValue().getAddress().getPhone())
+        );
+        addressCol.setCellValueFactory(
+            column -> new SimpleStringProperty(column.getValue().getAddress().getAddress())
+        );
+        cityCol.setCellValueFactory(
+            column -> new SimpleStringProperty(column.getValue().getAddress().getCity().getCityName())
+        );
+        countryCol.setCellValueFactory(
+            column -> new SimpleStringProperty(column.getValue().getAddress().getCity().getCountry().getCountryName())
         );
 
         customersTableView.setItems(Utils.DATABASE.getAllCustomers());

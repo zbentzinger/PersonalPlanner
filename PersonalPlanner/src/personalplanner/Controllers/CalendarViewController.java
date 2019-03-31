@@ -37,11 +37,13 @@ public class CalendarViewController implements Initializable {
     @FXML private Button calendarCenterButton;
     @FXML private Button backButton;
     @FXML private Button nextButton;
-    @FXML private TableColumn<Appointment, String> appDesc;
-    @FXML private TableColumn<Appointment, String> appDate;
-    @FXML private TableView<Appointment> calendarTableView;
     @FXML private ToggleButton monthToggleButton;
     @FXML private ToggleButton weekToggleButton;
+    @FXML private TableView<Appointment> calendarTableView;
+    @FXML private TableColumn<Appointment, String> descCol;
+    @FXML private TableColumn<Appointment, String> fromCol;
+    @FXML private TableColumn<Appointment, String> toCol;
+    @FXML private TableColumn<Appointment, String> customerCol;
 
     // Rubric C: Ability to add appointments. Will redirect to AddAppointmentView.
     private void add() {
@@ -199,17 +201,23 @@ public class CalendarViewController implements Initializable {
 
     private void setupCalendar() {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mma");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, hh:mma");
 
         // Rubric G - Lambda: appointment.start is a LocalDateTime
         // and looks kind of ugly when being displayed in a tableview.
         // I chose to use a lambda here to convert that LocalDateTime 
         // on the fly into a formatted string.
-        appDate.setCellValueFactory(
+        fromCol.setCellValueFactory(
             column -> new SimpleStringProperty(column.getValue().getStart().format(formatter))
         );
-        appDesc.setCellValueFactory(
+        toCol.setCellValueFactory(
+            column -> new SimpleStringProperty(column.getValue().getEnd().format(formatter))
+        );
+        descCol.setCellValueFactory(
             column -> new SimpleStringProperty(column.getValue().getDescription())
+        );
+        customerCol.setCellValueFactory(
+            column -> new SimpleStringProperty(column.getValue().getCustomer().getCustomerName())
         );
         calendarTableView.setPlaceholder(new Label(""));
 

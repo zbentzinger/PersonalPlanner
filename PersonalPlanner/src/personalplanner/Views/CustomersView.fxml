@@ -54,17 +54,17 @@
                            </children>
                         </AnchorPane>
                         <Label styleClass="mainLabels" text="Customers" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <TableView fx:id="customersTableView" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <TableView fx:id="customersTableView" styleClass="roundTable" GridPane.columnIndex="1" GridPane.rowIndex="3">
                           <columns>
-                            <TableColumn fx:id="customerNameCol" prefWidth="75.0" styleClass="roundTable" text="Name" />
+                            <TableColumn fx:id="customerCol" prefWidth="75.0" text="Customer" />
+                              <TableColumn fx:id="phoneCol" minWidth="-1.0" prefWidth="-1.0" text="Phone" />
+                              <TableColumn fx:id="addressCol" minWidth="-1.0" prefWidth="-1.0" text="Address" />
+                              <TableColumn fx:id="cityCol" minWidth="-1.0" prefWidth="-1.0" text="City" />
+                              <TableColumn fx:id="countryCol" minWidth="-1.0" prefWidth="-1.0" text="Country" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
-                           <styleClass>
-                              <String fx:value="mainTables" />
-                              <String fx:value="roundTable" />
-                           </styleClass>
                         </TableView>
                         <Separator orientation="VERTICAL" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" />
                         <Separator GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
@@ -88,9 +88,9 @@
             </AnchorPane>
          </children>
          <columnConstraints>
-            <ColumnConstraints hgrow="ALWAYS" percentWidth="25.0" />
+            <ColumnConstraints hgrow="ALWAYS" percentWidth="10.0" />
             <ColumnConstraints hgrow="ALWAYS" />
-            <ColumnConstraints hgrow="ALWAYS" percentWidth="25.0" />
+            <ColumnConstraints hgrow="ALWAYS" percentWidth="10.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints percentHeight="25.0" vgrow="ALWAYS" />

@@ -21,7 +21,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import personalplanner.Models.Appointment;
 import personalplanner.Models.Customer;
@@ -35,14 +34,17 @@ public class EditAppointmentViewController implements Initializable {
 
     @FXML private Button editAppCancelButton;
     @FXML private Button editAppSaveButton;
-    @FXML private TableView<Customer> selectCustTable;    
-    @FXML private TableColumn<Customer, String> customerNameCol;
+    @FXML private DatePicker dayPicker;
     @FXML private TextField locationTextField;
     @FXML private TextField typeTextField;
     @FXML private TextField descriptionTextField;
-    @FXML private DatePicker dayPicker;
     @FXML private TextField fromText;
     @FXML private TextField toText;
+    @FXML private TableView<Customer> selectCustTable;    
+    @FXML private TableColumn<Customer, String> customerCol;
+    @FXML private TableColumn<Customer, String> phoneCol;
+    @FXML private TableColumn<Customer, String> addressCol;
+    @FXML private TableColumn<Customer, String> cityCol;
 
     // Rubric F: Don't enable save button if not all fields are populated.
     private void bindButtonsToForm() {
@@ -96,8 +98,18 @@ public class EditAppointmentViewController implements Initializable {
 
     private void populateCustomersTable() {
 
-        customerNameCol.setCellValueFactory(
+        // Rubric G
+        customerCol.setCellValueFactory(
             column -> new SimpleStringProperty(column.getValue().getCustomerName())
+        );
+        phoneCol.setCellValueFactory(
+            column -> new SimpleStringProperty(column.getValue().getAddress().getPhone())
+        );
+        addressCol.setCellValueFactory(
+            column -> new SimpleStringProperty(column.getValue().getAddress().getAddress())
+        );
+        cityCol.setCellValueFactory(
+            column -> new SimpleStringProperty(column.getValue().getAddress().getCity().getCityName())
         );
 
         selectCustTable.setItems(Utils.DATABASE.getAllCustomers());

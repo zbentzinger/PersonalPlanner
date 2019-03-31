@@ -110,7 +110,7 @@ public class ReportsViewController implements Initializable {
     // Rubric I2: Schedule for each consultant report.
     private void populateScheduleReport() {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mma");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, hh:mma");
 
         // Rubric G - Lambda: I chose to use lambdas to pull rows from the report
         // and add them to the tableview.
