@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import personalplanner.Models.User;
@@ -35,6 +36,7 @@ public class AddCustomerViewController implements Initializable {
     @FXML private TextField addressTextField;
     @FXML private TextField phoneTextField;  
     @FXML private TextField postalCodeTextField;
+    @FXML private Label errorLabel;
 
     // Rubric F3: Do not show buttons if not all data is filled in.
     private void bindButtonsToForm() {
@@ -103,38 +105,68 @@ public class AddCustomerViewController implements Initializable {
 
     private void save() {
 
-        this.address = new Address();
-        this.address.setAddress(addressTextField.getText());
-        this.address.setZip(postalCodeTextField.getText());
-        this.address.setPhone(phoneTextField.getText());
-        this.address.setCity(cityDropDown.getSelectionModel().getSelectedItem());
-        this.address.setCreatedBy(this.user.getUserName());
-        this.address.setUpdatedBy(this.user.getUserName());
+        if (this.validateForm()) {
 
-        this.customer = new Customer();
-        this.customer.setCustomerName(nameTextField.getText());
-        this.customer.setAddress(this.address);
-        this.customer.setCreatedBy(this.user.getUserName());
-        this.customer.setUpdatedBy(this.user.getUserName());
+            this.address = new Address();
+            this.address.setAddress(addressTextField.getText());
+            this.address.setZip(postalCodeTextField.getText());
+            this.address.setPhone(phoneTextField.getText());
+            this.address.setCity(cityDropDown.getSelectionModel().getSelectedItem());
+            this.address.setCreatedBy(this.user.getUserName());
+            this.address.setUpdatedBy(this.user.getUserName());
 
-        Utils.DATABASE.insertCustomer(this.customer);
+            this.customer = new Customer();
+            this.customer.setCustomerName(nameTextField.getText());
+            this.customer.setAddress(this.address);
+            this.customer.setCreatedBy(this.user.getUserName());
+            this.customer.setUpdatedBy(this.user.getUserName());
 
-        try {
+            Utils.DATABASE.insertCustomer(this.customer);
 
-            Utils.LOGGER.log(Level.INFO, "User: `{0}` navigating back to customers and saving", this.user.getUserName());
+            try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.CUSTOMERS_VIEW_PATH));
-            Stage stage = (Stage) newCustSaveButton.getScene().getWindow();
-            stage.setScene(new Scene((Parent) loader.load()));
-            CustomersViewController controller = loader.getController();
-            controller.initData(this.user);
-            stage.show();
+                Utils.LOGGER.log(Level.INFO, "User: `{0}` navigating back to customers and saving", this.user.getUserName());
 
-        } catch (IOException ex) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.CUSTOMERS_VIEW_PATH));
+                Stage stage = (Stage) newCustSaveButton.getScene().getWindow();
+                stage.setScene(new Scene((Parent) loader.load()));
+                CustomersViewController controller = loader.getController();
+                controller.initData(this.user);
+                stage.show();
 
-            Utils.LOGGER.log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+
+                Utils.LOGGER.log(Level.SEVERE, null, ex);
+
+            }
 
         }
+
+    }
+
+    private boolean validateForm() {
+
+        boolean isValid = true;
+        String phone = phoneTextField.getText();
+        String zip = postalCodeTextField.getText();
+
+        if (!phone.matches("[0-9]+")) {
+
+            errorLabel.setVisible(true);
+            errorLabel.setText("Please enter a valid phone number - numbers only");
+            isValid = false;
+
+        }
+
+        if (!zip.matches("[0-9]+")) {
+
+            errorLabel.setVisible(true);
+            errorLabel.setText("Please enter a valid Postal Code - numbers only");
+            isValid = false;
+
+        }
+
+        return isValid;
 
     }
 
@@ -159,6 +191,8 @@ public class AddCustomerViewController implements Initializable {
         // Rubric G - Lambda: I chose to map all button actions using a lambda.
         newCustCancelButton.setOnAction(e -> this.cancel());
         newCustSaveButton.setOnAction(e -> this.save());
+
+        errorLabel.setVisible(false);
 
     }
 

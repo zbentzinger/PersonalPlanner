@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import personalplanner.Models.Customer;
@@ -33,6 +34,7 @@ public class EditCustomerViewController implements Initializable {
     @FXML private TextField addressTextField;
     @FXML private TextField phoneTextField;
     @FXML private TextField postalCodeTextField;
+    @FXML private Label errorLabel;
 
     // Rubric F3: Do not enable buttons if not all data is filled in.
     private void bindButtonsToForm() {
@@ -101,32 +103,62 @@ public class EditCustomerViewController implements Initializable {
 
     private void save() {
 
-        this.customer.getAddress().setAddress(addressTextField.getText());
-        this.customer.getAddress().setZip(postalCodeTextField.getText());
-        this.customer.getAddress().setPhone(phoneTextField.getText());
-        this.customer.getAddress().setCity(cityDropDown.getSelectionModel().getSelectedItem());
-        this.customer.getAddress().setUpdatedBy(this.user.getUserName());
-        this.customer.setCustomerName(nameTextField.getText());
-        this.customer.setUpdatedBy(this.user.getUserName());
-        
-        Utils.DATABASE.updateCustomer(this.customer);
+        if (this.validateForm()) {
 
-        try {
+            this.customer.getAddress().setAddress(addressTextField.getText());
+            this.customer.getAddress().setZip(postalCodeTextField.getText());
+            this.customer.getAddress().setPhone(phoneTextField.getText());
+            this.customer.getAddress().setCity(cityDropDown.getSelectionModel().getSelectedItem());
+            this.customer.getAddress().setUpdatedBy(this.user.getUserName());
+            this.customer.setCustomerName(nameTextField.getText());
+            this.customer.setUpdatedBy(this.user.getUserName());
 
-            Utils.LOGGER.log(Level.INFO, "User: `{0}` navigating back to customers and saving", this.user.getUserName());
+            Utils.DATABASE.updateCustomer(this.customer);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.CUSTOMERS_VIEW_PATH));
-            Stage stage = (Stage) editCustSaveButton.getScene().getWindow();
-            stage.setScene(new Scene((Parent) loader.load()));
-            CustomersViewController controller = loader.getController();
-            controller.initData(this.user);
-            stage.show();
+            try {
 
-        } catch (IOException ex) {
+                Utils.LOGGER.log(Level.INFO, "User: `{0}` navigating back to customers and saving", this.user.getUserName());
 
-            Utils.LOGGER.log(Level.SEVERE, null, ex);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.CUSTOMERS_VIEW_PATH));
+                Stage stage = (Stage) editCustSaveButton.getScene().getWindow();
+                stage.setScene(new Scene((Parent) loader.load()));
+                CustomersViewController controller = loader.getController();
+                controller.initData(this.user);
+                stage.show();
+
+            } catch (IOException ex) {
+
+                Utils.LOGGER.log(Level.SEVERE, null, ex);
+
+            }
 
         }
+
+    }
+
+    private boolean validateForm() {
+
+        boolean isValid = true;
+        String phone = phoneTextField.getText();
+        String zip = postalCodeTextField.getText();
+
+        if (!phone.matches("[0-9]+")) {
+
+            errorLabel.setVisible(true);
+            errorLabel.setText("Please enter a valid phone number - numbers only");
+            isValid = false;
+
+        }
+
+        if (!zip.matches("[0-9]+")) {
+
+            errorLabel.setVisible(true);
+            errorLabel.setText("Please enter a valid Postal Code - numbers only");
+            isValid = false;
+
+        }
+
+        return isValid;
 
     }
 
@@ -159,6 +191,8 @@ public class EditCustomerViewController implements Initializable {
         // Rubric G - Lambda: I chose to map all button actions using a lambda.
         editCustCancelButton.setOnAction(e -> this.cancel());
         editCustSaveButton.setOnAction(e -> this.save());
+
+        errorLabel.setVisible(false);
 
     }
     
