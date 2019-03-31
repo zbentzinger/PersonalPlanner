@@ -68,12 +68,12 @@ public class CalendarViewController implements Initializable {
         if(weekToggleButton.isDisable()) {
 
             selectedWeek = selectedWeek.minusWeeks(1);
-            this.populateByWeek();
+            this.getAppointmentsForWeek();
 
         } else {
 
             selectedMonth = selectedMonth.minusMonths(1);
-            this.populateByMonth();
+            this.getAppointmentsForMonth();
 
         }
 
@@ -153,33 +153,47 @@ public class CalendarViewController implements Initializable {
         if(weekToggleButton.isDisable()) {
             
             selectedWeek = selectedWeek.plusWeeks(1);
-            this.populateByWeek();
+            this.getAppointmentsForWeek();
 
         } else {
 
             selectedMonth = selectedMonth.plusMonths(1);
-            this.populateByMonth();
+            this.getAppointmentsForMonth();
 
         }
 
     }
 
-    private void populateByMonth() {
+    private void getAppointmentsForMonth() {
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MMMM, yyyy");
         calendarCenterButton.setText(selectedMonth.format(format));
 
-        calendarTableView.setItems(Utils.DATABASE.getAppointmentsByMonth(selectedMonth));
+        LocalDateTime firstDate = selectedMonth.withDayOfMonth(1)
+                                               .withHour(0)
+                                               .withMinute(0)
+                                               .withSecond(0);
+
+        LocalDateTime lastDate = selectedMonth.withDayOfMonth(selectedMonth.getMonth().minLength())
+                                              .withHour(23)
+                                              .withMinute(59)
+                                              .withSecond(59);
+
+        calendarTableView.setItems(
+            Utils.DATABASE.getAppointmentsInRange(firstDate, lastDate)
+        );
 
     }
 
-    private void populateByWeek() {
+    private void getAppointmentsForWeek() {
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
         String label = selectedWeek.format(format) + " - " + selectedWeek.plusWeeks(1).format(format);
         calendarCenterButton.setText(label);
 
-        calendarTableView.setItems(Utils.DATABASE.getAppointmentsByWeek(selectedWeek));
+        calendarTableView.setItems(
+            Utils.DATABASE.getAppointmentsInRange(selectedWeek, selectedWeek.plusWeeks(1))
+        );
 
     }
 
@@ -194,12 +208,12 @@ public class CalendarViewController implements Initializable {
         appDate.setCellValueFactory(
             column -> new SimpleStringProperty(column.getValue().getStart().format(formatter))
         );
-
         appDesc.setCellValueFactory(
             column -> new SimpleStringProperty(column.getValue().getDescription())
         );
-
         calendarTableView.setPlaceholder(new Label(""));
+
+        this.toggleMonth();
 
     }
 
@@ -210,7 +224,7 @@ public class CalendarViewController implements Initializable {
         monthToggleButton.setDisable(true);
         monthToggleButton.setSelected(true);
 
-        this.populateByMonth();
+        this.getAppointmentsForMonth();
 
     }
 
@@ -221,7 +235,7 @@ public class CalendarViewController implements Initializable {
         weekToggleButton.setDisable(true);
         weekToggleButton.setSelected(true);
 
-        this.populateByWeek();
+        this.getAppointmentsForWeek();
 
     }
 
@@ -235,7 +249,6 @@ public class CalendarViewController implements Initializable {
 
         this.bindButtonsToTable();
         this.setupCalendar();
-        this.toggleMonth();
 
         // Rubric G - Lambda: I chose to map all button actions using a lambda.
         addAppointmentButton.setOnAction(e -> this.add());

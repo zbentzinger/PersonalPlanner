@@ -13,8 +13,7 @@ import personalplanner.Models.User;
 // DAO interface for all database tables and reports.
 public interface MainDAO {
 
-    ObservableList<Appointment> getAppointmentsByMonth(LocalDateTime date);
-    ObservableList<Appointment> getAppointmentsByWeek(LocalDateTime date);
+    ObservableList<Appointment> getAppointmentsInRange(LocalDateTime begin, LocalDateTime end);
     ObservableList<Appointment> getAppointmentsByUser();
     ObservableList<AppointmentsByCustomerReport> appointmentsByCustomerReport();
     ObservableList<AppointmentsByMonthReport> appointmentsByMonthReport();

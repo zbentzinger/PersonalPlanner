@@ -389,7 +389,7 @@ public class MainDAOImpl implements MainDAO {
     }
 
     // Rubric E: Adjust appointment times to user's local time.
-    @Override public ObservableList<Appointment> getAppointmentsByMonth(LocalDateTime date) {
+    @Override public ObservableList<Appointment> getAppointmentsInRange(LocalDateTime begin, LocalDateTime end) {
 
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
@@ -406,60 +406,13 @@ public class MainDAOImpl implements MainDAO {
                      + "JOIN address ON customer.addressid = address.addressid "
                      + "JOIN city ON address.cityid = city.cityid "
                      + "JOIN country ON city.countryid = country.countryid "
-                     + "WHERE MONTH(appointment.start) = MONTH(?) AND YEAR(appointment.start) = YEAR(?)";
+                     + "WHERE start BETWEEN ? AND ?";
 
         try {
 
             PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
-            pstmnt.setTimestamp(1, Timestamp.valueOf(Utils.toUTC(date)));
-            pstmnt.setTimestamp(2, Timestamp.valueOf(Utils.toUTC(date)));
-
-            ResultSet result = pstmnt.executeQuery();
-            while(result.next()) {
-
-                appointments.add(this.retrieveAppointment(result));
-
-            }
-
-        } catch (SQLException ex) {
-
-             Utils.LOGGER.log(Level.SEVERE, null, ex);
-
-        } finally {
-
-            Database.closeConnection();
-
-        }
-
-        return appointments;
-
-    }
-
-    // Rubric E: Adjust appointment times to user's local time.
-    @Override public ObservableList<Appointment> getAppointmentsByWeek(LocalDateTime date) {
-
-        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
-
-        String query = "SELECT "
-                     + appt_fields + ","
-                     + user_fields + ","
-                     + cust_fields + ","
-                     + addr_fields + ","
-                     + city_fields + ","
-                     + ctry_fields + " "
-                     + "FROM appointment "
-                     + "JOIN user ON appointment.userid = user.userid "
-                     + "JOIN customer ON appointment.customerid = customer.customerid "
-                     + "JOIN address ON customer.addressid = address.addressid "
-                     + "JOIN city ON address.cityid = city.cityid "
-                     + "JOIN country ON city.countryid = country.countryid "
-                     + "WHERE WEEK(appointment.start) = WEEK(?) AND YEAR(appointment.start) = YEAR(?)";
-
-        try {
-
-            PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
-            pstmnt.setTimestamp(1, Timestamp.valueOf(Utils.toUTC(date)));
-            pstmnt.setTimestamp(2, Timestamp.valueOf(Utils.toUTC(date)));
+            pstmnt.setTimestamp(1, Timestamp.valueOf(Utils.toUTC(begin)));
+            pstmnt.setTimestamp(2, Timestamp.valueOf(Utils.toUTC(end)));
 
             ResultSet result = pstmnt.executeQuery();
             while(result.next()) {
@@ -805,8 +758,11 @@ public class MainDAOImpl implements MainDAO {
         try {
 
             PreparedStatement pstmnt = Database.getConnection().prepareStatement(query);
-            pstmnt.setTimestamp(1, Timestamp.valueOf(Utils.toUTC(appointment.getStart())));
-            pstmnt.setTimestamp(2, Timestamp.valueOf(Utils.toUTC(appointment.getEnd())));
+
+            // Adding a second here to ensure that meeetings can be consecutive:
+            // meeting a: 9am-10am, meeting b: 10am-11am, etc.
+            pstmnt.setTimestamp(1, Timestamp.valueOf(Utils.toUTC(appointment.getStart().plusSeconds(1))));
+            pstmnt.setTimestamp(2, Timestamp.valueOf(Utils.toUTC(appointment.getEnd().plusSeconds(1))));
             pstmnt.setInt(3, appointment.getAppointmentID());
             pstmnt.setInt(4, appointment.getUser().getUserID());
 
