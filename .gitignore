@@ -25,3 +25,4 @@ hs_err_pid*
 /PersonalPlanner/build/
 .DS_Store
 log.txt
+log.txt.lck
