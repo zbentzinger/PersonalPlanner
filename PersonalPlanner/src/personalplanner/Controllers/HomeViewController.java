@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,16 +12,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import personalplanner.Models.User;
+import personalplanner.Utils.Utils;
 
 public class HomeViewController implements Initializable {
 
-    private static final Logger LOGGER = Logger.getLogger("PersonalPlanner");
-
     private User user;
-    private String loginViewURL = "/personalplanner/Views/LoginView.fxml";
-    private String calendarViewURL = "/personalplanner/Views/CalendarView.fxml";
-    private String reportsViewURL = "/personalplanner/Views/ReportsView.fxml";
-    private String customersViewURL = "/personalplanner/Views/CustomersView.fxml";
 
     @FXML private Button logoutButton;
     @FXML private Button calendarButton;
@@ -33,7 +27,7 @@ public class HomeViewController implements Initializable {
 
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(calendarViewURL));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.CALENDAR_VIEW_PATH));
             Stage stage = (Stage) calendarButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
             CalendarViewController controller = loader.getController();
@@ -42,7 +36,7 @@ public class HomeViewController implements Initializable {
 
         } catch (IOException ex) {
 
-            LOGGER.log(Level.SEVERE, null, ex);
+            Utils.LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -52,7 +46,7 @@ public class HomeViewController implements Initializable {
 
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(customersViewURL));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.CUSTOMERS_VIEW_PATH));
             Stage stage = (Stage) customersButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
             CustomersViewController controller = loader.getController();
@@ -61,7 +55,7 @@ public class HomeViewController implements Initializable {
 
         } catch (IOException ex) {
 
-            LOGGER.log(Level.SEVERE, null, ex);
+            Utils.LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -71,11 +65,11 @@ public class HomeViewController implements Initializable {
 
         try {
 
-            LOGGER.log(Level.INFO, "User: `{0}` logging out", this.user.getUserName());
+            Utils.LOGGER.log(Level.INFO, "User: `{0}` logging out", this.user.getUserName());
 
             FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(loginViewURL),
-                ResourceBundle.getBundle("personalplanner.Utils.LoginView")
+                getClass().getResource(Utils.LOGIN_VIEW_PATH),
+                ResourceBundle.getBundle(Utils.RESOURCE_BUNDLE_PATH)
             );
 
             Stage stage = (Stage) logoutButton.getScene().getWindow();
@@ -84,7 +78,7 @@ public class HomeViewController implements Initializable {
 
         } catch (IOException ex) {
 
-            LOGGER.log(Level.SEVERE, null, ex);
+            Utils.LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -94,7 +88,7 @@ public class HomeViewController implements Initializable {
 
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(reportsViewURL));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.REPORTS_VIEW_PATH));
             Stage stage = (Stage) reportsButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
             ReportsViewController controller = loader.getController();
@@ -103,7 +97,7 @@ public class HomeViewController implements Initializable {
 
         } catch (IOException ex) {
 
-            LOGGER.log(Level.SEVERE, null, ex);
+            Utils.LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -118,10 +112,10 @@ public class HomeViewController implements Initializable {
     @Override public void initialize(URL url, ResourceBundle rb) {
 
         // Rubric G - Lambda: I chose to map all button actions using a lambda.
-        calendarButton.setOnAction(e -> calendar());
-        customersButton.setOnAction(e -> customers());
-        logoutButton.setOnAction(e -> logout());
-        reportsButton.setOnAction(e -> reports());
+        calendarButton.setOnAction(e -> this.calendar());
+        customersButton.setOnAction(e -> this.customers());
+        logoutButton.setOnAction(e -> this.logout());
+        reportsButton.setOnAction(e -> this.reports());
 
     }
 

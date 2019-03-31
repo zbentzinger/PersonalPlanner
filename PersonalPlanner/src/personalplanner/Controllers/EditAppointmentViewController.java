@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,20 +23,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import personalplanner.DAO.MainDAO;
-import personalplanner.DAO.MainDAOImpl;
 import personalplanner.Models.Appointment;
 import personalplanner.Models.Customer;
 import personalplanner.Models.User;
+import personalplanner.Utils.Utils;
 
 public class EditAppointmentViewController implements Initializable {
 
-    private static final Logger LOGGER = Logger.getLogger("PersonalPlanner");
-
     private Appointment appointment; 
-    private MainDAO database;
     private User user;
-    private String calendarViewURL = "/personalplanner/Views/CalendarView.fxml";
 
     @FXML private Button editAppCancelButton;
     @FXML private Button editAppSaveButton;
@@ -51,7 +45,7 @@ public class EditAppointmentViewController implements Initializable {
     @FXML private TextField toText;
 
     // Rubric F: Don't enable save button if not all fields are populated.
-    private void bindButtons() {
+    private void bindButtonsToForm() {
 
         BooleanBinding enabledState = new BooleanBinding() {
             {
@@ -85,7 +79,7 @@ public class EditAppointmentViewController implements Initializable {
 
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(calendarViewURL));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.CALENDAR_VIEW_PATH));
             Stage stage = (Stage) editAppCancelButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
             CalendarViewController controller = loader.getController();
@@ -94,32 +88,19 @@ public class EditAppointmentViewController implements Initializable {
 
         } catch (IOException ex) {
 
-            LOGGER.log(Level.SEVERE, null, ex);
+            Utils.LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
     }
 
-    private LocalTime getTime(String timeStr) {
-
-         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h[:mm]a");
-         String sanitized = timeStr.replaceAll("\\s+","").toUpperCase();
-
-         // instantiate with invalid time for error handling further on.
-         LocalTime time = LocalTime.of(1, 0);
-         try {
-
-             time = LocalTime.parse(sanitized, formatter);
-
-         } catch (Exception e) {} // do nothing
-
-         return time;
-
-    }
-
     private void populateCustomersTable() {
 
-        selectCustTable.setItems(this.database.getAllCustomers());
+        customerNameCol.setCellValueFactory(
+            column -> new SimpleStringProperty(column.getValue().getCustomerName())
+        );
+
+        selectCustTable.setItems(Utils.DATABASE.getAllCustomers());
         selectCustTable.setPlaceholder(new Label(""));
 
     }
@@ -134,24 +115,24 @@ public class EditAppointmentViewController implements Initializable {
         this.appointment.setStart(
             LocalDateTime.of(
                 dayPicker.getValue(),
-                getTime(fromText.getText())
+                Utils.getLocalTimeFromString(fromText.getText())
             )
         );
         this.appointment.setEnd(
             LocalDateTime.of(
                 dayPicker.getValue(),
-                getTime(toText.getText())
+                Utils.getLocalTimeFromString(toText.getText())
             )
         );
         this.appointment.setUpdatedBy(this.user.getUserName());
 
         if (this.validateAppointment(this.appointment)) {
 
-            this.database.updateAppointment(this.appointment);
+            Utils.DATABASE.updateAppointment(this.appointment);
 
             try {
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(calendarViewURL));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.CALENDAR_VIEW_PATH));
                 Stage stage = (Stage) editAppSaveButton.getScene().getWindow();
                 stage.setScene(new Scene((Parent) loader.load()));
                 CalendarViewController controller = loader.getController();
@@ -160,7 +141,7 @@ public class EditAppointmentViewController implements Initializable {
 
             } catch (IOException ex) {
 
-                LOGGER.log(Level.SEVERE, null, ex);
+                Utils.LOGGER.log(Level.SEVERE, null, ex);
 
             }
 
@@ -198,7 +179,7 @@ public class EditAppointmentViewController implements Initializable {
         } else {
             
             // Rubric F2 - moved to inside else statement to limit DB queries.
-            if (this.database.appointmentConflicts(app)) {           
+            if (Utils.DATABASE.appointmentConflicts(app)) {           
 
                 isValid = false;
                 invalidTimeAlert.setContentText("Appointment time conflicts with another appointment");
@@ -232,19 +213,12 @@ public class EditAppointmentViewController implements Initializable {
     // Rubric B: Ability to edit Appointment.
     @Override public void initialize(URL url, ResourceBundle rb) {
 
-        this.database = new MainDAOImpl();
-
-        customerNameCol.setCellValueFactory(
-            new PropertyValueFactory<>("customerName")
-        );
-
-        populateCustomersTable();
-
-        bindButtons();
+        this.populateCustomersTable();
+        this.bindButtonsToForm();
 
         // Rubric G - Lambda: I chose to map all button actions using a lambda.
-        editAppCancelButton.setOnAction(e -> cancel());
-        editAppSaveButton.setOnAction(e -> save());
+        editAppCancelButton.setOnAction(e -> this.cancel());
+        editAppSaveButton.setOnAction(e -> this.save());
 
     }
 

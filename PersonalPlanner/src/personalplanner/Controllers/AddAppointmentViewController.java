@@ -5,12 +5,10 @@ import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,21 +21,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import personalplanner.DAO.MainDAO;
-import personalplanner.DAO.MainDAOImpl;
 import personalplanner.Models.Appointment;
 import personalplanner.Models.Customer;
 import personalplanner.Models.User;
+import personalplanner.Utils.Utils;
 
 public class AddAppointmentViewController implements Initializable {
 
-    private static final Logger LOGGER = Logger.getLogger("PersonalPlanner");
-
-    private MainDAO database;
+    private Appointment appointment;
     private User user;
-    private String calendarViewURL = "/personalplanner/Views/CalendarView.fxml";
 
     @FXML private Button newAppCancelButton;
     @FXML private Button newAppSaveButton;
@@ -51,7 +44,7 @@ public class AddAppointmentViewController implements Initializable {
     @FXML private TextField toText;
 
     // Rubric F: Don't enable save button if not all fields are populated.
-    private void bindButtons() {
+    private void bindButtonsToForm() {
 
         BooleanBinding enabledState = new BooleanBinding() {
             {
@@ -85,7 +78,7 @@ public class AddAppointmentViewController implements Initializable {
 
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(calendarViewURL));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.CALENDAR_VIEW_PATH));
             Stage stage = (Stage) newAppCancelButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
             CalendarViewController controller = loader.getController();
@@ -94,66 +87,54 @@ public class AddAppointmentViewController implements Initializable {
 
         } catch (IOException ex) {
 
-            LOGGER.log(Level.SEVERE, null, ex);
+            Utils.LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
     }
 
-    private LocalTime getTime(String timeStr) {
-
-         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h[:mm]a");
-         String sanitized = timeStr.replaceAll("\\s+","").toUpperCase();
-
-         // instantiate with invalid time for error handling further on.
-         LocalTime time = LocalTime.of(1, 0);
-         try {
-
-             time = LocalTime.parse(sanitized, formatter);
-
-         } catch (Exception e) {} // do nothing
-
-         return time;
-
-    }
-
     private void populateCustomersTable() {
 
-        selectCustTable.setItems(this.database.getAllCustomers());
+        // Rubric G
+        custNameCol.setCellValueFactory(
+            column -> new SimpleStringProperty(column.getValue().getCustomerName())
+        );
+
+        selectCustTable.setItems(Utils.DATABASE.getAllCustomers());
         selectCustTable.setPlaceholder(new Label(""));
 
     }
 
     private void save() {
 
-        Appointment app = new Appointment();
-        app.setCustomer(selectCustTable.getSelectionModel().getSelectedItem());
-        app.setUser(this.user);
-        app.setDescription(descriptionTextField.getText());
-        app.setLocation(locationTextField.getText());
-        app.setType(typeTextField.getText());
-        app.setStart(
+        this.appointment = new Appointment();
+        this.appointment.setCustomer(selectCustTable.getSelectionModel().getSelectedItem());
+        this.appointment.setUser(this.user);
+        this.appointment.setDescription(descriptionTextField.getText());
+        this.appointment.setLocation(locationTextField.getText());
+        this.appointment.setType(typeTextField.getText());
+        this.appointment.setStart(
             LocalDateTime.of(
                 dayPicker.getValue(),
-                getTime(fromText.getText())
+                Utils.getLocalTimeFromString(fromText.getText())
             )
         );
-        app.setEnd(
+        this.appointment.setEnd(
             LocalDateTime.of(
                 dayPicker.getValue(),
-                getTime(toText.getText())
+                Utils.getLocalTimeFromString(toText.getText())
             )
         );
-        app.setCreatedBy(this.user.getUserName());
-        app.setUpdatedBy(this.user.getUserName());
+        this.appointment.setCreatedBy(this.user.getUserName());
+        this.appointment.setUpdatedBy(this.user.getUserName());
         
-        if(this.validateAppointment(app)) {
+        if(this.validateAppointment()) {
 
-            this.database.insertAppointment(app);
+            Utils.DATABASE.insertAppointment(this.appointment);
 
             try {
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(calendarViewURL));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.CALENDAR_VIEW_PATH));
                 Stage stage = (Stage) newAppSaveButton.getScene().getWindow();
                 stage.setScene(new Scene((Parent) loader.load()));
                 CalendarViewController controller = loader.getController();
@@ -162,7 +143,7 @@ public class AddAppointmentViewController implements Initializable {
 
             } catch (IOException ex) {
 
-                LOGGER.log(Level.SEVERE, null, ex);
+                Utils.LOGGER.log(Level.SEVERE, null, ex);
 
             }
 
@@ -172,7 +153,7 @@ public class AddAppointmentViewController implements Initializable {
 
     // Rubric F: Appointment times outside business hours 8PM and 5PM local time
     // show an alert box
-    private boolean validateAppointment(Appointment app) {
+    private boolean validateAppointment() {
 
         boolean isValid = true;
 
@@ -181,16 +162,16 @@ public class AddAppointmentViewController implements Initializable {
         invalidTimeAlert.setHeaderText("Invalid appointment time");
 
         // Rubric F1
-        if (app.getEnd().isBefore(app.getStart()) ||
-            app.getStart().isEqual(app.getEnd()) ||
-            app.getStart().getHour() < 8 ||
-            app.getStart().getHour() > 17 || 
-            app.getEnd().getHour() < 8 ||
-            app.getEnd().getHour() > 17 ||
-            app.getStart().getDayOfWeek() == DayOfWeek.SATURDAY ||
-            app.getStart().getDayOfWeek() == DayOfWeek.SUNDAY ||
-            app.getEnd().getDayOfWeek() == DayOfWeek.SATURDAY ||
-            app.getEnd().getDayOfWeek() == DayOfWeek.SUNDAY)
+        if (this.appointment.getEnd().isBefore(this.appointment.getStart()) ||
+            this.appointment.getStart().isEqual(this.appointment.getEnd()) ||
+            this.appointment.getStart().getHour() < 8 ||
+            this.appointment.getStart().getHour() > 17 || 
+            this.appointment.getEnd().getHour() < 8 ||
+            this.appointment.getEnd().getHour() > 17 ||
+            this.appointment.getStart().getDayOfWeek() == DayOfWeek.SATURDAY ||
+            this.appointment.getStart().getDayOfWeek() == DayOfWeek.SUNDAY ||
+            this.appointment.getEnd().getDayOfWeek() == DayOfWeek.SATURDAY ||
+            this.appointment.getEnd().getDayOfWeek() == DayOfWeek.SUNDAY)
         {
 
             isValid = false;
@@ -200,7 +181,7 @@ public class AddAppointmentViewController implements Initializable {
         } else {
             
             // Rubric F2 - moved to inside else statement to limit DB queries.
-            if (this.database.appointmentConflicts(app)) {           
+            if (Utils.DATABASE.appointmentConflicts(this.appointment)) {           
 
                 isValid = false;
                 invalidTimeAlert.setContentText("Appointment time conflicts with another appointment");
@@ -223,19 +204,12 @@ public class AddAppointmentViewController implements Initializable {
     // Rubric C: Ability to Add appointment and relation to Customer.
     @Override public void initialize(URL url, ResourceBundle rb) {
 
-        this.database = new MainDAOImpl();
-
-        custNameCol.setCellValueFactory(
-            new PropertyValueFactory<>("customerName")
-        );
-
-        populateCustomersTable();
-
-        bindButtons();
+        this.populateCustomersTable();
+        this.bindButtonsToForm();
 
         // Rubric G - Lambda: I chose to map all button actions using a lambda.
-        newAppCancelButton.setOnAction(e -> cancel());
-        newAppSaveButton.setOnAction(e -> save());
+        newAppCancelButton.setOnAction(e -> this.cancel());
+        newAppSaveButton.setOnAction(e -> this.save());
 
         dayPicker.setValue(LocalDate.now());
 

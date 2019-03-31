@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,20 +15,17 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import personalplanner.Models.User;
-import personalplanner.DAO.MainDAO;
-import personalplanner.DAO.MainDAOImpl;
 import personalplanner.Models.Address;
 import personalplanner.Models.City;
 import personalplanner.Models.Country;
 import personalplanner.Models.Customer;
+import personalplanner.Utils.Utils;
 
 public class AddCustomerViewController implements Initializable {
 
-    private static final Logger LOGGER = Logger.getLogger("PersonalPlanner");
-
-    private MainDAO database;
+    private Address address;
+    private Customer customer;
     private User user;
-    private String customersViewURL = "/personalplanner/Views/CustomersView.fxml";
 
     @FXML private Button newCustCancelButton;
     @FXML private Button newCustSaveButton;
@@ -41,7 +37,7 @@ public class AddCustomerViewController implements Initializable {
     @FXML private TextField postalCodeTextField;
 
     // Rubric F3: Do not show buttons if not all data is filled in.
-    private void bindButtons() {
+    private void bindButtonsToForm() {
 
         BooleanBinding enabledState = new BooleanBinding() {
             {
@@ -71,7 +67,7 @@ public class AddCustomerViewController implements Initializable {
 
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(customersViewURL));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.CUSTOMERS_VIEW_PATH));
             Stage stage = (Stage) newCustCancelButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
             CustomersViewController controller = loader.getController();
@@ -80,7 +76,7 @@ public class AddCustomerViewController implements Initializable {
 
         } catch (IOException ex) {
 
-            LOGGER.log(Level.SEVERE, null, ex);
+            Utils.LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -89,14 +85,14 @@ public class AddCustomerViewController implements Initializable {
     private void populateCityDropdown(Country country) {
 
         cityDropDown.getItems().clear();
-        cityDropDown.getItems().addAll(this.database.getCities(country));
+        cityDropDown.getItems().addAll(Utils.DATABASE.getCities(country));
         cityDropDown.getSelectionModel().select(0);
 
     }
 
     private void populateCountryDropdown() {
 
-        countryDropDown.getItems().addAll(this.database.getAllCountries());
+        countryDropDown.getItems().addAll(Utils.DATABASE.getAllCountries());
         countryDropDown.getSelectionModel().select(0);
 
         populateCityDropdown(countryDropDown.getSelectionModel().getSelectedItem());
@@ -105,25 +101,25 @@ public class AddCustomerViewController implements Initializable {
 
     private void save() {
 
-        Address address = new Address();
-        address.setAddress(addressTextField.getText());
-        address.setZip(postalCodeTextField.getText());
-        address.setPhone(phoneTextField.getText());
-        address.setCity(cityDropDown.getSelectionModel().getSelectedItem());
-        address.setCreatedBy(this.user.getUserName());
-        address.setUpdatedBy(this.user.getUserName());
+        this.address = new Address();
+        this.address.setAddress(addressTextField.getText());
+        this.address.setZip(postalCodeTextField.getText());
+        this.address.setPhone(phoneTextField.getText());
+        this.address.setCity(cityDropDown.getSelectionModel().getSelectedItem());
+        this.address.setCreatedBy(this.user.getUserName());
+        this.address.setUpdatedBy(this.user.getUserName());
 
-        Customer customer = new Customer();
-        customer.setCustomerName(nameTextField.getText());
-        customer.setAddress(address);
-        customer.setCreatedBy(this.user.getUserName());
-        customer.setUpdatedBy(this.user.getUserName());
+        this.customer = new Customer();
+        this.customer.setCustomerName(nameTextField.getText());
+        this.customer.setAddress(this.address);
+        this.customer.setCreatedBy(this.user.getUserName());
+        this.customer.setUpdatedBy(this.user.getUserName());
 
-        this.database.insertCustomer(customer);
+        Utils.DATABASE.insertCustomer(this.customer);
 
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(customersViewURL));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.CUSTOMERS_VIEW_PATH));
             Stage stage = (Stage) newCustSaveButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
             CustomersViewController controller = loader.getController();
@@ -132,7 +128,7 @@ public class AddCustomerViewController implements Initializable {
 
         } catch (IOException ex) {
 
-            LOGGER.log(Level.SEVERE, null, ex);
+            Utils.LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -147,19 +143,18 @@ public class AddCustomerViewController implements Initializable {
     // Rubric B: Ability to add customers.
     @Override public void initialize(URL url, ResourceBundle rb) {
 
-        this.database = new MainDAOImpl();
-
-        populateCountryDropdown();
-
-        bindButtons();
+        this.populateCountryDropdown();
+        this.bindButtonsToForm();
 
         // Rubric G - Lambda: This lambda will populate my Country and City drop downs 
         // depending on which country is seleceted.
-        countryDropDown.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> populateCityDropdown(newVal));
+        countryDropDown.getSelectionModel().selectedItemProperty().addListener(
+            (obs, oldVal, newVal) -> this.populateCityDropdown(newVal)
+        );
 
         // Rubric G - Lambda: I chose to map all button actions using a lambda.
-        newCustCancelButton.setOnAction(e -> cancel());
-        newCustSaveButton.setOnAction(e -> save());
+        newCustCancelButton.setOnAction(e -> this.cancel());
+        newCustSaveButton.setOnAction(e -> this.save());
 
     }
 

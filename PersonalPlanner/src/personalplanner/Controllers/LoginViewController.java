@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,17 +15,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import personalplanner.DAO.InvalidUserException;
-import personalplanner.DAO.MainDAO;
-import personalplanner.DAO.MainDAOImpl;
 import personalplanner.Models.User;
+import personalplanner.Utils.Utils;
 
+// Rubric A: Login form; internationalization is handled through ResourceBundles and FXML.
+// Rubric F4: Login form handles exception by showing an error label.
 public class LoginViewController implements Initializable {
 
-    private static final Logger LOGGER = Logger.getLogger("PersonalPlanner");
-
-    private MainDAO database;
     private User user;
-    private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
 
     @FXML private Button exitButton;
     @FXML private Button loginButton;
@@ -41,16 +37,14 @@ public class LoginViewController implements Initializable {
 
     }
 
-    // Rubric H: Throw an alert if an appointment is within 15 minutes of the user logging in.
+    // Rubric H: Throw an alert window if an appointment is within 15 minutes of the user logging in.
     private void checkAppointment() {
 
+        if (Utils.DATABASE.isAppointmentSoon(this.user)){
 
-        Alert appointmentSoon = new Alert(Alert.AlertType.INFORMATION);
-        appointmentSoon.setTitle("Upcoming Appointment");
-        appointmentSoon.setHeaderText("You have an appointment soon");
-
-        if (this.database.isAppointmentSoon(user)){
-
+            Alert appointmentSoon = new Alert(Alert.AlertType.INFORMATION);
+            appointmentSoon.setTitle("Upcoming Appointment");
+            appointmentSoon.setHeaderText("You have an appointment soon");
             appointmentSoon.show();
 
         }
@@ -61,7 +55,7 @@ public class LoginViewController implements Initializable {
 
         try {
 
-            this.user = database.getUser(
+            this.user = Utils.DATABASE.getUser(
                 userNameField.getText(),
                 passField.getText()
             );
@@ -69,10 +63,10 @@ public class LoginViewController implements Initializable {
             // Rubric H: show alert if appointment starting within 15 minutes.
             this.checkAppointment();
 
-            // Rubric J: Add log file entries when a user logs in.
-            LOGGER.log(Level.INFO, "User: `{0}` Logged in", this.user.getUserName());
+            // Rubric J: Add log file entry on success log in attempt
+            Utils.LOGGER.log(Level.INFO, "User: `{0}` Logged in", this.user.getUserName());
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(homeViewURL));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.HOME_VIEW_PATH));
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
             HomeViewController controller = loader.getController();
@@ -81,12 +75,13 @@ public class LoginViewController implements Initializable {
 
         } catch (IOException ex) {
 
-            LOGGER.log(Level.SEVERE, null, ex);
+            Utils.LOGGER.log(Level.SEVERE, null, ex);
 
         // Rubric F4: Entering incorrect user credentials - show invalid label.
         } catch (InvalidUserException e) {
         
-            LOGGER.log(Level.INFO, "Login attempt with invalid credentials.");
+            // Rubric J: Add log file entry on invalid login attempt
+            Utils.LOGGER.log(Level.INFO, "Login attempt with invalid credentials.");
 
             invalidLabel.setText(e.getLocalizedMessage());
             invalidLabel.setVisible(true);
@@ -95,16 +90,13 @@ public class LoginViewController implements Initializable {
 
     }
 
-    // Rubric A and F: Login form; internationalization is handled through ResourceBundles, FXML and custom Exception.
     @Override public void initialize(URL url, ResourceBundle rb) {
-
-        this.database = new MainDAOImpl();
 
         invalidLabel.setVisible(false);
 
         // Rubric G - Lambda: I chose to map all button actions using a lambda.
-        exitButton.setOnAction(e -> exit());
-        loginButton.setOnAction(e -> login());
+        exitButton.setOnAction(e -> this.exit());
+        loginButton.setOnAction(e -> this.login());
 
     }
 

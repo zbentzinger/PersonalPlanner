@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,18 +19,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import personalplanner.Models.Customer;
 import personalplanner.Models.User;
-import personalplanner.DAO.MainDAO;
-import personalplanner.DAO.MainDAOImpl;
+import personalplanner.Utils.Utils;
 
 public class CustomersViewController implements Initializable {
 
-    private static final Logger LOGGER = Logger.getLogger("PersonalPlanner");
-
-    private MainDAO database;
     private User user;
-    private String editCustViewURL = "/personalplanner/Views/EditCustomerView.fxml";
-    private String addCustViewURL = "/personalplanner/Views/AddCustomerView.fxml";
-    private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
 
     @FXML private Button editCustomerButton;
     @FXML private Button addCustomerButton;
@@ -44,7 +37,7 @@ public class CustomersViewController implements Initializable {
 
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(addCustViewURL));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.ADD_CUSTOMER_VIEW_PATH));
             Stage stage = (Stage) addCustomerButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
             AddCustomerViewController controller = loader.getController();
@@ -53,14 +46,14 @@ public class CustomersViewController implements Initializable {
 
         } catch (IOException ex) {
 
-            LOGGER.log(Level.SEVERE, null, ex);
+            Utils.LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
     }
 
     // Rubric F: Do not enable edit or delete buttons if selection hasn't been made.
-    private void bindButtons() {
+    private void bindButtonsToTable() {
 
         editCustomerButton.disableProperty().bind(
             Bindings.isEmpty(
@@ -82,7 +75,7 @@ public class CustomersViewController implements Initializable {
         Customer selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
         customersTableView.getItems().remove(selectedCustomer);
 
-        this.database.deleteCustomer(selectedCustomer);
+        Utils.DATABASE.deleteCustomer(selectedCustomer);
 
     }
 
@@ -94,7 +87,7 @@ public class CustomersViewController implements Initializable {
 
         try {
             
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(editCustViewURL));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.EDIT_CUSTOMER_VIEW_PATH));
             Stage stage = (Stage) editCustomerButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
             EditCustomerViewController controller = loader.getController();
@@ -103,7 +96,7 @@ public class CustomersViewController implements Initializable {
 
         } catch (IOException ex) {
 
-            LOGGER.log(Level.SEVERE, null, ex);
+            Utils.LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -113,7 +106,7 @@ public class CustomersViewController implements Initializable {
 
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(homeViewURL));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.HOME_VIEW_PATH));
             Stage stage = (Stage) customersHomeButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
             HomeViewController controller = loader.getController();
@@ -122,7 +115,7 @@ public class CustomersViewController implements Initializable {
 
         } catch (IOException ex) {
 
-            LOGGER.log(Level.SEVERE, null, ex);
+            Utils.LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -130,7 +123,12 @@ public class CustomersViewController implements Initializable {
 
     private void populateCustomersTable() {
 
-        customersTableView.setItems(this.database.getAllCustomers());
+        // Rubric G
+        customerNameCol.setCellValueFactory(
+            column -> new SimpleStringProperty(column.getValue().getCustomerName())
+        );
+
+        customersTableView.setItems(Utils.DATABASE.getAllCustomers());
         customersTableView.setPlaceholder(new Label(""));
 
     }
@@ -144,21 +142,14 @@ public class CustomersViewController implements Initializable {
     // Rubric B: Ability to add/update/delete customers.
     @Override public void initialize(URL url, ResourceBundle rb) {
 
-        this.database = new MainDAOImpl();
-
-        customerNameCol.setCellValueFactory(
-            new PropertyValueFactory<>("customerName")
-        );
-
-        populateCustomersTable();
-
-        bindButtons();
+        this.populateCustomersTable();
+        this.bindButtonsToTable();
 
         // Rubric G - Lambda: I chose to map all button actions using a lambda.
-        addCustomerButton.setOnAction(e -> add());
-        deleteCustomerButton.setOnAction(e -> delete());
-        editCustomerButton.setOnAction(e -> edit());
-        customersHomeButton.setOnAction(e -> home());
+        addCustomerButton.setOnAction(e -> this.add());
+        deleteCustomerButton.setOnAction(e -> this.delete());
+        editCustomerButton.setOnAction(e -> this.edit());
+        customersHomeButton.setOnAction(e -> this.home());
 
     }
 

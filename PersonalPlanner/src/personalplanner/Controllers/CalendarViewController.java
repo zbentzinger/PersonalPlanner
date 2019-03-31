@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -19,25 +18,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import personalplanner.DAO.MainDAO;
-import personalplanner.DAO.MainDAOImpl;
 import personalplanner.Models.Appointment;
 import personalplanner.Models.User;
+import personalplanner.Utils.Utils;
 
+// Rubric D: Ability to view calendar by month and week.
 public class CalendarViewController implements Initializable {
 
-    private static final Logger LOGGER = Logger.getLogger("PersonalPlanner");
-
-    private MainDAO database;
     private User user;
-    private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
-    private String editAppViewURL = "/personalplanner/Views/EditAppointmentView.fxml";
-    private String addAppViewURL = "/personalplanner/Views/AddAppointmentView.fxml";
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mma");
-    private LocalDateTime selectedMonth = LocalDateTime.now();
-    private LocalDateTime selectedWeek = LocalDateTime.now();
+    private LocalDateTime selectedMonth = Utils.toLocalTimeZone(LocalDateTime.now());
+    private LocalDateTime selectedWeek = Utils.toLocalTimeZone(LocalDateTime.now());
 
     @FXML private Button homeButton;
     @FXML private Button editAppointmentButton;
@@ -57,7 +48,7 @@ public class CalendarViewController implements Initializable {
 
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(addAppViewURL));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.ADD_APPOINTMENT_VIEW_PATH));
             Stage stage = (Stage) addAppointmentButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
             AddAppointmentViewController controller = loader.getController();
@@ -66,7 +57,7 @@ public class CalendarViewController implements Initializable {
 
         } catch (IOException ex) {
 
-            LOGGER.log(Level.SEVERE, null, ex);
+            Utils.LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -77,19 +68,19 @@ public class CalendarViewController implements Initializable {
         if(weekToggleButton.isDisable()) {
 
             selectedWeek = selectedWeek.minusWeeks(1);
-            populateByWeek();
+            this.populateByWeek();
 
         } else {
 
             selectedMonth = selectedMonth.minusMonths(1);
-            populateByMonth();
+            this.populateByMonth();
 
         }
 
     }
 
     // Rubric F: Do not enable edit or delete buttons if selection hasn't been made.
-    private void bindButtons() {
+    private void bindButtonsToTable() {
 
         editAppointmentButton.disableProperty().bind(
             Bindings.isEmpty(
@@ -111,7 +102,7 @@ public class CalendarViewController implements Initializable {
         Appointment selectedAppointment = calendarTableView.getSelectionModel().getSelectedItem();
         calendarTableView.getItems().remove(selectedAppointment);
 
-        this.database.deleteAppointment(selectedAppointment);
+        Utils.DATABASE.deleteAppointment(selectedAppointment);
 
     }
 
@@ -123,7 +114,7 @@ public class CalendarViewController implements Initializable {
 
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(editAppViewURL));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.EDIT_APPOINTMENT_VIEW_PATH));
             Stage stage = (Stage) editAppointmentButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
             EditAppointmentViewController controller = loader.getController();
@@ -132,7 +123,7 @@ public class CalendarViewController implements Initializable {
 
         } catch (IOException ex) {
 
-            LOGGER.log(Level.SEVERE, null, ex);
+            Utils.LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -142,7 +133,7 @@ public class CalendarViewController implements Initializable {
 
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(homeViewURL));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.HOME_VIEW_PATH));
             Stage stage = (Stage) homeButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
             HomeViewController controller = loader.getController();
@@ -151,7 +142,7 @@ public class CalendarViewController implements Initializable {
 
         } catch (IOException ex) {
 
-            LOGGER.log(Level.SEVERE, null, ex);
+            Utils.LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -162,12 +153,12 @@ public class CalendarViewController implements Initializable {
         if(weekToggleButton.isDisable()) {
             
             selectedWeek = selectedWeek.plusWeeks(1);
-            populateByWeek();
+            this.populateByWeek();
 
         } else {
 
             selectedMonth = selectedMonth.plusMonths(1);
-            populateByMonth();
+            this.populateByMonth();
 
         }
 
@@ -177,7 +168,8 @@ public class CalendarViewController implements Initializable {
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MMMM, yyyy");
         calendarCenterButton.setText(selectedMonth.format(format));
-        calendarTableView.setItems(this.database.getAppointmentsByMonth(selectedMonth));
+
+        calendarTableView.setItems(Utils.DATABASE.getAppointmentsByMonth(selectedMonth));
 
     }
 
@@ -187,27 +179,49 @@ public class CalendarViewController implements Initializable {
         String label = selectedWeek.format(format) + " - " + selectedWeek.plusWeeks(1).format(format);
         calendarCenterButton.setText(label);
 
-        calendarTableView.setItems(this.database.getAppointmentsByWeek(selectedWeek));
+        calendarTableView.setItems(Utils.DATABASE.getAppointmentsByWeek(selectedWeek));
 
     }
 
+    private void setupCalendar() {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mma");
+
+        // Rubric G - Lambda: appointment.start is a LocalDateTime
+        // and looks kind of ugly when being displayed in a tableview.
+        // I chose to use a lambda here to convert that LocalDateTime 
+        // on the fly into a formatted string.
+        appDate.setCellValueFactory(
+            column -> new SimpleStringProperty(column.getValue().getStart().format(formatter))
+        );
+
+        appDesc.setCellValueFactory(
+            column -> new SimpleStringProperty(column.getValue().getDescription())
+        );
+
+        calendarTableView.setPlaceholder(new Label(""));
+
+    }
+
+    // Rubric D: Calendar can be viewed on a per month basis.
     private void toggleMonth() {
 
         weekToggleButton.setDisable(false);
         monthToggleButton.setDisable(true);
         monthToggleButton.setSelected(true);
-        
-        populateByMonth();
+
+        this.populateByMonth();
 
     }
 
+    // Rubric D: Calendar can be viewed on a per week basis.
     private void toogleWeek() {
 
         monthToggleButton.setDisable(false);
         weekToggleButton.setDisable(true);
         weekToggleButton.setSelected(true);
 
-        populateByWeek();
+        this.populateByWeek();
 
     }
 
@@ -217,36 +231,21 @@ public class CalendarViewController implements Initializable {
 
     }
 
-    // Rubric D: Ability to view calendar by month and week.
     @Override public void initialize(URL url, ResourceBundle rb) {
 
-        this.database = new MainDAOImpl();
-
-        bindButtons();
-
-        appDesc.setCellValueFactory(
-            new PropertyValueFactory<>("description")
-        );
-
-        // Rubric G - Lambda: appointment.start is a LocalDateTime
-        // and looks kind of ugly when being displayed in a tableview.
-        // I chose to use a lambda here to convert that LocalDateTime 
-        // on the fly into a formatted string.
-        appDate.setCellValueFactory(appointment -> new SimpleStringProperty(appointment.getValue().getStart().format(formatter)));
-
-        calendarTableView.setPlaceholder(new Label(""));
-
-        toggleMonth();
+        this.bindButtonsToTable();
+        this.setupCalendar();
+        this.toggleMonth();
 
         // Rubric G - Lambda: I chose to map all button actions using a lambda.
-        addAppointmentButton.setOnAction(e -> add());
-        backButton.setOnAction(e -> back());
-        deleteAppointmentButton.setOnAction(e -> delete());
-        editAppointmentButton.setOnAction(e -> edit());
-        homeButton.setOnAction(e -> home());
-        monthToggleButton.setOnAction(e -> toggleMonth());
-        nextButton.setOnAction(e -> next());
-        weekToggleButton.setOnAction(e -> toogleWeek());
+        addAppointmentButton.setOnAction(e -> this.add());
+        backButton.setOnAction(e -> this.back());
+        deleteAppointmentButton.setOnAction(e -> this.delete());
+        editAppointmentButton.setOnAction(e -> this.edit());
+        homeButton.setOnAction(e -> this.home());
+        monthToggleButton.setOnAction(e -> this.toggleMonth());
+        nextButton.setOnAction(e -> this.next());
+        weekToggleButton.setOnAction(e -> this.toogleWeek());
 
     }
 

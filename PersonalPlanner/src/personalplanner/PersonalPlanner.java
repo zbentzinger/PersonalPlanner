@@ -5,19 +5,15 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import personalplanner.Utils.Utils;
 
 public class PersonalPlanner extends Application {
-
-    private String loginViewURL = "/personalplanner/Views/LoginView.fxml";
-    private static String LOGFILE = "src/personalplanner/Logs/log.txt";
-    private static final Logger LOGGER = Logger.getLogger("PersonalPlanner");
 
     public static void main(String[] args) throws IOException {        
 
@@ -25,19 +21,19 @@ public class PersonalPlanner extends Application {
         // The default log formatter already adds a datetime,
         // so there was no need to do anything special 
         // other than direct the default logging library to a file.
-        File logFile = new File(LOGFILE);
+        File logFile = new File(Utils.LOG_FILE_PATH);
         logFile.createNewFile(); // will create the file if it doesn't exist.
-        FileHandler handler = new FileHandler(LOGFILE, true);
+        FileHandler handler = new FileHandler(Utils.LOG_FILE_PATH, true);
         SimpleFormatter formatter = new SimpleFormatter();
         handler.setFormatter(formatter);
-        LOGGER.addHandler(handler);
-        LOGGER.setLevel(Level.ALL);
+        Utils.LOGGER.addHandler(handler);
+        Utils.LOGGER.setLevel(Level.ALL);
 
-        LOGGER.log(Level.INFO, "Launching");
+        Utils.LOGGER.log(Level.INFO, "Launching");
 
         launch(args);
 
-        LOGGER.log(Level.INFO, "Exiting");
+        Utils.LOGGER.log(Level.INFO, "Exiting");
 
     }
 
@@ -46,8 +42,8 @@ public class PersonalPlanner extends Application {
         // Rubric A; ResourceBundle is passed to FXML for internationalization.
         // Currently supports en_US and fr_FR.
         Parent loginView = FXMLLoader.load(
-            getClass().getResource(loginViewURL),
-            ResourceBundle.getBundle("personalplanner.Utils.LoginView")
+            getClass().getResource(Utils.LOGIN_VIEW_PATH),
+            ResourceBundle.getBundle(Utils.RESOURCE_BUNDLE_PATH)
         );
         stage.setScene(new Scene(loginView));
         stage.show();

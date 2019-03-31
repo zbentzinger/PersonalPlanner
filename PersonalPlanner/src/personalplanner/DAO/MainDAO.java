@@ -10,30 +10,29 @@ import personalplanner.Models.Country;
 import personalplanner.Models.Customer;
 import personalplanner.Models.User;
 
+// DAO interface for all database tables and reports.
 public interface MainDAO {
 
     ObservableList<Appointment> getAppointmentsByMonth(LocalDateTime date);
     ObservableList<Appointment> getAppointmentsByWeek(LocalDateTime date);
     ObservableList<Appointment> getAppointmentsByUser();
-    boolean isAppointmentSoon(User user);
-    void deleteAppointment(Appointment appointment);
-    void insertAppointment(Appointment appointment);
-    void updateAppointment(Appointment appointment);
-    boolean appointmentConflicts(Appointment appointment);
-
+    ObservableList<AppointmentsByCustomerReport> appointmentsByCustomerReport();
+    ObservableList<AppointmentsByMonthReport> appointmentsByMonthReport();
     ObservableList<City> getCities(Country country);
-    City getCity(String cityName);
-
     ObservableList<Country> getAllCountries();
-
     ObservableList<Customer> getAllCustomers();
-    void deleteCustomer(Customer customer);
-    void insertCustomer(Customer customer);
-    void updateCustomer(Customer customer);
 
+    City getCity(String cityName);
     User getUser(String username, String pass) throws InvalidUserException;
 
-    ObservableList<AppointmentsByMonthReport> appointmentsByMonthReport();
-    ObservableList<AppointmentsByCustomerReport> appointmentsByCustomerReport();
+    boolean appointmentConflicts(Appointment appointment);
+    boolean isAppointmentSoon(User user);
+
+    void deleteAppointment(Appointment appointment);
+    void deleteCustomer(Customer customer);
+    void insertAppointment(Appointment appointment);
+    void insertCustomer(Customer customer);
+    void updateAppointment(Appointment appointment);
+    void updateCustomer(Customer customer);
 
 }

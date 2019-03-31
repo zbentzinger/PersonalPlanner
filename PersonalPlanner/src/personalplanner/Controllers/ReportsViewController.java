@@ -5,7 +5,6 @@ import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -17,36 +16,29 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-import personalplanner.DAO.MainDAO;
-import personalplanner.DAO.MainDAOImpl;
 import personalplanner.Models.Appointment;
 import personalplanner.Models.AppointmentsByCustomerReport;
 import personalplanner.Models.AppointmentsByMonthReport;
 import personalplanner.Models.User;
+import personalplanner.Utils.Utils;
 
+// Rubric I: Show three reports. This is accomplished through TabPane and TableViews.
 public class ReportsViewController implements Initializable {
 
-    private static final Logger LOGGER = Logger.getLogger("PersonalPlanner");
-
-    private MainDAO database;
     private User user;
-    private String homeViewURL = "/personalplanner/Views/HomeView.fxml";
 
     @FXML private Button homeButton;
-
     @FXML private TableView<AppointmentsByMonthReport> byMonthTable;
     @FXML private TableColumn<AppointmentsByMonthReport, String> byMonthAppTypeCol;
     @FXML private TableColumn<AppointmentsByMonthReport, Integer> byMonthNumOfAppsCol;
     @FXML private TableColumn<AppointmentsByMonthReport, String> byMonthMonthCol;
     @FXML private TableColumn<AppointmentsByMonthReport, Integer> byMonthYearCol;
-
     @FXML private TableView<Appointment> conSchedTable;
     @FXML private TableColumn<Appointment, String> conSchedConCol;
     @FXML private TableColumn<Appointment, String> conSchedAppDescCol;
     @FXML private TableColumn<Appointment, String> conSchedFromCol;
     @FXML private TableColumn<Appointment, String> conSchedToCol;
     @FXML private TableColumn<Appointment, String> ConSchedCustCol;
-
     @FXML private TableView<AppointmentsByCustomerReport> byCustTable;
     @FXML private TableColumn<AppointmentsByCustomerReport, String> byCustCustCol;
     @FXML private TableColumn<AppointmentsByCustomerReport, Integer> byCustNumAppsCol;
@@ -55,7 +47,7 @@ public class ReportsViewController implements Initializable {
 
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(homeViewURL));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.HOME_VIEW_PATH));
             Stage stage = (Stage) homeButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
             HomeViewController controller = loader.getController();
@@ -64,7 +56,7 @@ public class ReportsViewController implements Initializable {
 
         } catch (IOException ex) {
 
-            LOGGER.log(Level.SEVERE, null, ex);
+            Utils.LOGGER.log(Level.SEVERE, null, ex);
 
         }
 
@@ -76,14 +68,14 @@ public class ReportsViewController implements Initializable {
         // Rubric G - Lambda: I chose to use lambdas to pull rows from the report
         // and add them to the tableview.
         byCustCustCol.setCellValueFactory(
-            row -> new SimpleStringProperty(row.getValue().getCustomerName())
+            column -> new SimpleStringProperty(column.getValue().getCustomerName())
         );
 
         byCustNumAppsCol.setCellValueFactory(
-            row -> new SimpleIntegerProperty(row.getValue().getNumberOfAppointments()).asObject()
+            column -> new SimpleIntegerProperty(column.getValue().getNumberOfAppointments()).asObject()
         );
 
-        byCustTable.setItems(this.database.appointmentsByCustomerReport());
+        byCustTable.setItems(Utils.DATABASE.appointmentsByCustomerReport());
 
     }
 
@@ -93,22 +85,22 @@ public class ReportsViewController implements Initializable {
         // Rubric G - Lambda: I chose to use lambdas to pull rows from the report
         // and add them to the tableview.
         byMonthAppTypeCol.setCellValueFactory(
-            row -> new SimpleStringProperty(row.getValue().getAppointmentType())
+            column -> new SimpleStringProperty(column.getValue().getAppointmentType())
         );
 
         byMonthNumOfAppsCol.setCellValueFactory(
-            row -> new SimpleIntegerProperty(row.getValue().getNumberOfAppointments()).asObject()
+            column -> new SimpleIntegerProperty(column.getValue().getNumberOfAppointments()).asObject()
         );
 
         byMonthMonthCol.setCellValueFactory(
-            row -> new SimpleStringProperty(row.getValue().getAppointmentMonth())
+            column -> new SimpleStringProperty(column.getValue().getAppointmentMonth())
         );
 
         byMonthYearCol.setCellValueFactory(
-            row -> new SimpleIntegerProperty(row.getValue().getAppointmentYear()).asObject()
+            column -> new SimpleIntegerProperty(column.getValue().getAppointmentYear()).asObject()
         );
 
-        byMonthTable.setItems(this.database.appointmentsByMonthReport());
+        byMonthTable.setItems(Utils.DATABASE.appointmentsByMonthReport());
 
     }
 
@@ -120,26 +112,26 @@ public class ReportsViewController implements Initializable {
         // Rubric G - Lambda: I chose to use lambdas to pull rows from the report
         // and add them to the tableview.
         conSchedConCol.setCellValueFactory(
-            row -> new SimpleStringProperty(row.getValue().getUser().getUserName())
+            column -> new SimpleStringProperty(column.getValue().getUser().getUserName())
         );
 
         conSchedAppDescCol.setCellValueFactory(
-            row -> new SimpleStringProperty(row.getValue().getDescription())
+            column -> new SimpleStringProperty(column.getValue().getDescription())
         );
 
         conSchedFromCol.setCellValueFactory(
-            row -> new SimpleStringProperty(row.getValue().getStart().format(formatter))
+            column -> new SimpleStringProperty(column.getValue().getStart().format(formatter))
         );
 
         conSchedToCol.setCellValueFactory(
-            row -> new SimpleStringProperty(row.getValue().getEnd().format(formatter))
+            column -> new SimpleStringProperty(column.getValue().getEnd().format(formatter))
         );
 
         ConSchedCustCol.setCellValueFactory(
-            row -> new SimpleStringProperty(row.getValue().getCustomer().getCustomerName())
+            column -> new SimpleStringProperty(column.getValue().getCustomer().getCustomerName())
         );
 
-        conSchedTable.setItems(this.database.getAppointmentsByUser());
+        conSchedTable.setItems(Utils.DATABASE.getAppointmentsByUser());
 
     }
 
@@ -151,14 +143,12 @@ public class ReportsViewController implements Initializable {
 
     @Override public void initialize(URL url, ResourceBundle rb) {
 
-        this.database = new MainDAOImpl();
-
         this.populateScheduleReport();
         this.populateAppByMonthReport();
         this.populateAppByCustomerReport();
 
         // Rubric G - Lambda: I chose to map all button actions using a lambda.
-        homeButton.setOnAction(e -> home());
+        homeButton.setOnAction(e -> this.home());
 
     }
 
