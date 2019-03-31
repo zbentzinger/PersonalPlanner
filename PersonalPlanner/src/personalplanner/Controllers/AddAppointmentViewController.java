@@ -81,6 +81,8 @@ public class AddAppointmentViewController implements Initializable {
 
         try {
 
+            Utils.LOGGER.log(Level.INFO, "User: `{0}` navigating back to the calendar and not saving", this.user.getUserName());
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.CALENDAR_VIEW_PATH));
             Stage stage = (Stage) newAppCancelButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
@@ -145,6 +147,8 @@ public class AddAppointmentViewController implements Initializable {
             Utils.DATABASE.insertAppointment(this.appointment);
 
             try {
+
+                Utils.LOGGER.log(Level.INFO, "User: `{0}` navigating back to the calendar and saving", this.user.getUserName());
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.CALENDAR_VIEW_PATH));
                 Stage stage = (Stage) newAppSaveButton.getScene().getWindow();

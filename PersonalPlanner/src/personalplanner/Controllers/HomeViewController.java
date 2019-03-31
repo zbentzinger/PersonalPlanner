@@ -27,6 +27,8 @@ public class HomeViewController implements Initializable {
 
         try {
 
+            Utils.LOGGER.log(Level.INFO, "User: `{0}` navigating to the calendar", this.user.getUserName());
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.CALENDAR_VIEW_PATH));
             Stage stage = (Stage) calendarButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
@@ -45,6 +47,8 @@ public class HomeViewController implements Initializable {
     private void customers() {
 
         try {
+
+            Utils.LOGGER.log(Level.INFO, "User: `{0}` navigating to customers", this.user.getUserName());
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.CUSTOMERS_VIEW_PATH));
             Stage stage = (Stage) customersButton.getScene().getWindow();
@@ -87,6 +91,8 @@ public class HomeViewController implements Initializable {
     private void reports() {
 
         try {
+
+            Utils.LOGGER.log(Level.INFO, "User: `{0}` navigating to reports", this.user.getUserName());
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.REPORTS_VIEW_PATH));
             Stage stage = (Stage) reportsButton.getScene().getWindow();

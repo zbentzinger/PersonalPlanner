@@ -67,6 +67,8 @@ public class AddCustomerViewController implements Initializable {
 
         try {
 
+            Utils.LOGGER.log(Level.INFO, "User: `{0}` navigating back to customers and not saving", this.user.getUserName());
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.CUSTOMERS_VIEW_PATH));
             Stage stage = (Stage) newCustCancelButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
@@ -118,6 +120,8 @@ public class AddCustomerViewController implements Initializable {
         Utils.DATABASE.insertCustomer(this.customer);
 
         try {
+
+            Utils.LOGGER.log(Level.INFO, "User: `{0}` navigating back to customers and saving", this.user.getUserName());
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.CUSTOMERS_VIEW_PATH));
             Stage stage = (Stage) newCustSaveButton.getScene().getWindow();

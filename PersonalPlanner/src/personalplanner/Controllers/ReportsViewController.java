@@ -48,6 +48,8 @@ public class ReportsViewController implements Initializable {
 
         try {
 
+            Utils.LOGGER.log(Level.INFO, "User: `{0}` navigating back to home", this.user.getUserName());
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.HOME_VIEW_PATH));
             Stage stage = (Stage) homeButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));

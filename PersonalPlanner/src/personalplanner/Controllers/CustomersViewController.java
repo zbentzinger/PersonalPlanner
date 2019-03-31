@@ -40,6 +40,8 @@ public class CustomersViewController implements Initializable {
 
         try {
 
+            Utils.LOGGER.log(Level.INFO, "User: `{0}` adding a new customer", this.user.getUserName());
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.ADD_CUSTOMER_VIEW_PATH));
             Stage stage = (Stage) addCustomerButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
@@ -75,6 +77,8 @@ public class CustomersViewController implements Initializable {
     // Rubric B: Ability to delete customer. Will delete selected customer from database.
     private void delete() {
 
+        Utils.LOGGER.log(Level.INFO, "User: `{0}` deleted customer", this.user.getUserName());
+
         Customer selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
         customersTableView.getItems().remove(selectedCustomer);
 
@@ -90,6 +94,8 @@ public class CustomersViewController implements Initializable {
 
         try {
             
+            Utils.LOGGER.log(Level.INFO, "User: `{0}` editing an existing customer ", this.user.getUserName());
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.EDIT_CUSTOMER_VIEW_PATH));
             Stage stage = (Stage) editCustomerButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
@@ -108,6 +114,8 @@ public class CustomersViewController implements Initializable {
     private void home() {
 
         try {
+
+            Utils.LOGGER.log(Level.INFO, "User: `{0}` navigating back to home", this.user.getUserName());
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.HOME_VIEW_PATH));
             Stage stage = (Stage) customersHomeButton.getScene().getWindow();

@@ -50,6 +50,8 @@ public class CalendarViewController implements Initializable {
 
         try {
 
+            Utils.LOGGER.log(Level.INFO, "User: `{0}` adding an appointment", this.user.getUserName());
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.ADD_APPOINTMENT_VIEW_PATH));
             Stage stage = (Stage) addAppointmentButton.getScene().getWindow();
             stage.setScene(new Scene((Parent) loader.load()));
@@ -101,6 +103,8 @@ public class CalendarViewController implements Initializable {
     // Rubric C: Ability to delete appointments. Will delete selected appointment from database.
     private void delete() {
 
+        Utils.LOGGER.log(Level.INFO, "User: `{0}` deleted an appointment", this.user.getUserName());
+
         Appointment selectedAppointment = calendarTableView.getSelectionModel().getSelectedItem();
         calendarTableView.getItems().remove(selectedAppointment);
 
@@ -115,6 +119,8 @@ public class CalendarViewController implements Initializable {
         Appointment selectedApp = calendarTableView.getSelectionModel().getSelectedItem();
 
         try {
+
+            Utils.LOGGER.log(Level.INFO, "User: `{0}` is editing an appointment", this.user.getUserName());
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.EDIT_APPOINTMENT_VIEW_PATH));
             Stage stage = (Stage) editAppointmentButton.getScene().getWindow();
@@ -134,6 +140,8 @@ public class CalendarViewController implements Initializable {
     private void home() {
 
         try {
+
+            Utils.LOGGER.log(Level.INFO, "User: `{0}` navigating to back to home", this.user.getUserName());
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Utils.HOME_VIEW_PATH));
             Stage stage = (Stage) homeButton.getScene().getWindow();
